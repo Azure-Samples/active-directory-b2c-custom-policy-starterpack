@@ -4,9 +4,9 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
   PolicySchemaVersion="0.3.0.0"
-  TenantId="casalaola.onmicrosoft.com"
+  TenantId="tenantName.onmicrosoft.com"
   PolicyId="B2C_1A_TrustFrameworkBase"
-  PublicPolicyUri="http://lamnahealth.onmicrosoft.com">
+  PublicPolicyUri="http://tenantName.onmicrosoft.com">
 
   <BuildingBlocks>
     <ClaimsSchema>
@@ -125,6 +125,13 @@
 
       <ClaimType Id="client_id">
         <DisplayName>client_id</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
+        <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>
+      </ClaimType>
+
+      <ClaimType Id="resource_id">
+        <DisplayName>resource_id</DisplayName>
         <DataType>string</DataType>
         <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
         <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>

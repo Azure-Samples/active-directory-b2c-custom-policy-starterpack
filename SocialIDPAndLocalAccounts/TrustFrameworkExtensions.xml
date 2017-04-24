@@ -4,12 +4,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
   PolicySchemaVersion="0.3.0.0" 
-  TenantId="casalaola.onmicrosoft.com" 
+  TenantId="tenantName.onmicrosoft.com" 
   PolicyId="B2C_1A_TrustFrameworkExtensions" 
-  PublicPolicyUri="http://lamnahealth.onmicrosoft.com">
+  PublicPolicyUri="http://tenantName.onmicrosoft.com">
   
   <BasePolicy>
-    <TenantId>casalaola.onmicrosoft.com</TenantId>
+    <TenantId>tenantName.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
   </BasePolicy>
   <BuildingBlocks>
@@ -23,7 +23,8 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="Facebook-OAUTH">
           <Metadata>
-            <Item Key="client_id"></Item>
+		  <!--Replace the value of client_id in this technical profile with your the Facebook App ID"-->
+            <Item Key="client_id">1615sample706330</Item>
             <Item Key="scope">email public_profile</Item>
             <Item Key="ClaimsEndpoint">https://graph.facebook.com/me?fields=id,first_name,last_name,name,email</Item>
           </Metadata>
@@ -37,12 +38,19 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">client_id</Item>
-            <Item Key="IdTokenAudience">id_token_audience</Item>
+		  
+		  <!-- This is the client id of the native app PolicyEngineProxy in your tenant-->          	<Item Key="client_id">sampledc-cbf4-43bc-8bb6-141d16f0f489</Item>
+		  
+		  <!-- This is the client of of the web application PolicyEngine in the your tenant on which the above native application has been granted delegate permissions -->
+            <Item Key="IdTokenAudience">sampleac-e7a8-40d9-a5e5-4da8901b47ba</Item>
           </Metadata>
+		  
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="client_id" />
-            <InputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="resource" DefaultValue="id_token_audience" />
+		   <!-- This is the client id of the native app PolicyEngineProxy in your tenant -->
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="sampledc-cbf4-43bc-8bb6-141d16f0f489" />
+			
+			<!-- This is the client of of the web application PolicyEngine in your tenant on which the above native application has been granted delegate permissions -->
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="sampleac-e7a8-40d9-a5e5-4da8901b47ba" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
