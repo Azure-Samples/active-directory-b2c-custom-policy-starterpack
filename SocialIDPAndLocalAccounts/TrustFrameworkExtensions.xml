@@ -4,12 +4,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
   PolicySchemaVersion="0.3.0.0" 
-  TenantId="tenantName.onmicrosoft.com" 
+  TenantId="{tenantName}.onmicrosoft.com" 
   PolicyId="B2C_1A_TrustFrameworkExtensions" 
-  PublicPolicyUri="http://tenantName.onmicrosoft.com">
+  PublicPolicyUri="http://{tenantName}.onmicrosoft.com">
   
   <BasePolicy>
-    <TenantId>tenantName.onmicrosoft.com</TenantId>
+    <TenantId>{tenantName}.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
   </BasePolicy>
   <BuildingBlocks>
@@ -39,18 +39,19 @@
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
 		  
-		  <!-- This is the client id of the native app PolicyEngineProxy in your tenant-->          	<Item Key="client_id">sampledc-cbf4-43bc-8bb6-141d16f0f489</Item>
+		  <!-- This is the client id of the native app PolicyEngineProxy in your tenant-->          	
+            <Item Key="client_id">{Policy Engine Proxy Application ID}</Item>
 		  
 		  <!-- This is the client of of the web application PolicyEngine in the your tenant on which the above native application has been granted delegate permissions -->
-            <Item Key="IdTokenAudience">sampleac-e7a8-40d9-a5e5-4da8901b47ba</Item>
+            <Item Key="IdTokenAudience">{Policy Engine Application ID}</Item>
           </Metadata>
 		  
           <InputClaims>
 		   <!-- This is the client id of the native app PolicyEngineProxy in your tenant -->
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="sampledc-cbf4-43bc-8bb6-141d16f0f489" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="{Policy Engine Proxy Application ID}" />
 			
 			<!-- This is the client of of the web application PolicyEngine in your tenant on which the above native application has been granted delegate permissions -->
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="sampleac-e7a8-40d9-a5e5-4da8901b47ba" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="{Policy Engine Application ID}" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
