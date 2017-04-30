@@ -1,0 +1,2298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!-- <xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2014/07" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"> -->
+  <!--
+    The top-level definition of a trust framework policy. Each section is defined by type elsewhere.
+  -->
+  <xs:element name="TrustFrameworkPolicy">
+    <xs:annotation>
+      <xs:documentation>
+        The root element within which a Trust Framework Policy is defined.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="BasePolicy" type="tfp:BasePolicy" />
+
+        <xs:element minOccurs="0" maxOccurs="1" name="Contacts">
+          <xs:annotation>
+            <xs:documentation>
+              Contains a list of contacts who can be communicated with for notifications and issues regarding the Policy.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Contact" type="tfp:Contact" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element minOccurs="0" maxOccurs="1" name="DocumentReferences">
+          <xs:annotation>
+            <xs:documentation>
+              Contains a list of references to documents for the Policy.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentReference" type="tfp:DocumentReference" />
+            </xs:sequence>
+          </xs:complexType>
+          <xs:key name="UniqueDocumentReferenceId">
+            <xs:selector xpath="tfp:DocumentReference"/>
+            <xs:field xpath="@Id"/>
+          </xs:key>
+        </xs:element>
+
+        <xs:element minOccurs="0" maxOccurs="1" name="BuildingBlocks" type="tfp:BuildingBlocks" />
+
+        <xs:element minOccurs="0" maxOccurs="1" name="ClaimsProviders">
+          <xs:annotation>
+            <xs:documentation>
+              This section contains the Claims Providers and their Technical Profiles that may be used in the various User Journeys.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="ClaimsProvider" type="tfp:ClaimsProvider"/>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:key name="UniqueTechnicalProfileId">
+            <xs:selector xpath="tfp:ClaimsProvider/tfp:TechnicalProfiles/tfp:TechnicalProfile"/>
+            <xs:field xpath="@Id"/>
+          </xs:key>
+        </xs:element>
+
+        <xs:element minOccurs="0" maxOccurs="1" name="UserJourneys">
+          <xs:annotation>
+            <xs:documentation>
+              The User Journeys through which a user is taken to retrieve the claims that are to be presented to the relying party.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="UserJourney" type="tfp:UserJourney" />
+            </xs:sequence>
+          </xs:complexType>
+          <xs:key name="UniqueUserJourneyId">
+            <xs:selector xpath="tfp:UserJourney"/>
+            <xs:field xpath="@Id"/>
+          </xs:key>
+        </xs:element>
+
+        <xs:element minOccurs="0" maxOccurs="1" name="RelyingParty">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="DefaultUserJourney">
+                <xs:annotation>
+                  <xs:documentation>
+                    An identifier of the User Journey which the orchestration engine will begin with. A merged trust framework policy
+                    can contain multiple user journeys and relying parties select one of them as the starting point.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute use="required" name="ReferenceId" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="UserJourneyBehaviors">
+                <xs:annotation>
+                  <xs:documentation>
+                    Controls the scope of various user journey behaviors.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SingleSignOn" type="tfp:SingleSignOn" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Controls the scope of the single sign on behavior of a user journey.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SessionExpiryType" type="tfp:SessionExpiryTypeTYPE" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Controls the whether the session is rolling or absolute.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SessionExpiryInSeconds" type="xs:int" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Controls the time of the session expiry in seconds.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AzureApplicationInsights" type="tfp:AzureApplicationInsights" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Specifies the Microsoft Azure Application Insights instrumentation key to be used in the application insights javascript.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ContentDefinitionParameters" type="tfp:ContentDefinitionParameters" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Specifies the a list of key value pairs to be appended to the content definition load uri.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="TechnicalProfile" type="tfp:TechnicalProfile"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute use="required" name="PolicySchemaVersion" type="tfp:FourPartVersionNumber">
+        <xs:annotation>
+          <xs:documentation>
+            Determines the schema version published by Microsoft using which this Policy is to be executed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="required" name="TenantId" type="tfp:TenantId">
+        <xs:annotation>
+          <xs:documentation>
+            The unique identifier of the tenant to which this policy belongs.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="optional" name="TenantObjectId" type="tfp:TenantObjectId">
+        <xs:annotation>
+          <xs:documentation>
+            The unique identifier of the object ID of the Azure tenant.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="required" name="PolicyId" type="tfp:PolicyId">
+        <xs:annotation>
+          <xs:documentation>
+            The unique identifier of this policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="required" name="PublicPolicyUri" type="xs:anyURI">
+        <xs:annotation>
+          <xs:documentation>
+            The URI for the policy which is an appropriate name of the policy outside of the CPIM system.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="optional" name="StateTableName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The name of the StateTable that should execute this policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="optional" name="DeploymentMode" type="tfp:DeploymentModeType">
+        <xs:annotation>
+          <xs:documentation>
+            The mode under which the policy should be deployed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute use="optional" name="UserJourneyRecorderEndpoint" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The Url in the format http://{host}?stream={guid} (where the braces are omitted)
+            of a service able to receive http posts documenting user journey progress
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="BasePolicy">
+    <xs:annotation>
+      <xs:documentation>
+        This section defines the base policy from which this Policy is derived.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="TenantId" type="tfp:TenantId">
+        <xs:annotation>
+          <xs:documentation>
+            The identifier of the tenant that published the base policy. The base policy is looked up inside the tenant
+            specified here.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="PolicyId" type="tfp:PolicyId">
+        <xs:annotation>
+          <xs:documentation>
+            The identifier of the base policy. The policy is looked up using this identifier within the tenant specified
+            by the preceding element.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TechnicalProfile">
+    <xs:annotation>
+      <xs:documentation>
+        Every Claims Provider must have one or more Technical Profiles which determines the end points and the protocols needed
+        to communicate with that Claims Provider. In fact, in CPIM, it is the Technical Profile that is referenced elsewhere for
+        communication with a particular Claims Provider.
+
+        A Claims Provider can have multiple Technical Profiles for various reasons. For example, multiple Technical Profiles may
+        be defined because the Claims Provider supports multiple protocols, various endpoints with different capabilities, or
+        releases different claims at different assurance levels. It may be acceptable to release
+        sensitive claims in one User Journey, but not in another one. A Technical Profile is usually certified for
+        a Level of Assurance and thus one Claims Provider may have multiple Technical Profiles for different Levels of Assurance.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Domain" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The human understandable domain name for the technical profile.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The human understandable name of the Technical Profile that can be displayed to the users.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            Provides detailed user understandable text to explain the Technical Profile.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Protocol">
+        <xs:annotation>
+          <xs:documentation>
+            The protocol used for federation.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute use="required" name="Name" type="tfp:ProtocolName">
+            <xs:annotation>
+              <xs:documentation>
+                Name of the protocol used by CPIM for claims exchange with the claims provider.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute use="optional" name="Handler" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>
+                A fully-qualified name of the assembly that will be used by CPIM to determine the protocol handler if the protocol
+                name is "Proprietary". It is invalid to provide this attribute with any other protocol name.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="InputTokenFormat" type="tfp:TokenFormat">
+        <xs:annotation>
+          <xs:documentation>
+            Format of the input token
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="OutputTokenFormat" type="tfp:TokenFormat">
+        <xs:annotation>
+          <xs:documentation>
+            Format of the output token
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="AssuranceLevelOfOutputClaims" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            Lists the assurance level of the claims that are retrieved from the Technical Profile.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="RequiredAssuranceLevelsOfInputClaims">
+        <xs:annotation>
+          <xs:documentation>
+            Lists the assurance levels that a claim must have in order for it to be used as an input claim to the Technical Profile.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="RequiredAssuranceLevelOfInputClaims" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="SubjectAuthenticationRequirements">
+        <xs:annotation>
+          <xs:documentation>
+            Requirements regarding the conscious and active participation of the subject in authentication
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute use="required" name="TimeToLive" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>
+                The maximum number of minutes cached credentials can be used following an active authentication by the subject.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute use="optional" name="ResetExpiryWhenTokenIssued" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>
+                Default is False.  If True then whenever a token is issued
+                (even using a cached credential) the expiry time is set to the current time plus the TimeToLive
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Metadata" type="tfp:metadataTYPE">
+        <xs:annotation>
+          <xs:documentation>
+            This is the data utilized by the protocol for communicating with the endpoint.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CryptographicKeys" type="tfp:CryptographicKeys">
+        <xs:annotation>
+          <xs:documentation>
+            A list of cryptographic keys used in this technical profile.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Suppressions" type="tfp:ItemGroup">
+        <xs:annotation>
+          <xs:documentation>
+            A list of suppressions supported by the protocol.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="PreferredBinding" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            If the protocol supports multiple bindings, this represents binding preferred by the protocol, for example HTTP POST or HTTP GET
+            in the case of SAML.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="IncludeInSso" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            A value indicating whether usage of this technical profile should apply
+            single-signon behavior for the session and instead require explicit interaction
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="InputTokenSources" type="tfp:InputTokenSources">
+        <xs:annotation>
+          <xs:documentation>
+            CPIM can send the original token from one claims provider to another claims provider. InputTokenSources are
+            the list of technical profiles of the claims providers from which the original tokens are to be sent.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InputClaimsTransformations">
+        <xs:annotation>
+          <xs:documentation>
+            ClaimsTransformations can be used to modify existing ClaimsSchema claims or generate new ones. This element contains the
+            list of references to ClaimsTransformations that should be executed before any claims are sent to the claims provider or the
+            relying party.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="InputClaimsTransformation" type="tfp:ClaimsTransformationReference" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="InputClaims">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the ClaimsSchema claim types that are sent as input to the claims provider or the relying party.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="InputClaim" type="tfp:ClaimsSchemaClaimTypeReference" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="PersistedClaims">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the ClaimsSchema claim types that are persisted by the claims provider.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="PersistedClaim" type="tfp:PersistedClaim" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="OutputClaims">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the ClaimsSchema claim types that are received as output from the claims provider.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="OutputClaim" type="tfp:ClaimsSchemaClaimTypeReference" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OutputClaimsTransformations">
+        <xs:annotation>
+          <xs:documentation>
+            ClaimsTransformations can be used to modify existing ClaimsSchema claims or generate new ones. This element contains the
+            list of references to ClaimsTransformations that should be executed after claims are received from the claims provider.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="OutputClaimsTransformation" type="tfp:ClaimsTransformationReference" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidationTechnicalProfiles">
+        <xs:annotation>
+          <xs:documentation>
+            A TechnicalProfile can have a set of other TechnicalProfiles that it uses for validation purposes. This section lists all
+            such technical profiles.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="ValidationTechnicalProfile">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:documentation>
+                    The technical profile to be used for validating some or all of the output claims of the referencing technical profile.
+                    Therefore, all the input claims of the referenced technical profile must appear in the output claims of the
+                    referencing technical profile.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:attribute use="required" name="ReferenceId" type="xs:string" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueTechnicalProfileReferenceId">
+          <xs:selector xpath="tfp:ValidationTechnicalProfile"/>
+          <xs:field xpath="@ReferenceId"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="SubjectNamingInfo">
+        <xs:annotation>
+          <xs:documentation>
+            Information that controls production of the subject name in tokens (e.g. SAML) where subject name is specified separately
+            from claims.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute use="required" name="ClaimType" type="xs:string" />
+          <xs:attribute use="optional" name="NameQualifier" type="xs:string" />
+          <xs:attribute use="optional" name="SPNameQualifier" type="xs:string" />
+          <xs:attribute use="optional" name="Format" type="xs:string" />
+          <xs:attribute use="optional" name="SPProvidedID" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" name="Extensions" type="tfp:Extensions">
+        <xs:annotation>
+          <xs:documentation>
+            An element for including additional information specific to a particular technical profile
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="IncludeClaimsFromTechnicalProfile" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            A id of different technical profile. All input and output claims from referenced technical profile will be
+            added to this technical profile. Referenced technical profile must be defined in the same trust framework policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="IncludeTechnicalProfile">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>
+              A id of different technical profile. All data from referenced technical profile will be
+              added to this technical profile. Referenced technical profile must exists in trust framework policy.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:attribute use="required" name="ReferenceId" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="UseTechnicalProfileForSessionManagement">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>
+              An id of a technical profile to be used for session managemetn.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:attribute use="required" name="ReferenceId" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="EnabledForUserJourneys" type="tfp:EnabledForUserJourneysValues">
+        <xs:annotation>
+          <xs:documentation>
+            A boolean indicating if the technical provile should be used within a user journey, this includes ClaimProviderSelections.
+            If this value is set to true, it will disable the selection.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular TechnicalProfile,
+          and reference it from other sections of the document, for example OrchestrationSteps and InputTokenSources.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!--
+    Describes a particular user journey, which may refer to sections defined elsewhere.
+  -->
+  <xs:complexType name="UserJourney">
+    <xs:annotation>
+      <xs:documentation>
+        A User Journey defines all the constructs necessary for a complete user flow.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="AssuranceLevel" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies a measurement of identity assurance when the claims are presented to the Relying
+            Party at the conclusion of the orchestration steps contained in the User Journey.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="PreserveOriginalAssertion" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Claims are presented to the Relying Party Application in a token generated by CPIM. However, a Technical
+            Policy may state, using a true or a false for this element, that the original assertion which was returned from
+            the Claims Provider(s) must also be preserved so that if needed, it can be looked at by Relying Party for auditing
+            or diagnostic purposes.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="OrchestrationSteps">
+        <xs:annotation>
+          <xs:documentation>
+            This section lists the orchestration sequence that must be followed through for a successful transaction (i.e. a
+            complete user flow). Thus, every User Journey consists of an ordered list of Orchestration Steps (OS) that are
+            executed in sequence. If any step fails, the transaction fails.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="OrchestrationStep" type="tfp:OrchestrationStep" />
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueOrchestrationStepOrder">
+          <xs:selector xpath="tfp:OrchestrationStep"/>
+          <xs:field xpath="@Order"/>
+        </xs:key>
+        <xs:key name="UniqueClaimsExchangeId">
+          <xs:selector xpath="tfp:OrchestrationStep/tfp:ClaimsExchanges/tfp:ClaimsExchange"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="ClientDefinition">
+        <xs:annotation>
+          <xs:documentation>
+            References settings definition section that determines the client behavior.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="ReferenceId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>
+                The identifier of the policy to use.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="CryptographicKeys" type="tfp:CryptographicKeys">
+        <xs:annotation>
+          <xs:documentation>
+            A list of cryptographic keys used in this User Journey.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    </xs:sequence>
+
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular User Journey.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <!--
+    Policy definitions that technical policies may refer to
+  -->
+  <xs:complexType name="BuildingBlocks">
+    <xs:annotation>
+      <xs:documentation>
+        This section contains all the definitions that are used by the Technical Policies.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ClaimsSchema">
+        <xs:annotation>
+          <xs:documentation>
+            This section defines all the claim types that can be reference from other sections of the document.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="ClaimType" type="tfp:ClaimType" />
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueClaimTypeId">
+          <xs:selector xpath="tfp:ClaimType"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="ClaimsTransformations">
+        <xs:annotation>
+          <xs:documentation>
+            Contains a list of claims transforms that can be used in Technical Policies.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="ClaimsTransformation" type="tfp:ClaimsTransformation" />
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueClaimsTransformationId">
+          <xs:selector xpath="tfp:ClaimsTransformation"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="ClientDefinitions">
+        <xs:annotation>
+          <xs:documentation>
+            ClientDefinitions specify various properties specific to the end-user device for which the policy is being executed.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="ClientDefinition" type="tfp:ClientDefinition" />
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueClientDefinitionId">
+          <xs:selector xpath="tfp:ClientDefinition"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="ContentDefinitions">
+        <xs:annotation>
+          <xs:documentation>
+            Content definitions contain URLs to external content (for example, URLs to pages used in claims providers such as Phone Factor).
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="ContentDefinition" type="tfp:ContentDefinition" />
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueContentDefinitionId">
+          <xs:selector xpath="tfp:ContentDefinition"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="Localization">
+        <xs:annotation>
+          <xs:documentation>
+            Defines the supported cultures and contains strings and collections in those cultures.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="SupportedLanguages" type="tfp:SupportedLanguages">
+              <xs:annotation>
+                <xs:documentation>
+                  Defines all the cultures that are supported by this policy.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="LocalizedResources" type="tfp:LocalizedResources">
+              <xs:annotation>
+                <xs:documentation>
+                  Contains all the translated strings for a specific culture.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="SupportedLanguages">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the set of supported language including the default language.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupportedLanguage" type="tfp:Culture">
+        <xs:annotation>
+          <xs:documentation>
+            Represents one supported language
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="DefaultLanguage" type="tfp:Culture">
+      <xs:annotation>
+        <xs:documentation>
+          This is the default language that the customer will see user journeys in, if he doesnt specify any other supported culture.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PolicyLanguage" type="tfp:Culture">
+      <xs:annotation>
+        <xs:documentation>
+          This is the the language the default values in the policy are written in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="LocalizedResources">
+    <xs:annotation>
+      <xs:documentation>
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalizedCollections">
+        <xs:annotation>
+          <xs:documentation>
+            A collection can have different number of items, and different strings for various cultures. This element
+            allows defining the entire collections in various cultures. Examples of collections include the enumerations
+            that appear in claim types, e.g. country/region list, and are shown to the user in a drop down list.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="LocalizedCollection" type="tfp:LocalizedCollection" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalizedStrings">
+        <xs:annotation>
+          <xs:documentation>
+            This section is used to define all the strings, except those that appear in collections, in various cultures.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="LocalizedString" type="tfp:LocalizedString" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Culture" type="tfp:Culture">
+      <xs:annotation>
+        <xs:documentation>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+  </xs:complexType>
+<!--
+    Specifications for the various low-level types
+  -->
+  <xs:complexType name="SingleSignOn">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the behavior of the single sign-on functionality for this application policy
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="Scope" type="tfp:UserJourneyBehaviorScopeType">
+      <xs:annotation>
+        <xs:documentation>
+          Defines the scope of the single sign-on behavior.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="AzureApplicationInsights">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the Azure Applications Insight element which includes the application insights script in the user journeys.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="InstrumentationKey" type="tfp:InstrumentationKey">
+      <xs:annotation>
+        <xs:documentation>
+          Defines the instrumentation key for the application insights element.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ContentDefinitionParameters">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a list of key value pairs to be appended to the query string of the content definition load uris.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Parameter" maxOccurs="unbounded" type="tfp:ContentDefinitionParameter">
+        <xs:key name="UniqueContentDefinitionParameterName">
+          <xs:selector xpath="tfp:ContentDefinitionParameter"/>
+          <xs:field xpath="@Name"/>
+        </xs:key>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContentDefinitionParameter">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a key value pair that is to be appended to the query string of content definition load uri.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ClaimsTransformation">
+    <xs:annotation>
+      <xs:documentation>
+        Transforms take a set of claims, process them, and output another set of claims.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InputClaims" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the Claim Types that are taken as input to the Claims Transformation. Each of these elements contains reference
+            to a ClaimType already defined in the ClaimsSchema section.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="InputClaim" type="tfp:ClaimsTransformationClaimTypeReference" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="InputParameters" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the parameters that are provided as input to the Claims Transformation. Each of these elements contains a value that is passed
+            verbatim to the transformation.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="InputParameter" type="tfp:ClaimsTransformationParameter" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OutputClaims" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            A list of the Claim Types that are taken as input to the Claims Transformation. Each of these elements contains reference
+            to a ClaimType already defined in the ClaimsSchema section.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="OutputClaim" type="tfp:ClaimsTransformationClaimTypeReference">
+              <xs:annotation>
+                <xs:documentation>
+                  The Claim Type that is outputted by the Claims Transformation. This element contains reference to a ClaimType already defined
+                  in the ClaimsSchema section.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular Claims Transform, and reference it
+          from other sections of the document.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="TransformationMethod" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier to reference the published transformation method to be used.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ContentDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LoadUri" type="tfp:ContentUriTYPE" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RecoveryUri" type="tfp:ContentUriTYPE" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DataUri" type="tfp:ContentUriTYPE" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Metadata" type="tfp:metadataTYPE">
+        <xs:annotation>
+          <xs:documentation>
+            Metadata section that can be used to override API settings and content
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular Content Definition, and reference it
+          from other sections of the document.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClientDefinition">
+    <xs:annotation>
+      <xs:documentation>
+        Contains settings for a User Journey on a client.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ClientUIFilterFlags" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            These flags are used for indicate the client's UI behavior.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A unique identifier that allows this client definition to be referenced from a User Journey.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsProvider">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a Claims Provider, along with its technical profiles.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Domain" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The human understandable domain name for the claim provider.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The human understandable name of the claims provider that can be displayed to the users.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TechnicalProfiles">
+        <xs:annotation>
+          <xs:documentation>
+            List of Technical Profiles for exchanging claims with this claims provider.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="TechnicalProfile" type="tfp:TechnicalProfile" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Preconditions">
+    <xs:annotation>
+      <xs:documentation>
+        A collection of Precondition elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Precondition" type="tfp:Precondition" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Precondition">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a conditional check should is performed to determine if an OrchestrationStep should be
+        executed.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Value" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The data that is used by the check. For example, if the Type of this check is "ClaimsExist", this field
+            will specify a ClaimTypeReferenceId to query for.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Action" type="tfp:PreconditionActionType">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies the action that should be taken if the Precondition check is true, such as "SkipThisOrchestrationStep"
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Type" type="tfp:PreconditionType" >
+      <xs:annotation>
+        <xs:documentation>
+          The type of check to perform.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="ExecuteActionsIf" type="xs:boolean" >
+      <xs:annotation>
+        <xs:documentation>
+          Specifies if the actions in this precondition should be performed if the test is true or false.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsProviderSelections">
+    <xs:annotation>
+      <xs:documentation>
+        A collection of ClaimsProviderSelection elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="ClaimsProviderSelection" type="tfp:ClaimsProviderSelection" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsProviderSelection">
+    <xs:annotation>
+      <xs:documentation>
+        Shows options for the selection between various claims providers in a given step (such as Google/Facebook/Microsoft Account).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="optional" name="TargetClaimsExchangeId" type="xs:string" />
+    <xs:attribute use="optional" name="ValidationClaimsExchangeId" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsExchanges">
+    <xs:annotation>
+      <xs:documentation>
+        A collection of ClaimsExchange elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClaimsExchange" type="tfp:ClaimsExchange" />
+    </xs:sequence>
+    <xs:attribute use="optional" name="UserIdentity" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsExchange">
+    <xs:annotation>
+      <xs:documentation>
+        Depending on the Technical Profile being used, a Claims Exchange either redirects the user’s client corresponding to the
+        ClaimsProviderSelection that the user may have selected, or makes a server call to exchange claims.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular Claims Exchange step, and reference
+          it from a ClaimsProviderSelection step.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="TechnicalProfileReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The unique identifier of the Technical Profile which is used for claims exchange.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsTransformationReference">
+    <xs:annotation>
+      <xs:documentation>
+        ClaimsTransformations may be used in a TechnicalProfile for transforming claims when they are sent to and received from a claims
+        provider. A ClaimsTransformation must be defined in this section before it can be referenced in a TechnicalProfile.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="ReferenceId" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="ClaimType">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a single claim type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The human understandable name of the claim type that is displayed to the users on various screens.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DataType" type="tfp:DataType">
+        <xs:annotation>
+          <xs:documentation>
+            The type of data stored in the claim type, such as String, Boolean, Int or DateTime. This type may be used by
+            claims transforms and may thus participate in comparison or arithmetic operations. Associating an appropriate type
+            ensures that these operations are performed correctly by the transforms.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DefaultPartnerClaimTypes">
+        <xs:annotation>
+          <xs:documentation>
+            If a partner claim type is not provided in a claim mapping, then these partner claim types are used for
+            the specified protocol.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Protocol">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:documentation>
+                    The list of technical profiles that is allowed to be used against a claims provider selection.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:attribute use="required" name="Name" type="tfp:ProtocolName" />
+                <xs:attribute use="required" name="PartnerClaimType" type="xs:string" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Mask" type="tfp:claimMaskTYPE">
+        <xs:annotation>
+          <xs:documentation>
+            An optional string of masking characters that can be applied to the claim when displaying the claim for example phone number
+            324-232-4343 masked as XXX-XXX-4343
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="AdminHelpText" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            A description of the claim type that can be helpful for the administrators to understand the purpose and/or usage of
+            the claim type.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="UserHelpText" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            A description of the claim type that can be helpful for the users to understand the purpose and/or usage of the claim type.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="UserInputType" type="tfp:UserInputType">
+        <xs:annotation>
+          <xs:documentation>
+            The type of input control that should be available to the user when manually entering claim data for this claim type.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Restriction" type="tfp:Restriction">
+        <xs:annotation>
+          <xs:documentation>
+            The value restrictions for this claim, such as a regular expression or a list of acceptable values.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular Claim Type, and reference it
+          from other sections of the document.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="StatementType" type="tfp:StatementType" default="Attribute">
+      <xs:annotation>
+        <xs:documentation>
+          The type of statement the claim type represents, such as Attribute, Authentication or Subject, the default being Attribute. This type may be used by
+          claims transforms and may thus participate in comparison or arithmetic operations. Associating an appropriate type
+          ensures that these operations are performed correctly by the transforms.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Contact">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DisplayName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The display name.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="TelephoneNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The telephone number.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Email" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The email address.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Role" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The role of the contact.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A machine understandable identifier that is used to uniquely identify this particular Contact.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="DocumentReference">
+    <xs:annotation>
+      <xs:documentation>
+        Certain documents, such as terms of use or privacy policy, may be made available to the Relying Parties or even the
+        users before they sign up to the use one of the services provided by CPIM. The RPs may use these documents to determine
+        whether the TF is appropriate for the purposes it intends to use it for. The users may view these documents to look at
+        the parameters within which RPs and the TF will operate and determine whether they want to participate or not.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DisplayName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The display name of the document.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Url" type="xs:anyURI">
+        <xs:annotation>
+          <xs:documentation>
+            The url where the document is located.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="OrchestrationStep">
+    <xs:annotation>
+      <xs:documentation>
+        Specifies the orchestration step.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Preconditions" type="tfp:Preconditions">
+        <xs:annotation>
+          <xs:documentation>
+            A list of preconditions that must be satisfied for the step to execute.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClaimsProviderSelections" type="tfp:ClaimsProviderSelections">
+        <xs:annotation>
+          <xs:documentation>
+            A list of Claims Provider Selection options for the Orchestration Step.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClaimsExchanges" type="tfp:ClaimsExchanges">
+        <xs:annotation>
+          <xs:documentation>
+            A list of Claims Exchanges for the Orchestration Step.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="Order" type="xs:int">
+      <xs:annotation>
+        <xs:documentation>
+          The order of the Orchestration Step. Orchestration Steps must appear in increasing order, in which they are executed.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="Type" type="tfp:OrchestrationStepType">
+      <xs:annotation>
+        <xs:documentation>
+          The type of the Orchestration Step.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="ContentDefinitionReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A reference to the Content that the Orchestration Step can display to the user.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="CpimIssuerTechnicalProfileReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Used on SendClaims steps to define the TechnicalProfileId of the claims provider
+          that will mint the token for the relyingParty.  If absent no RP token will be created.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="InputTokenSources">
+    <xs:annotation>
+      <xs:documentation>
+        A list of sources for that can be the input assertions for the current technical profile.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="TechnicalProfile">
+        <xs:complexType>
+          <xs:attribute use="required" name="Id" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>
+                A machine understandable identifier that is used to uniquely identify this particular technical policy.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CryptographicKeys">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the CryptographicKeys that are used within the Policy. Since these are sensitive secrets, the actual cryptographic
+        keys are stored outside of the Trust Framework Policy and would generally reside in a system deemed secure for
+        cryptographic storage, such as in a hardware security module (HSM) or a key management service (KMS).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Key">
+        <xs:complexType>
+          <xs:attribute use="required" name="Id" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>
+                A machine understandable identifier that is used to uniquely identify this particular Cryptographic Key.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute use="required" name="StorageReferenceId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>
+                An identifier that references the key in the underlying key storage.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadataTYPE">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the element for the protocol provider metadata.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Item" maxOccurs="unbounded" type="tfp:metadataItemTYPE">
+        <xs:key name="UniqueMetadataItemKey">
+          <xs:selector xpath="tfp:metadataItemTYPE"/>
+          <xs:field xpath="@Key"/>
+        </xs:key>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for a keyed string value that allows large string values
+       such as CDATA or simple strings such as URLs -->
+  <xs:complexType name="metadataItemTYPE">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a single metadata item for the protocol provider metadata.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Key" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ItemGroup">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a group of items of key/value pairs.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Item" type="tfp:Item"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Item">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a single key/value pair item.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="Key" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A key that uniquely identifies the item.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="Value" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The value to hold in the item.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PersistedClaim">
+    <xs:annotation>
+      <xs:documentation>
+        The claim type in the normalized schema that is sent to the claims provider. The claim mappings are used to determine the
+        provider claim type before sending to the claims provider.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="ClaimTypeReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Identifies a Claim Type specified in the Claims Schema.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="PartnerClaimType" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Identifies the claim type of the external partner that the specified policy claim type maps to. If the PartnerClaimType attribute
+          is not specified, then the specified policy claim type is mapped to the partner claim type of the same name.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="DefaultValue" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          If the claim indicated by ClaimTypeReferenceId does not exist, then the DefaultValue is used to create one so it can be used as an
+          input claim by the technical profile.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="OverwriteIfExists" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Provides an optional property to the claims provider indicating whether the claim can be overwritten in the claims providers
+          records if the claim provider supports overwriting.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsSchemaClaimTypeReference">
+    <xs:sequence>
+      <xs:element name="From" type="tfp:FromTechnicalProfileReference" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            A reference to a Technical Profile which constrains the source of the claim to one or more
+            technical profiles. If no from is specified then the claim can be sourced from any technical
+            profile.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="ClaimTypeReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that is a reference to a ClaimType specified in the ClaimsSchema.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="PartnerClaimType" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Identifies the claim type of the external partner that is mapped to the specified policy claim type. If the PartnerClaimType
+          attribute is not specified, then the partner claim type of the same name as the specified policy claim type is mapped instead.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="Required" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Identifies whether or not the claim is required for this technical profile. If this property is not specified, false is assumed,
+          meaning that the given claim may be utilized if available, but its absence does not indicate an error. For claims that are user
+          asserted, this property controls whether or not the user is required to fill out the associated field before continuing.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="DefaultValue" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          If the claim indicated by ClaimTypeReferenceId does not exist, then the DefaultValue is used to create one so it can be used as an
+          input claim by the technical profile.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsTransformationClaimTypeReference">
+    <xs:attribute use="required" name="ClaimTypeReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that is a reference to a ClaimType specified in the ClaimsSchema.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="TransformationClaimType" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Identifies the claim type of the transformation that is mapped to the specified policy claim type. If the TransformationClaimType
+          attribute is not specified, then the transformation claim type of the same name as the specified policy claim type is mapped instead.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="FromTechnicalProfileReference">
+    <xs:attribute use="required" name="TechnicalProfileReferenceId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that is a reference to a Technical Profile specified in the one of the Claims Providers.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="claimMaskTYPE">
+    <xs:annotation>
+      <xs:documentation>
+        An optional string for masking a claim when displaying the claim for example phone number
+        324-232-4343 masked as XXX-XXX-4343. Can either be a simple substitution mask or a regular
+        expression which uses named groups
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Type" type="tfp:MaskTypeTYPE" use="required"/>
+        <xs:attribute name="Regex" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnumerationItem">
+    <xs:annotation>
+      <xs:documentation>
+        Defines an available option for the user to select for a claim in the UI, such as a value in a dropdown.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute use="required" name="Text" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+              The user-friendly display string that should be shown to the user in the UI for this option.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute use="required" name="Value" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+              The claim value associated with selecting this option.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute use="optional" name="SelectByDefault" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>
+              A value indicating whether or not this option should be selected by default in the UI.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="Pattern">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a pattern restriction, such as a regular expression, to be placed on values for a specific claim type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="RegularExpression" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A regular expression that claims of this type must match in order to be valid.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="HelpText" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          A string that can describe the pattern/regular expression for this claim to the user.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Restriction">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the element for specifying value restrictions for a claim, such as regular expressions or a list of acceptable values.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="1">
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" name="Enumeration" type="tfp:EnumerationItem" />
+      </xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Pattern" type="tfp:Pattern" />
+    </xs:choice>
+    <xs:attribute use="optional" name="MergeBehavior" type="tfp:MergeBehavior">
+      <xs:annotation>
+        <xs:documentation>
+          Specifies how the enumeration values will be merged together with any ClaimType present in a parent policy
+          with the same identifier.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimsTransformationParameter">
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that is a reference to a parameter of the TransformationMethod.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="DataType" type="tfp:DataType">
+      <xs:annotation>
+        <xs:documentation>
+          The type of data of the parameter, such as String, Boolean, Int or DateTime. This type is used to perform arithmetic
+          operations correctly.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="Value" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The value that is to be provided to the TransformationMethod when invoked.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Extensions" mixed="false">
+    <xs:annotation>
+      <xs:documentation>
+        An extension point for elements that allows any xml from any namespace outside of
+        the document namespaces to be included in the element
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LocalizedCollection">
+    <xs:annotation>
+      <xs:documentation>
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Item" type="tfp:EnumerationItem" />
+    </xs:sequence>
+    <xs:attribute use="required" name="ElementType" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="ElementId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="TargetCollection" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+  </xs:complexType>
+
+  <xs:complexType name="LocalizedString">
+    <xs:annotation>
+      <xs:documentation>
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute use="required" name="ElementType" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute use="required" name="ElementId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute use="required" name="StringId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+          
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+<!--
+    Enumerations and pattern restrictions
+  -->
+  <xs:simpleType name="MergeBehavior">
+    <xs:annotation>
+      <xs:documentation>
+        Specifies how the contents of the node will be merged together with data from parent policies
+        with the same unique identifer.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Append">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the collection of data present should be appended to the end of the
+            collection specified in the parent policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Prepend">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the collection of data present should be added before the
+            collection specified in the parent policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ReplaceAll">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the collection of data specified in the parent policy should be ignored,
+            using instead the data specified in the current policy.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MaskTypeTYPE">
+    <xs:annotation>
+      <xs:documentation>
+        The types of claim masks
+        1. Simple, a simple text mask that is
+        applied to the leading portion of a string claim.
+        2. A regular expression that can be applied
+        to the string claim as whole
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Simple" />
+      <xs:enumeration value="Regex" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProtocolName">
+    <xs:annotation>
+      <xs:documentation>
+        The names of the valid protocols supported by CPIM.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="OAuth1" />
+      <xs:enumeration value="OAuth2" />
+      <xs:enumeration value="SAML2" />
+      <xs:enumeration value="OpenIdConnect" />
+      <xs:enumeration value="WsFed" />
+      <xs:enumeration value="WsTrust" />
+      <xs:enumeration value="UProve11" />
+      <xs:enumeration value="Proprietary" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnabledForUserJourneysValues">
+    <xs:annotation>
+      <xs:documentation>
+        The list of acceptable values for "EnabledForUserJourneys" property: true and Always will execute the technical profile, false and Never will
+        always skip it, and OnClaimsExistence will only execute the technical profile if the claim specified in the technical profile's metadata is 
+        present in the user journey storage.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true" />
+      <xs:enumeration value="false" />
+      <xs:enumeration value="OnClaimsExistence" />
+      <xs:enumeration value="Always" />
+      <xs:enumeration value="Never" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TokenFormat">
+    <xs:annotation>
+      <xs:documentation>
+        The token formats supported by CPIM.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="JSON" />
+      <xs:enumeration value="JWT" />
+      <xs:enumeration value="SAML11" />
+      <xs:enumeration value="SAML2" />
+      <xs:enumeration value="CpimUnsigned" />
+      <xs:enumeration value="UProve11" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OrchestrationStepType">
+    <xs:annotation>
+      <xs:documentation>
+        Specifies the type of the Orchestration Step.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ConsentScreen">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step presents text to the user to which the user must consent.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ClaimsProviderSelection">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step presents various Claims Providers to the user for the user to select one.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CombinedSignInAndSignUp">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step presents a combined social provider signin and local account signup page.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ClaimsExchange">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step exchanges Claims with a Claims Provider.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ReviewScreen">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step presents a review screen for the user to review the claims which the user
+            must accept.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SendClaims">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step sends the claims to the Relying Party.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UserDialog">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step presents a user dialog to the user for the capturing of information.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Noop">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the Orchestration Step does nothing and is included to cope with errors in layering.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UserJourneyBehaviorScopeType">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the scope of single sign-on behavior in the user journey.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Suppressed">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the behavior is suppressed. For exmaple in the case of SSO no session is maintained for the user and the user will always
+            be prompted for identity provider selection.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TrustFramework">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the behavior is applied for all policies in the trust framework. For example a user being put through two policy journeys
+            for a given trust framework will not be prompted for identity provider selection.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Tenant">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the behavior is applied for all policies in the tenant. For example a user being put through two policy journeys
+            for a given tenant will not be prompted for identity provider selection.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Application">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the behavior is applied for all policies for the application making the request. For example a user being put through two policy journeys
+            for a given application will not be prompted for identity provider selection.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Policy">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates that the behavior only applies to a policy. For example a user being put through two policy journeys
+            for a given trust framework will be prompted for identity provider selection when switching between policies.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PreconditionType">
+    <xs:annotation>
+      <xs:documentation>
+        Specifies the type of query that is being performed for this precondition.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ClaimsExist">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the actions should be performed if the specified Claims exist in the
+            user's current Claim set.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ClaimEquals">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the actions should be performed if the specified Claim exists and its
+            values is equal to the specified value.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PreconditionActionType">
+    <xs:annotation>
+      <xs:documentation>
+        Specifies the action that should be taken if the Precondition check within
+        an OrchestrationStep is true.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SkipThisOrchestrationStep">
+        <xs:annotation>
+          <xs:documentation>
+            Specifies that the associated OrchestrationStep should not be executed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DataType">
+    <xs:annotation>
+      <xs:documentation>
+        The supported data types that the claims or parameters can have. These types are a subset of the types specified by
+        W3C XML Schema documentation, which can be found at http://www.w3.org/TR/xmlschema-2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="boolean"/>
+      <xs:enumeration value="date"/>
+      <xs:enumeration value="dateTime"/>
+      <xs:enumeration value="duration"/>
+      <xs:enumeration value="int"/>
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="stringCollection"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UserInputType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the type of input controls that should be available to the user when manually entering claim data.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TextBox"/>
+      <xs:enumeration value="DateTimeDropdown"/>
+      <xs:enumeration value="RadioSingleSelect"/>
+      <xs:enumeration value="DropdownSingleSelect"/>
+      <xs:enumeration value="CheckboxMultiSelect"/>
+      <xs:enumeration value="Password"/>
+      <xs:enumeration value="Readonly"/>
+      <xs:enumeration value="Button"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StatementType">
+    <xs:annotation>
+      <xs:documentation>
+        Describes the category of statement that the claim belongs to, used for comapring authentication contexts
+        and issuing tokens
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Attribute">
+        <xs:annotation>
+          <xs:documentation>
+            A general claim about the authenticated individual
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Authentication">
+        <xs:annotation>
+          <xs:documentation>
+            A claim providing information about how the individual
+            was authenticated
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Subject">
+        <xs:annotation>
+          <xs:documentation>
+            A claim providing a means of identifying an individual
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Culture">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a culture for displaying content.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z]{1,3}(-[a-zA-Z0-9]{2,4}){0,2}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TenantId">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a tenant id.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9\.]{3,63}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TenantObjectId">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the object id of an Azure tenant.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="InstrumentationKey">
+    <xs:annotation>
+      <xs:documentation>
+        Represents the instrumentation key for an Azure Application insights instance.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="PolicyId">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a machine readable identifier.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:pattern value="[A-Za-z0-9_\-\.]*[A-Za-z0-9_\-]+" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FourPartVersionNumber">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a four part version number in the format 9.9.9.9.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
+      <xs:minLength value="1" />
+      <xs:pattern value="[0-9][.][0-9][.][0-9][.][0-9]" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CryptographicKeyType" >
+    <xs:annotation>
+      <xs:documentation>
+        Contains an enumeration of the key types supported by CPIM.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UProveKey">
+        <xs:annotation>
+          <xs:documentation>
+            A U-Prove Key.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="X509Certificate">
+        <xs:annotation>
+          <xs:documentation>
+            A X-509 Certificate.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Secret">
+        <xs:annotation>
+          <xs:documentation>
+            A secret key.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContentUriTYPE" >
+    <xs:annotation>
+      <xs:documentation>
+        Type that restricts a string to either an absolute or
+        relative URL. Matches https://domain/path, http://domain/path
+        and ~/path
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(http://|https://|~/)([\w.,@?\^=%&amp;:~+#_-]+/?)+" />
+      <xs:pattern value="urn:[a-z0-9][a-z0-9-]{0,31}:[a-z0-9()+,/\-.:=@;$_!*'%?#]+" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DeploymentModeType">
+    <xs:annotation>
+      <xs:documentation>
+        The names of the valid values for a policy's DeploymentMode attribute.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Development" />
+      <xs:enumeration value="Production" />
+      <xs:enumeration value="Debugging" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SessionExpiryTypeTYPE">
+    <xs:annotation>
+      <xs:documentation>
+        The names of the valid values the single sign on session type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Rolling" />
+      <xs:enumeration value="Absolute" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
