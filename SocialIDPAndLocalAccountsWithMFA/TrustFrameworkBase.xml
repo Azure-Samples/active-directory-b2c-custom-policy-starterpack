@@ -4,7 +4,7 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
   PolicySchemaVersion="0.3.0.0"
-  TenantId="yourtenant.onmicrosoft.com"
+  TenantId="lamnahealth.onmicrosoft.com"
   PolicyId="B2C_1A_TrustFrameworkBase"
   PublicPolicyUri="http://lamnahealth.onmicrosoft.com">
 
@@ -26,7 +26,7 @@
 
       <!-- SECTION I: Claims required for user journeys to work properly -->
 
-      <ClaimType Id="UserId">
+      <ClaimType Id="socialIdpUserId">
         <DisplayName>Username</DisplayName>
         <DataType>string</DataType>
         <UserHelpText/>
@@ -123,6 +123,20 @@
         <UserHelpText>Password policies used by Azure AD to determine password strength, expiry etc.</UserHelpText>
       </ClaimType>
 
+      <ClaimType Id="client_id">
+        <DisplayName>client_id</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
+        <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>
+      </ClaimType>
+
+      <ClaimType Id="resource_id">
+        <DisplayName>resource_id</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
+        <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>
+      </ClaimType>
+
       <ClaimType Id="sub">
         <DisplayName>Subject</DisplayName>
         <DataType>string</DataType>
@@ -186,6 +200,11 @@
 
       <ClaimType Id="newPhoneNumberEntered">
         <DisplayName>New Phone Number Entered</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+
+      <ClaimType Id="userIdForMFA">
+        <DisplayName>UserId for MFA</DisplayName>
         <DataType>boolean</DataType>
       </ClaimType>
 
@@ -335,13 +354,25 @@
         </OutputClaims>
       </ClaimsTransformation>
 
-      <ClaimsTransformation Id="CreateAlternativeSecurityId" TransformationMethod="CreateAlternativeSecurityId">
+  <ClaimsTransformation Id="CreateAlternativeSecurityId" TransformationMethod="CreateAlternativeSecurityId">
         <InputClaims>
-          <InputClaim ClaimTypeReferenceId="userId" TransformationClaimType="key" />
+          <InputClaim ClaimTypeReferenceId="socialIdpUserId" TransformationClaimType="key" />
           <InputClaim ClaimTypeReferenceId="identityProvider" TransformationClaimType="identityProvider" />
         </InputClaims>
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="alternativeSecurityId" TransformationClaimType="alternativeSecurityId" />
+        </OutputClaims>
+      </ClaimsTransformation>
+ 
+      <ClaimsTransformation Id="CreateUserIdForMFA" TransformationMethod="FormatStringClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="objectId" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="stringFormat" DataType="string" Value="{0}@{RelyingPartyTenantId}" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="userIdForMFA" TransformationClaimType="outputClaim" />
         </OutputClaims>
       </ClaimsTransformation>
 
@@ -465,20 +496,22 @@
             <Item Key="AccessTokenEndpoint">https://graph.facebook.com/oauth/access_token</Item>
             <Item Key="HttpBinding">GET</Item>
             <Item Key="UsePolicyInRedirectUri">0</Item>
+
+            <!-- The Facebook required HTTP GET method, but the access token response is in JSON format from 3/27/2017 -->
+            <Item Key="AccessTokenResponseFormat">json</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="client_secret" StorageReferenceId="b2c_1a_FacebookSecret" />
           </CryptographicKeys>
           <InputClaims />
           <OutputClaims>
-            <OutputClaim ClaimTypeReferenceId="userId" PartnerClaimType="id" />
+            <OutputClaim ClaimTypeReferenceId="socialIdpUserId" PartnerClaimType="id" />
             <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="first_name" />
             <OutputClaim ClaimTypeReferenceId="surname" PartnerClaimType="last_name" />
             <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
             <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email" />
             <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="facebook.com" />
             <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" />
-            <OutputClaim ClaimTypeReferenceId="extension_picture"  PartnerClaimType="picture"/>
           </OutputClaims>
           <OutputClaimsTransformations>
             <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
@@ -545,8 +578,11 @@
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
           </CryptographicKeys>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CreateUserIdForMFA" />
+          </InputClaimsTransformations>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="userPrincipalName" PartnerClaimType="UserId" />
+            <InputClaim ClaimTypeReferenceId="userIdForMFA" PartnerClaimType="UserId" />
             <InputClaim ClaimTypeReferenceId="strongAuthenticationPhoneNumber" />
           </InputClaims>
           <OutputClaims>
@@ -597,10 +633,7 @@
             <PersistedClaim ClaimTypeReferenceId="userPrincipalName" />
             <PersistedClaim ClaimTypeReferenceId="mailNickName" DefaultValue="unknown" />
             <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
-            <PersistedClaim ClaimTypeReferenceId="passwordPolicies" DefaultValue="DisablePasswordExpiration" />
- 
-            <PersistedClaim ClaimTypeReferenceId="Verified.strongAuthenticationPhoneNumber" PartnerClaimType="strongAuthenticationPhoneNumber" />
- 
+  
             <!-- Optional claims -->
             <PersistedClaim ClaimTypeReferenceId="otherMails" />
             <PersistedClaim ClaimTypeReferenceId="givenName" />
@@ -628,9 +661,7 @@
           </InputClaims>
           <OutputClaims>
             <!-- Required claims -->
- 
-            <OutputClaim ClaimTypeReferenceId="strongAuthenticationPhoneNumber" />
- 
+  
             <OutputClaim ClaimTypeReferenceId="objectId" />
 
             <!-- Optional claims -->
@@ -815,8 +846,20 @@
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
           </CryptographicKeys>
-          <InputClaims />
+          <InputClaims>
+            <!-- These claims ensure that any values retrieved in the previous steps (e.g. from an external IDP) are prefilled. 
+                 Note that some of these claims may not have any value, for example, if the external IDP did not provide any of
+                 these values, or if the claim did not appear in the OutputClaims section of the IDP.
+                 In addition, if a claim is not in the InputClaims section, but it is in the OutputClaims section, then its
+                 value will not be prefilled, but the user will still be prompted for it (with an empty value). -->
+            <InputClaim ClaimTypeReferenceId="displayName" />
+            <InputClaim ClaimTypeReferenceId="givenName" />
+            <InputClaim ClaimTypeReferenceId="surname" />
+          </InputClaims>
           <OutputClaims>
+            <!-- These claims are not shown to the user because their value is obtained through the "ValidationTechnicalProfiles"
+                 referenced below, or a default value is assigned to the claim. A claim is only shown to the user to provide a 
+                 value if its value cannot be obtained through any other means. -->
             <OutputClaim ClaimTypeReferenceId="objectId" />
             <OutputClaim ClaimTypeReferenceId="newUser" />
             <OutputClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" DefaultValue="true" />
@@ -824,6 +867,7 @@
             <!-- Optional claims. These claims are collected from the user and can be modified. If a claim is to be persisted in the directory after having been 
                  collected from the user, it needs to be added as a PersistedClaim in the ValidationTechnicalProfile referenced below, i.e. 
                  in AAD-UserWriteUsingAlternativeSecurityId. -->
+            <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" />
           </OutputClaims>
@@ -895,6 +939,7 @@
             <OutputClaim ClaimTypeReferenceId="newUser" />
 
             <!-- Optional claims, to be collected from the user -->
+            <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surName" />
           </OutputClaims>

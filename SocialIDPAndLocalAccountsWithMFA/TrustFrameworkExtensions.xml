@@ -4,12 +4,12 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
   PolicySchemaVersion="0.3.0.0" 
-  TenantId="yourtenant.onmicrosoft.com" 
+  TenantId="lamnahealth.onmicrosoft.com" 
   PolicyId="B2C_1A_TrustFrameworkExtensions" 
   PublicPolicyUri="http://lamnahealth.onmicrosoft.com">
   
   <BasePolicy>
-    <TenantId>yourtenant.onmicrosoft.com</TenantId>
+    <TenantId>lamnahealth.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
   </BasePolicy>
   <BuildingBlocks>
@@ -37,12 +37,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">$localAccountSigninClientId$</Item>
-            <Item Key="IdTokenAudience">$localAccountSigninTokenAudience$</Item>
+            <Item Key="client_id">aad_clientid</Item>
+            <Item Key="IdTokenAudience">aad_resourceappid</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="$localAccountSigninClientId$" />
-            <InputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="resource" DefaultValue="yourtenant.onmicrosoft.com" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="aad_clientid" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="aad_resourceappid" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
