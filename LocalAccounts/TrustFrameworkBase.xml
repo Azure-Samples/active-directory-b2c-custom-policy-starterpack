@@ -439,7 +439,7 @@
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureActiveDirectoryProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
 
           <CryptographicKeys>
-            <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
           </CryptographicKeys>
 
           <!-- We need this here to suppress the SelfAsserted provider from invoking SSO on validation profiles. -->
@@ -618,7 +618,7 @@
             <Item Key="language.button_continue">Create</Item>
           </Metadata>
           <CryptographicKeys>
-            <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
           </CryptographicKeys>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="email" />
@@ -678,7 +678,7 @@
             <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
           </Metadata>
           <CryptographicKeys>
-            <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
           </CryptographicKeys>
           <IncludeInSso>false</IncludeInSso>
           <OutputClaims>
@@ -700,7 +700,7 @@
             <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
           </Metadata>
           <CryptographicKeys>
-            <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
           </CryptographicKeys>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="objectId" />
@@ -770,8 +770,8 @@
             <Item Key="issuer_refresh_token_user_identity_claim_type">objectId</Item>
           </Metadata>
           <CryptographicKeys>
-            <Key Id="issuer_secret" StorageReferenceId="b2c_1a_TokenSigningKeyContainer" />
-            <Key Id="issuer_refresh_token_key" StorageReferenceId="b2c_1a_TokenEncryptionKeyContainer" />
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+            <Key Id="issuer_refresh_token_key" StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
           </CryptographicKeys>
           <InputClaims />
           <OutputClaims />
