@@ -37,12 +37,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">aad_clientid</Item>
-            <Item Key="IdTokenAudience">aad_resourceappid</Item>
+            <Item Key="client_id">Policy Engine Proxy Application ID</Item>
+            <Item Key="IdTokenAudience">Policy Engine Application ID</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="aad_clientid" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="aad_resourceappid" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="Policy Engine Proxy Application ID" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="Policy Engine Application ID" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
