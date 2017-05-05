@@ -22,14 +22,14 @@
     <ClaimsProvider>
       <DisplayName>Local Account SignIn</DisplayName>
       <TechnicalProfiles>
-        <TechnicalProfile Id="login-NonInteractive">
+         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">Policy Engine Proxy Application ID</Item>
-            <Item Key="IdTokenAudience">Policy Engine Application ID</Item>
+            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
+            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="Policy Engine Proxy Application ID" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="Policy Engine Application ID" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppID" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppID" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
