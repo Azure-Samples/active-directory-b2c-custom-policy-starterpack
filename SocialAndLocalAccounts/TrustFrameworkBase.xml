@@ -336,6 +336,15 @@
           <OutputClaim ClaimTypeReferenceId="alternativeSecurityId" TransformationClaimType="alternativeSecurityId" />
         </OutputClaims>
       </ClaimsTransformation>
+
+      <ClaimsTransformation Id="CreateSubjectClaimFromAlternativeSecurityId" TransformationMethod="CreateStringClaim">
+        <InputParameters>
+          <InputParameter Id="value" DataType="string" Value="Not supported currently. Use oid claim." />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="sub" TransformationClaimType="createdClaim" />
+        </OutputClaims>
+    </ClaimsTransformation>
  
     </ClaimsTransformations>
 
