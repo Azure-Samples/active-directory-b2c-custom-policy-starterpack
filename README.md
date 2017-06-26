@@ -11,3 +11,26 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 ```
 --------------------------------------------
 
+# Pending Changes, will be committed once fully tested.
+06/26/2017 - Correction to SocialAndLocalAccountswMFA in TrustFrameworkBase.xml file.
+
+
+•	A change to fix a data loss issue related to SSO, the profile edit policy, and MFA. This issue was due to the MFA SSO technical profile not outputting the below claim in the same format that the regular MFA provider does
+
+```XML
+        
+        
+        <TechnicalProfile Id="SM-MFA">
+          <DisplayName>Session Mananagement Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.DefaultSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <PersistedClaims>
+***OLD:  <PersistedClaim ClaimTypeReferenceId="strongAuthenticationPhoneNumber" />
+***CORRECTED:  <PersistedClaim ClaimTypeReferenceId="Verified.strongAuthenticationPhoneNumber" />
+            <PersistedClaim ClaimTypeReferenceId="executed-PhoneFactor-Input" />
+          </PersistedClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isActiveMFASession" DefaultValue="true" />
+          </OutputClaims>
+        </TechnicalProfile>
+
+```
