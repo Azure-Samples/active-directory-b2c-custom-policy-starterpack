@@ -807,7 +807,7 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <!-- This step reads any user attributes that we may not have received when in hte token. -->
+        <!-- This step reads any user attributes that we may not have received when in the token. -->
         <OrchestrationStep Order="3" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
