@@ -32,7 +32,7 @@
             <Item Key="scope">email</Item>
             <Item Key="HttpBinding">POST</Item>
             <Item Key="UsePolicyInRedirectUri">0</Item>
-            <Item Key="client_id">56136686613-a44202vkgnakch6gvp8g0133lu3anh4g.apps.googleusercontent.com</Item>
+            <Item Key="client_id">66136686613-a44202vkgnakch6gvp8g0133lu3anh4g.apps.googleusercontent.com</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="client_secret" StorageReferenceId="B2C_1A_GoogleSecret" />
@@ -71,7 +71,7 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="Facebook-OAUTH">
           <Metadata>
-            <Item Key="client_id">450512661987106</Item>
+            <Item Key="client_id">550512661987106</Item>
             <Item Key="scope">email public_profile</Item>
             <Item Key="ClaimsEndpoint">https://graph.facebook.com/me?fields=id,first_name,last_name,name,email</Item>
           </Metadata>
@@ -85,12 +85,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">7f0e07f1-1854-4c46-bf0e-0e8b5f6be538</Item>
-            <Item Key="IdTokenAudience">ea75ac22-e0d1-47b0-b3c5-950333d214d8</Item>
+            <Item Key="client_id">8f0e07f1-1854-4c46-bf0e-0e8b5f6be538</Item>
+            <Item Key="IdTokenAudience">aa75ac22-e0d1-47b0-b3c5-950333d214d8</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="7f0e07f1-1854-4c46-bf0e-0e8b5f6be538" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="ea75ac22-e0d1-47b0-b3c5-950333d214d8" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="8f0e07f1-1854-4c46-bf0e-0e8b5f6be538" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="aa75ac22-e0d1-47b0-b3c5-950333d214d8" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
