@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
+  PolicySchemaVersion="0.3.0.0" 
+  TenantId="yourtenant.onmicrosoft.com" 
+  PolicyId="B2C_1A_1C__TrustFrameworkExtensions" 
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_1C__TrustFrameworkExtensions">
+  
+  <BasePolicy>
+    <TenantId>yourtenant.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_1C__TrustFrameworkBase</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks>
+    <ContentDefinitions>
+      <ContentDefinition Id="api.signuporsigninwithkmsi">
+        <LoadUri>~/tenant/default/unified.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:unifiedssp:1.1.0</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Signin and Signup</Item>
+        </Metadata>
+      </ContentDefinition>
+    </ContentDefinitions>
+
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+
+
+    <ClaimsProvider>
+      <DisplayName>Local Account SignIn</DisplayName>
+      <TechnicalProfiles>
+         <TechnicalProfile Id="login-NonInteractive">
+           <Metadata>
+             <Item Key="client_id">47eb20aa-e4e1-41c7-ab14-69e72bcae4a5</Item>
+             <Item Key="IdTokenAudience">f04f459f-13d5-4382-9335-87368966c0c9</Item>
+           </Metadata>
+           <InputClaims>
+             <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="47eb20aa-e4e1-41c7-ab14-69e72bcae4a5" />
+             <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="f04f459f-13d5-4382-9335-87368966c0c9" />
+           </InputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+  </ClaimsProviders>
+
+  <UserJourneys>
+
+    <UserJourney Id="SignUpOrSignInWithKmsi">
+      <OrchestrationSteps>
+
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsigninwithkmsi">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- This step reads any user attributes that we may not have received when in the token. -->
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="4" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+
+  </UserJourneys>
+
+</TrustFrameworkPolicy>
