@@ -15,11 +15,11 @@ namespace AADB2C.UserMigration
 {
     class Program
     {
-        public static string Tenant = ConfigurationManager.AppSettings["b2c:Tenant"];
-        public static string ClientId = ConfigurationManager.AppSettings["b2c:ClientId"];
-        public static string ClientSecret = ConfigurationManager.AppSettings["b2c:ClientSecret"];
-        public static string MigrationFile = ConfigurationManager.AppSettings["MigrationFile"];
-        public static string BlobStorageConnectionString = ConfigurationManager.AppSettings["BlobStorageConnectionString"];
+        private static string Tenant = ConfigurationManager.AppSettings["b2c:Tenant"];
+        private static string ClientId = ConfigurationManager.AppSettings["b2c:ClientId"];
+        private static string ClientSecret = ConfigurationManager.AppSettings["b2c:ClientSecret"];
+        private static string MigrationFile = ConfigurationManager.AppSettings["MigrationFile"];
+        private static string BlobStorageConnectionString = ConfigurationManager.AppSettings["BlobStorageConnectionString"];
 
         static void Main(string[] args)
         {
@@ -100,12 +100,12 @@ namespace AADB2C.UserMigration
         /// Migrate users with their password
         /// </summary>
         /// <returns></returns>
-        static async Task MigrateUsersWithPasswordAsync()
+        private static async Task MigrateUsersWithPasswordAsync()
         {
             string appDirecotyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dataFilePath = Path.Combine(appDirecotyPath, Program.MigrationFile);
 
-            // Check file existence 
+            // Check file existence
             if (!File.Exists(dataFilePath))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -117,7 +117,7 @@ namespace AADB2C.UserMigration
             // Read the data file and convert to object
             UsersModel users = UsersModel.Parse(File.ReadAllText(dataFilePath));
 
-            // Create B2C graph client object 
+            // Create B2C graph client object
             B2CGraphClient b2CGraphClient = new B2CGraphClient(Program.Tenant, Program.ClientId, Program.ClientSecret);
 
             foreach (var item in users.Users)
@@ -137,12 +137,12 @@ namespace AADB2C.UserMigration
         /// Migrate users with random password
         /// </summary>
         /// <returns></returns>
-        static async Task MigrateUsersWithRandomPasswordAsync()
+        private static async Task MigrateUsersWithRandomPasswordAsync()
         {
             string appDirecotyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dataFilePath = Path.Combine(appDirecotyPath, Program.MigrationFile);
 
-            // Check file existence 
+            // Check file existence
             if (!File.Exists(dataFilePath))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -154,7 +154,7 @@ namespace AADB2C.UserMigration
             // Read the data file and convert to object
             UsersModel users = UsersModel.Parse(File.ReadAllText(dataFilePath));
 
-            // Create B2C graph client object 
+            // Create B2C graph client object
             B2CGraphClient b2CGraphClient = new B2CGraphClient(Program.Tenant, Program.ClientId, Program.ClientSecret);
 
             // Parse the connection string and return a reference to the storage account.
@@ -201,12 +201,12 @@ namespace AADB2C.UserMigration
         /// Migration clean up
         /// </summary>
         /// <returns></returns>
-        static async Task UserMigrationCleanupAsync()
+        private static async Task UserMigrationCleanupAsync()
         {
             string appDirecotyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dataFilePath = Path.Combine(appDirecotyPath, Program.MigrationFile);
 
-            // Check file existence 
+            // Check file existence
             if (!File.Exists(dataFilePath))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -218,7 +218,7 @@ namespace AADB2C.UserMigration
             // Read the data file and convert to object
             UsersModel users = UsersModel.Parse(File.ReadAllText(dataFilePath));
 
-            // Create B2C graph client object 
+            // Create B2C graph client object
             B2CGraphClient b2CGraphClient = new B2CGraphClient(Program.Tenant, Program.ClientId, Program.ClientSecret);
 
             foreach (var item in users.Users)
