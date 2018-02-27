@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AADB2C.UserMigration", "AADB2C.UserMigration\AADB2C.UserMigration.csproj", "{D5D39D03-260A-45D8-A8B5-0619211FF06F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AADB2C.UserMigration", "AADB2C.UserMigration\AADB2C.UserMigration.csproj", "{D5D39D03-260A-45D8-A8B5-0619211FF06F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AADB2C.GraphService", "AADB2C.GraphService\AADB2C.GraphService.csproj", "{6BF2A7D2-7579-41B6-9038-FFFA0B7A4545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AADB2C.GraphService", "AADB2C.GraphService\AADB2C.GraphService.csproj", "{6BF2A7D2-7579-41B6-9038-FFFA0B7A4545}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AADB2C.UserMigration.API", "AADB2C.UserMigration.API\AADB2C.UserMigration.API.csproj", "{77B97149-82CF-4668-A83C-2B974720034F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AADB2C.UserMigration.API", "AADB2C.UserMigration.API\AADB2C.UserMigration.API.csproj", "{77B97149-82CF-4668-A83C-2B974720034F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E34F5FB8-C215-4372-9819-6D05CE5620F1}"
+	ProjectSection(SolutionItems) = preProject
+		PasswordReset.xml = PasswordReset.xml
+		SignupOrSignin.xml = SignupOrSignin.xml
+		TrustFrameworkBase.xml = TrustFrameworkBase.xml
+		TrustFrameworkExtensions.xml = TrustFrameworkExtensions.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

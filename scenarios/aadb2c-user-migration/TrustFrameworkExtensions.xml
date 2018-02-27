@@ -5,19 +5,18 @@
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
   PolicySchemaVersion="0.3.0.0"
   TenantId="yourtenant.onmicrosoft.com"
-  PolicyId="B2C_1A_PreMigration_TrustFrameworkExtensions"
-  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_PreMigration_TrustFrameworkExtensions">
+  PolicyId="B2C_1A_TrustFrameworkExtensions"
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions">
 
   <BasePolicy>
     <TenantId>yourtenant.onmicrosoft.com</TenantId>
-    <PolicyId>B2C_1A_PreMigration_TrustFrameworkBase</PolicyId>
+    <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
   </BasePolicy>
 
   <BuildingBlocks>
   </BuildingBlocks>
 
   <ClaimsProviders>
-
     <!-- Local account claims provider -->
     <ClaimsProvider>
       <DisplayName>Local Account SignIn</DisplayName>
@@ -57,7 +56,7 @@
           <DisplayName>Local account just in time migration</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="ServiceUrl">http://your-app.azurewebsites.net/api/PrePasswordReset/LoalAccountSignIn</Item>
+            <Item Key="ServiceUrl">http://your-app.azurewebsites.net/api/PrePasswordReset/LocalAccountSignIn</Item>
             <Item Key="AuthenticationType">None</Item>
             <Item Key="SendClaimsIn">Body</Item>
           </Metadata>
@@ -102,13 +101,6 @@
 
       </TechnicalProfiles>
     </ClaimsProvider>
-
-
-
   </ClaimsProviders>
-
-  <!--UserJourneys>
-	
-	</UserJourneys-->
 
 </TrustFrameworkPolicy>
