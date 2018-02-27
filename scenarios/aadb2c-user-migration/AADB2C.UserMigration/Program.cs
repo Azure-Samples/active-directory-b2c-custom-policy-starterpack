@@ -2,6 +2,7 @@
 using AADB2C.UserMigration.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -39,20 +40,19 @@ namespace AADB2C.UserMigration
                 switch (args[0])
                 {
                     case "1":
-                        MigrateUsersWithPasswordAsync().Wait();
+                        MigrateUsersWithPasswordAsync().GetAwaiter().GetResult();
                         break;
                     case "2":
-                        MigrateUsersWithRandomPasswordAsync().Wait();
+                        MigrateUsersWithRandomPasswordAsync().GetAwaiter().GetResult();
                         break;
                     case "3":
                         if (args.Length == 2)
                         {
                             B2CGraphClient b2CGraphClient = new B2CGraphClient(Program.Tenant, Program.ClientId, Program.ClientSecret);
-                            string JSON = b2CGraphClient.SearcUserBySignInNames(args[1]).Result;
+                            string JSON = b2CGraphClient.SearcUserBySignInNames(args[1]).GetAwaiter().GetResult();
+                            var deserialized = JsonConvert.DeserializeObject<GraphUsersModel>(JSON);
 
-                            Console.WriteLine(JSON);
-                            GraphUsersModel users = GraphUsersModel.Parse(JSON);
-
+                            Console.WriteLine(JsonConvert.SerializeObject(deserialized, new JsonSerializerSettings { Formatting = Formatting.Indented }));
                         }
                         else
                         {
@@ -63,11 +63,10 @@ namespace AADB2C.UserMigration
                         if (args.Length == 2)
                         {
                             B2CGraphClient b2CGraphClient = new B2CGraphClient(Program.Tenant, Program.ClientId, Program.ClientSecret);
-                            string JSON = b2CGraphClient.SearchUserByDisplayName(args[1]).Result;
+                            string JSON = b2CGraphClient.SearchUserByDisplayName(args[1]).GetAwaiter().GetResult();
+                            var deserialized = JsonConvert.DeserializeObject<GraphUsersModel>(JSON);
 
-                            Console.WriteLine(JSON);
-                            GraphUsersModel users = GraphUsersModel.Parse(JSON);
-
+                            Console.WriteLine(JsonConvert.SerializeObject(deserialized, new JsonSerializerSettings { Formatting = Formatting.Indented }));
                         }
                         else
                         {
@@ -75,7 +74,7 @@ namespace AADB2C.UserMigration
                         }
                         break;
                     case "5":
-                        UserMigrationCleanupAsync().Wait();
+                        UserMigrationCleanupAsync().GetAwaiter().GetResult();
                         break;
                 }
             }
@@ -229,5 +228,4 @@ namespace AADB2C.UserMigration
             }
         }
     }
-
 }
