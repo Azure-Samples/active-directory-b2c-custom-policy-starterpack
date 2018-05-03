@@ -111,12 +111,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">b30f86ff-6c05-467e-9edd-bc5aaaea62ac</Item>
-            <Item Key="IdTokenAudience">d82156f4-6683-47e1-b83d-a7e9c1c8ece2</Item>
+            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
+            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="b30f86ff-6c05-467e-9edd-bc5aaaea62ac" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="d82156f4-6683-47e1-b83d-a7e9c1c8ece2" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppID" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppID" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
