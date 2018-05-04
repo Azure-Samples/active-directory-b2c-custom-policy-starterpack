@@ -95,6 +95,11 @@
             <DisplayName>Azure Active Directory</DisplayName>
             <TechnicalProfiles>
                 <TechnicalProfile Id="AAD-Common">
+                    <!-- Provide objectId and appId before using extension properties. -->
+                    <Metadata>
+                        <Item Key="ApplicationObjectId">insert objectId here</Item>
+                        <Item Key="ClientId">insert appId heree</Item>
+                    </Metadata>
 					<PersistedClaims>
 					    <PersistedClaim ClaimTypeReferenceId="displayName" />
                         <PersistedClaim ClaimTypeReferenceId="givenName" />
