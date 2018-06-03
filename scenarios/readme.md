@@ -2,4 +2,6 @@
 
 * [Account linkage](source/aadb2c-ief-account-linkage) - Demonstrates how to link existing local account to a social account.
 
+* [Local account change sign-in name email address](source/aadb2c-ief-change-sign-in-name) - When sign-in with local account, a user may want to change the sign-in name (email address). This sample policy demonstrates how to allow user to provide and validate new email address, and store the new email address to Azure Active Directory user account. After user change the email address, on the next login, user needs to provide the new email address as sign-in name.
+
 * [Social identity provider force email verification](source/aadb2c-ief-social-idp-force-email) - When sign-in with social account, in some scenarios,  the identity provider doesn't share the email address. This sample demonstrates how to force the user to provide and validate email address. 
