@@ -11,6 +11,6 @@ In those scenarios, the policy checks if the email address is empty. If yes, use
 
 ![Email verification](media/email-verificaton.png)
 
-This sample policy is based on [SocialAndLocalAccounts starter pack](../../SocialAndLocalAccounts). All changes are marked with **Demo:** comment inside the policy XML files.
+You can remove the orchestration step's precondition and force the user to validate the email address, even if the social identity provider shares the email address.
 
-> Note:  You can remove the orchestration step's precondition and force the user to validate the email address, even if the social identity provider shares the email address.
+> Note:  This sample policy is based on [SocialAndLocalAccounts starter pack](../../../SocialAndLocalAccounts). All changes are marked with **Demo:** comment inside the policy XML files.
