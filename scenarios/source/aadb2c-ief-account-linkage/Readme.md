@@ -2,7 +2,7 @@
 
 With Azure AD B2C a user can have multiple identities. Sign-in with local account, and link a social account to an existing local account. So, both share the same account in Azure AD B2C. This Azure AD B2C sample demonstrates how to link existing local account to a social account. 
 
-![Account linkage](https://youtu.be/aAiqpYYTOhI)
+[![Account linkage video](media/link-to-youtube.png)](https://youtu.be/aAiqpYYTOhI)
 
 To link the local account to social account, user fist sign in with the local account (only).
 ![Sign-in](media/AccountLinkage-1.png)
