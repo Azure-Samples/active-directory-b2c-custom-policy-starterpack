@@ -1,6 +1,6 @@
 ## Samples for several additional scenarios across identity providers, REST API, and user journey scenarios
 
-* [Account linkage](source/aadb2c-ief-account-linkage) - Demonstrates how to link existing local account to a social account.
+* [Account linkage](source/aadb2c-ief-account-linkage) - With Azure AD B2C a user can have multiple identities. Sign-in with local account, and link a social account to an existing local account. So, both share the same account in Azure AD B2C. This Azure AD B2C sample demonstrates how to link existing local account to a social account. 
 
 * [Local account change sign-in name email address](source/aadb2c-ief-change-sign-in-name) - When sign-in with local account, a user may want to change the sign-in name (email address). This sample policy demonstrates how to allow user to provide and validate new email address, and store the new email address to Azure Active Directory user account. After user change the email address, on the next login, user needs to provide the new email address as sign-in name.
 
