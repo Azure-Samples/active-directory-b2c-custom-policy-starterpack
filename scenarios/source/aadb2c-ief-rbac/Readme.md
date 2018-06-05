@@ -6,7 +6,7 @@ After user account has been created in Azure AD B2C directory. Administrator, fr
 
 During sign-in (with local account), IEF invokes REST API, sending the user `objectId` as input claim. The Rest API queries Azure AD Graph API to retrieve the list of group user is member of. The user's group list return back to B2C, as an output claim.
 
-Optionally, you can send also the `onlyMembersOf` claim type with a list of groups a user MSUT be member of. If a user is not member of one of the groups specified in `onlyMembersOf`, a user friendly error will present to the user.
+Optionally, you can also send the `onlyMembersOf` claim type with a list of groups a user MSUT be member of. If a user is not member of one of the groups specified in `onlyMembersOf`, a user friendly error will present to the user.
 
 > Note:  This sample policy is based on [SocialAndLocalAccounts starter pack](../../../SocialAndLocalAccounts). All changes are marked with **Demo:** comment inside the policy XML files.
 
@@ -22,14 +22,14 @@ Secure the communication between Azure AD B2C to your Rest API. For more informa
 
 ## Artifacts
 ### Azure AD custom policy
-All changes are located in `TrustFrameworkExtensions.xml` and `SignUpOrSignin.xml` files. For more information, search for "Groups sample:"
+All changes are located in `TrustFrameworkExtensions.xml` and `SignUpOrSignin.xml` files. For more information, search for `Demo:` comments
 1. **groups** Claim type
 1. **onlyMembersOf** Claim type
-1. **RESTAddUserGroups** technical profile, points to the Rest API services. This Rest API, responsible to read, and send back the list of groups. The technical profile points your application https://you-app.azurewebsites.net/api/Identity/PasswordReset
-1. Adding validation technical profile to **SelfAsserted-LocalAccountSignin-Email**  **RESTAddUserGroups** technical profile 
+1. **RESTAddUserGroups** technical profile, points to the Rest API services. 
+1. **SelfAsserted-LocalAccountSignin-Email** technical profile - Adding `RESTAddUserGroups** validation technical profile.
 
 ### Visual studio solution
-1. **IdentityController** your custom policy calls this Rest API
+1. **IdentityController** The custom policy calls this REST API
 
 ## App Settings
 * **b2c:Tenant** Your Azure AD B2C tenant name
