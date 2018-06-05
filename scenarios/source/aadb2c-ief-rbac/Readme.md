@@ -26,7 +26,7 @@ All changes are located in `TrustFrameworkExtensions.xml` and `SignUpOrSignin.xm
 1. **groups** Claim type
 1. **onlyMembersOf** Claim type
 1. **RESTAddUserGroups** technical profile, points to the Rest API services. 
-1. **SelfAsserted-LocalAccountSignin-Email** technical profile - Adding `RESTAddUserGroups** validation technical profile.
+1. **SelfAsserted-LocalAccountSignin-Email** technical profile - Adding `RESTAddUserGroups` validation technical profile.
 
 ### Visual studio solution
 1. **IdentityController** The custom policy calls this REST API
