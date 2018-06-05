@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TrustFrameworkPolicy
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+  PolicySchemaVersion="0.3.0.0"
+  TenantId="yourtenant.onmicrosoft.com"
+  PolicyId="B2C_1A_SignupOrSigninWithToUDateTime"
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_SignupOrSigninWithToUDateTime">
+
+  <BasePolicy>
+    <TenantId>yourtenant.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkExtensions</PolicyId>
+  </BasePolicy>
+
+ <BuildingBlocks>
+        <ContentDefinitions>
+            <ContentDefinition Id="api.selfasserted1.1">
+                <LoadUri>https://cs4585b26274a94x484fx966.blob.core.windows.net/b2ccontainer/index.htm</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.0.0</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Display Terms of Use Consent Agreement</Item>
+                </Metadata>
+            </ContentDefinition>
+        </ContentDefinitions>
+  </BuildingBlocks>
+    <ClaimsProviders>
+        <ClaimsProvider>
+            <DisplayName>Token Issuer</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="JwtIssuer">
+                    <Metadata>
+                        <Item Key="IssuanceClaimPattern">AuthorityAndTenantGuid</Item>
+                        <Item Key="AuthenticationContextReferenceClaimPattern">None</Item>
+                    </Metadata>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Self Asserted</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="SelfAsserted-Input-ToU-NewUser">
+                    <DisplayName>Self Asserted ToU</DisplayName>
+                    <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">api.selfasserted1.1</Item>
+                        <Item Key="TokenLifeTimeInSeconds">3600</Item>
+                        <Item Key="AllowGenerationOfClaimsWithNullValues">true</Item>
+                    </Metadata>
+                    <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                    </CryptographicKeys>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" DefaultValue="true" />
+                        <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" />
+                        <OutputClaim ClaimTypeReferenceId="termsOfUseConsentRequired" />
+                        <!-- Note: Claims such as emails are not listed here because without a ValidationTechnicalProfile when SelfAsserted-Input is shown to the user,
+              the user will be prompted for such claims. As a result, that claim is kept in the technical profiles that have ValidationTechnicalProfile -->
+                    </OutputClaims>
+                    <OutputClaimsTransformations>
+                        <OutputClaimsTransformation ReferenceId="IsTermsOfUseConsentRequired" />
+                        <OutputClaimsTransformation ReferenceId="GetNewUserAgreeToTermsOfUseConsentDateTime" />
+                    </OutputClaimsTransformations>
+                     <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+                </TechnicalProfile>
+                <TechnicalProfile Id="SelfAsserted-Input-ToU">
+                    <DisplayName>Self Asserted ToU</DisplayName>
+                    <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">api.selfasserted1.1</Item>
+                        <Item Key="TokenLifeTimeInSeconds">3600</Item>
+                        <Item Key="AllowGenerationOfClaimsWithNullValues">true</Item>
+                    </Metadata>
+                    <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                    </CryptographicKeys>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="extension_termsOfUseConsentChoice" DefaultValue="AgreeToTermsOfUseConsentNo" />
+                    </InputClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" DefaultValue="true" />
+                        <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentChoice" Required="true"/>
+                        <!-- Note: Claims such as emails are not listed here because without a ValidationTechnicalProfile when SelfAsserted-Input is shown to the user,
+              the user will be prompted for such claims. As a result, that claim is kept in the technical profiles that have ValidationTechnicalProfile -->
+                    </OutputClaims>
+                    <OutputClaimsTransformations>
+                        <OutputClaimsTransformation ReferenceId="GetNewUserAgreeToTermsOfUseConsentDateTime" />
+                    </OutputClaimsTransformations>
+                    <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Azure Active Directory</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="AAD-Common">
+                    <!-- Provide objectId and appId before using extension properties. -->
+                    <Metadata>
+                        <Item Key="ApplicationObjectId">insert objectId here</Item>
+                        <Item Key="ClientId">insert appId heree</Item>
+                    </Metadata>
+					<PersistedClaims>
+					    <PersistedClaim ClaimTypeReferenceId="displayName" />
+                        <PersistedClaim ClaimTypeReferenceId="givenName" />
+                        <PersistedClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" />
+					</PersistedClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="displayName" />
+                        <OutputClaim ClaimTypeReferenceId="givenName" />
+                        <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" />
+                    </OutputClaims>
+                    <OutputClaimsTransformations>
+                        <OutputClaimsTransformation ReferenceId="IsTermsOfUseConsentRequired" />
+                    </OutputClaimsTransformations>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+    </ClaimsProviders>
+    <UserJourneys>
+        <UserJourney Id="B2CSignUpOrSignInWithPasswordToU" NonInteractive="false">
+            <AssuranceLevel>LOA1</AssuranceLevel>
+            <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
+            <OrchestrationSteps>
+                <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
+                    <ClaimsProviderSelections>
+                        <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange" />
+                        <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+                    </ClaimsProviderSelections>
+                <ClaimsExchanges>
+                    <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+                </ClaimsExchanges>
+                </OrchestrationStep>
+				<!-- Check if the user has selected to sign in using one of the social providers -->
+				<OrchestrationStep Order="2" Type="ClaimsExchange">
+				  <Preconditions>
+					<Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+					  <Value>objectId</Value>
+					  <Action>SkipThisOrchestrationStep</Action>
+					</Precondition>
+				  </Preconditions>
+				  <ClaimsExchanges>
+					<ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH" />
+					<ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+				  </ClaimsExchanges>
+				</OrchestrationStep>   
+				<!-- For social IDP authentication, attempt to find the user account in the directory. -->
+				<OrchestrationStep Order="3" Type="ClaimsExchange">
+				  <Preconditions>
+					<Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+					  <Value>authenticationSource</Value>
+					  <Value>localAccountAuthentication</Value>
+					  <Action>SkipThisOrchestrationStep</Action>
+					</Precondition>
+				  </Preconditions>
+				  <ClaimsExchanges>
+					<ClaimsExchange Id="AADUserReadUsingAlternativeSecurityId" TechnicalProfileReferenceId="AAD-UserReadUsingAlternativeSecurityId-NoError" />
+				  </ClaimsExchanges>
+				</OrchestrationStep>
+				<!-- Show self-asserted page only if the directory does not have the user account already (i.e. we do not have an objectId). 
+				  This can only happen when authentication happened using a social IDP. If local account was created or authentication done
+				  using ESTS in step 2, then an user account must exist in the directory by this time. -->
+				<OrchestrationStep Order="4" Type="ClaimsExchange">
+				  <Preconditions>
+					<Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+					  <Value>objectId</Value>
+					  <Action>SkipThisOrchestrationStep</Action>
+					</Precondition>
+				  </Preconditions>
+				  <ClaimsExchanges>
+					<ClaimsExchange Id="SelfAsserted-Social" TechnicalProfileReferenceId="SelfAsserted-Social" />
+				  </ClaimsExchanges>
+				</OrchestrationStep>
+
+                <!-- This step reads any user attributes that we may not have received when authenticating using ESTS so they can be sent 
+                in the token. -->
+                <OrchestrationStep Order="5" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+                            <Value>authenticationSource</Value>
+                            <Value>socialIdpAuthentication</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>   
+				<!-- The previous step (SelfAsserted-Social) could have been skipped if there were no attributes to collect 
+					 from the user. So, in that case, create the user in the directory if one does not already exist 
+					 (verified using objectId which would be set from the last step if account was created in the directory. -->
+				<OrchestrationStep Order="6" Type="ClaimsExchange">
+				  <Preconditions>
+					<Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+					  <Value>objectId</Value>
+					  <Action>SkipThisOrchestrationStep</Action>
+					</Precondition>
+				  </Preconditions>
+				  <ClaimsExchanges>
+					<ClaimsExchange Id="AADUserWrite" TechnicalProfileReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
+				  </ClaimsExchanges>
+				</OrchestrationStep>				
+                <!-- If this is Sign in scenario, skipThisOrchestrationStep, else, compute IsTermsOfUseConsentRequired -->
+                <OrchestrationStep Order="7" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+                            <Value>objectId</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="ToUConsentDateExchange" TechnicalProfileReferenceId="SelfAsserted-Input-ToU-NewUser" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <!-- This step reads any user attributes that we may not have received when authenticating using ESTS so they can be sent
+					in the token. -->
+                <OrchestrationStep Order="8" Type="ClaimsExchange">
+                    <Preconditions>
+                        <!-- Add condition to not execute this step for sign up scenario based on newUser claim -->
+                        <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+                            <Value>localAccountUserCreatedInAAD</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+                            <Value>authenticationSource</Value>
+                            <Value>socialIdpAuthentication</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="AADUserReadWithObjectIdForSocial" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <!-- If termsOfUseConsentRequired, display the Terms Of Use Consent checkBox page  -->
+                <OrchestrationStep Order="9" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+                            <Value>termsOfUseConsentRequired</Value>
+                            <Value>False</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="ShowToUConsentPage" TechnicalProfileReferenceId="SelfAsserted-Input-ToU" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="10" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+                            <Value>termsOfUseConsentRequired</Value>
+                            <Value>False</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="AADUserWriteWithObjectId" TechnicalProfileReferenceId="AAD-UserWriteProfileUsingObjectId" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <!-- All good. Send claims to the RP :-) -->
+                <OrchestrationStep Order="11" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+              </OrchestrationSteps>
+            <ClientDefinition ReferenceId="DefaultWeb" />
+        </UserJourney>
+    </UserJourneys>
+    <RelyingParty>
+        <DefaultUserJourney ReferenceId="B2CSignUpOrSignInWithPasswordToU" />
+        <TechnicalProfile Id="PolicyProfile">
+            <DisplayName>PolicyProfile</DisplayName>
+            <Protocol Name="OpenIdConnect" />
+            <OutputClaims>
+                <OutputClaim ClaimTypeReferenceId="givenName" />
+                <OutputClaim ClaimTypeReferenceId="newUser" />                
+                <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub" />
+                <OutputClaim ClaimTypeReferenceId="identityProvider" />
+                <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" />
+            </OutputClaims>
+            <SubjectNamingInfo ClaimType="sub" />
+        </TechnicalProfile>
+    </RelyingParty>
+</TrustFrameworkPolicy>
