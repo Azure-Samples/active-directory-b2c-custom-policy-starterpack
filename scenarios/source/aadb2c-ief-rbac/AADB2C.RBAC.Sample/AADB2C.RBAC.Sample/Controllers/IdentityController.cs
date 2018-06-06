@@ -23,14 +23,6 @@ namespace AADB2C.RBAC.Sample.Controllers
             this.AppSettings = appSettings.Value;
         }
 
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { this.AppSettings.Tenant, this.AppSettings.ClientId, this.AppSettings.ClientSecret };
-        }
-
-
         [HttpPost(Name = "IsMemberOf")]
         public async Task<ActionResult> IsMemberOf()
         {
