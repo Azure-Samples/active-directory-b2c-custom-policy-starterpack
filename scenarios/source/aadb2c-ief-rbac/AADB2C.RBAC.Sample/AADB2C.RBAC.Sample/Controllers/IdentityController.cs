@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace AADB2C.RBAC.Sample.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class IdentityController : Controller
     {
         private readonly AppSettingsModel AppSettings;
