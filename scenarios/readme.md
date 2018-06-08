@@ -1,4 +1,5 @@
 ## Samples for several additional scenarios across identity providers, REST API, and user journey scenarios
+* [Password-less sign-in with email verification](source/aadb2c-ief-passwordless-email-verification) Passwordless authentication is a type of authentication where user doesn't need to sign-in with their password. This is commonly used in B2C scenarios where users use your application infrequently and tend to forget their password. This sample policy demonstrates how to allow user to sign-in, simply by providing and verifying the sign-in email address using OTP code (one time password). 
 
 * [Account linkage](source/aadb2c-ief-account-linkage) - With Azure AD B2C a user can have multiple identities. Sign-in with local account, and link a social account to an existing local account. So, both share the same account in Azure AD B2C. This Azure AD B2C sample demonstrates how to link existing local account to a social account. 
 
