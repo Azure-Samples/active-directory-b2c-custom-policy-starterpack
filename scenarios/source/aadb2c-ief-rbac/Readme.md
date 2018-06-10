@@ -1,14 +1,16 @@
-# Azure AD B2C: Use Role-Based Access Control
+# Azure AD B2C: Role-Based Access Control
 Role-Based Access Control (RBAC) enables fine-grained access management for your relying party applications. Using RBAC, you can grant only the amount of access that users need to perform their jobs in your application. This sample policy (along with the REST API service) demonstrates how to read user's groups, add the groups to JTW token and also prevent users from sign-in if they aren't members of one of predefined security groups.
+
+[![Role-Based Access Control video](media/link-to-youtube.png)](https://youtu.be/UEWIPn55bkA)
 
 ## Solution flow
 After user account has been created in Azure AD B2C directory. Administrator, from Azure portal, can add users as a member of to Azure AD security groups.
 
 During sign-in (with local account), IEF invokes REST API, sending the user `objectId` as input claim. The Rest API queries Azure AD Graph API to retrieve the list of group user is member of. The user's group list return back to B2C, as an output claim.
 
-Optionally, you can also send the `onlyMembersOf` claim type with a list of groups a user MSUT be member of. If a user is not member of one of the groups specified in `onlyMembersOf`, a user friendly error will present to the user.
+Optionally, you can also send the `onlyMembersOf` claim type with a list of groups a user MSUT be member of to the REST API. If a user is not member of one of the groups specified in `onlyMembersOf`, The REST API returns a user friendly error will present to the user.
 
-> Note:  This sample policy is based on [SocialAndLocalAccounts starter pack](../../../SocialAndLocalAccounts). All changes are marked with **Demo:** comment inside the policy XML files.
+> Note:  This sample policy is based on [LocalAccounts starter pack](../../../LocalAccounts). All changes are marked with **Demo:** comment inside the policy XML files.
 
 ## Run the solution
 To run the visual studio solution, you need:
@@ -26,7 +28,7 @@ All changes are located in `TrustFrameworkExtensions.xml` and `SignUpOrSignin.xm
 1. **groups** Claim type
 1. **onlyMembersOf** Claim type
 1. **RESTAddUserGroups** technical profile, points to the Rest API services. 
-1. **SelfAsserted-LocalAccountSignin-Email** technical profile - Adding `RESTAddUserGroups` validation technical profile.
+1. **SelfAsserted-LocalAccountSignin-Email** technical profile - Adding `REST-RBAC` validation technical profile.
 
 ### Visual studio solution
 1. **IdentityController** The custom policy calls this REST API

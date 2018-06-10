@@ -24,8 +24,7 @@
         <OutputClaim ClaimTypeReferenceId="surname" />
         <OutputClaim ClaimTypeReferenceId="email" />
         <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"/>
-        <OutputClaim ClaimTypeReferenceId="identityProvider" />
-
+        
         <!-- Demo: Output the groups claim time to relying party application -->
         <OutputClaim ClaimTypeReferenceId="groups" />
       </OutputClaims>
@@ -33,6 +32,10 @@
     </TechnicalProfile>
   </RelyingParty>
 </TrustFrameworkPolicy>
+
+
+
+
 
 
 
