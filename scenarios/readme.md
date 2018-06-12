@@ -7,3 +7,5 @@
 
 * [Social identity provider force email verification](source/aadb2c-ief-social-idp-force-email) - When sign-in with social account, in some scenarios,  the identity provider doesn't share the email address. This sample demonstrates how to force the user to provide and validate email address. 
 * [Role-Based Access Control (RBAC)](source/aadb2c-ief-rbac) - Enables fine-grained access management for your relying party applications. Using RBAC, you can grant only the amount of access that users need to perform their jobs in your application. This sample policy (along with the REST API service) demonstrates how to read user's groups, add the groups to JTW token and also prevent users from sign-in if they aren't members of one of predefined security groups.
+
+* [Terms Of Use Consent (ToU)](source/aadb2c-ief-terms-of-use) - Enables Terms of Use consent feature for your relying party applications. Using ToU, the user needs to accept/agree to your ToU text in order to proceed with the signup/login process. This sample policy demonstrates how to enable ToU consent for new user LocalAccount SignUp/existing user SignIn/SocialAccount SignUp/SocialAccount Sign in.
