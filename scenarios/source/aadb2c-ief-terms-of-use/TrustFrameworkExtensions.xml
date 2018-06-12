@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
+  PolicySchemaVersion="0.3.0.0" 
+  TenantId="yourtenant.onmicrosoft.com" 
+  PolicyId="B2C_1A_TrustFrameworkExtensions" 
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions">
+  
+  <BasePolicy>
+    <TenantId>yourtenant.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks>
+    <ClaimsSchema>
+      <ClaimType Id="extension_termsOfUseConsentChoice">
+        <DisplayName></DisplayName>
+        <DataType>string</DataType>
+        <UserInputType>CheckboxMultiSelect</UserInputType>
+        <Restriction>          
+          <Enumeration Text=" I agree to the Terms Of Service" Value="AgreeToTermsOfUseConsentYes" SelectByDefault="false" />
+        </Restriction>  
+      </ClaimType>
+      <ClaimType Id="extension_termsOfUseConsentDateTime">
+        <DisplayName>Terms of Use Consent Date Time</DisplayName>
+        <DataType>dateTime</DataType>
+        <AdminHelpText>Terms of Use Consent date time in UTC.</AdminHelpText>
+        <UserHelpText>Terms of Use Consent date time in UTC.</UserHelpText>
+      </ClaimType>	
+      <ClaimType Id="extension_termsOfUseConsentVersion">
+        <DisplayName>Terms of Use Consent Version</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Terms of Use Consent Version.</AdminHelpText>
+        <UserHelpText>Terms of Use Consent Version.</UserHelpText>
+      </ClaimType>	
+      <ClaimType Id="termsOfUseConsentRequired">
+        <DisplayName>Terms of Use Consent Required</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Boolean that specifies if Terms of Use Consent is required or not.</AdminHelpText>
+        <UserHelpText>Boolean that specifies if Terms of Use Consent is required or not</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="localAccountSignUpRequired">
+        <DisplayName>Local Account SignUp Required</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Boolean that specifies if LocalAccountSignUp is required or not.</AdminHelpText>
+        <UserHelpText>Boolean that specifies if LocalAccountSignUp is required or not</UserHelpText>
+      </ClaimType> 
+      <ClaimType Id="localAccountUserCreatedInAAD">
+        <DisplayName>Local Account User Created</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Boolean that specifies if Local Account user is created or not in AAD.</AdminHelpText>
+        <UserHelpText>Boolean that specifies if Local Account user is created or not in AAD.</UserHelpText>
+      </ClaimType>              
+    </ClaimsSchema>
+    <ClaimsTransformations>
+      <ClaimsTransformation Id="GetNewUserAgreeToTermsOfUseConsentDateTime" TransformationMethod="GetCurrentDateTime">
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" TransformationClaimType="currentDateTime" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="IsTermsOfUseConsentRequiredForDateTime" TransformationMethod="IsTermsOfUseConsentRequired">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" TransformationClaimType="termsOfUseConsentDateTime" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="termsOfUseTextUpdateDateTime" DataType="dateTime" Value="2018-01-30T23:03:45" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="termsOfUseConsentRequired" TransformationClaimType="result" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="GetEmptyTermsOfUseConsentVersionForNewUser" TransformationMethod="CreateStringClaim">
+        <InputParameters>
+            <InputParameter Id="value" DataType="string" Value=""/>
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentVersion" TransformationClaimType="createdClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="GetNewUserAgreeToTermsOfUseConsentVersion" TransformationMethod="CreateStringClaim">
+        <InputParameters>
+            <InputParameter Id="value" DataType="string" Value="V1"/>
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentVersion" TransformationClaimType="createdClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="IsTermsOfUseConsentRequiredForVersion" TransformationMethod="CompareClaimToValue">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="extension_termsOfUseConsentVersion" TransformationClaimType="inputClaim1" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="compareTo" DataType="string" Value="V1" />
+          <InputParameter Id="operator" DataType="string" Value="not equal" />
+          <InputParameter Id="ignoreCase" DataType="string" Value="true" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="termsOfUseConsentRequired" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+    </ClaimsTransformations>
+
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+
+    <ClaimsProvider>
+      <DisplayName>Facebook</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="Facebook-OAUTH">
+          <Metadata>
+            <Item Key="client_id">facebook_clientid</Item>
+            <Item Key="scope">email public_profile</Item>
+            <Item Key="ClaimsEndpoint">https://graph.facebook.com/me?fields=id,first_name,last_name,name,email</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+    <ClaimsProvider>
+      <DisplayName>Local Account SignIn</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="login-NonInteractive">
+          <Metadata>
+            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
+            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppID</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppId" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppID" />
+          </InputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+	<ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-Common">
+          <Metadata>
+            <Item Key="ClientId">insert appId here</Item>
+            <Item Key="ApplicationObjectId">insert objectId here</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+	
+  </ClaimsProviders>
+
+    <!--UserJourneys>
+	
+	</UserJourneys-->
+
+</TrustFrameworkPolicy>
