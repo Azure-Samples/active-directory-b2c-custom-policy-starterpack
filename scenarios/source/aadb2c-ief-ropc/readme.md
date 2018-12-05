@@ -1,0 +1,3 @@
+# Resource owner password credentials custom policy sample
+
+In Azure Active Directory (Azure AD) B2C, the resource owner password credentials (ROPC) flow is an OAuth standard authentication flow. In this flow, an application, also known as the relying party, exchanges valid credentials for tokens. The credentials include a user ID and password. The tokens returned are an ID token, access token, and a refresh token. Read more [here](https://docs.microsoft.com/en-us/azure/active-directory-b2c/ropc-custom)
