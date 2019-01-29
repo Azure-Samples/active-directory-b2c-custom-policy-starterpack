@@ -17,7 +17,7 @@ A collection of bugfixes, improvements to code, and additional feature support i
 ```
 --------------------------------------------
 
-# Pending Changes, will be committed once fully tested.
+# The following Change is incorporated into the latest version of starterpack (01/29/2019) - It remains here for historical purposes.
 06/26/2017 - Correction to SocialAndLocalAccountswMFA in TrustFrameworkBase.xml file.
 
 
