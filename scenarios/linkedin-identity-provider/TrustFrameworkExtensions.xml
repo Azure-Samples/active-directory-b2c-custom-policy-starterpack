@@ -20,6 +20,13 @@
         <DataType>string</DataType>
         <AdminHelpText>Stores the access token of the identity provider.</AdminHelpText>
       </ClaimType>
+
+      <ClaimType Id="nullStringClaim">
+        <DisplayName>nullClaim</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>A policy claim to store unuseful output values from ClaimsTransformations. This claim should not be used in a TechnicalProfiles.</AdminHelpText>
+        <UserHelpText>A policy claim to store unuseful output values from ClaimsTransformations. This claim should not be used in a TechnicalProfiles.</UserHelpText>
+      </ClaimType>
     </ClaimsSchema>
 
     <ClaimsTransformations>
