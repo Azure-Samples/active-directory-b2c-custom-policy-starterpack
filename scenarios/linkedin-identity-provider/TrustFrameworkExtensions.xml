@@ -134,7 +134,7 @@
 
   <UserJourneys>
 
-    <UserJourney Id="SignUpOrSignInUsingLinkedIn">
+    <UserJourney Id="SignUpOrSignInWithLinkedIn">
       <OrchestrationSteps>
       
         <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
