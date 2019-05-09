@@ -89,7 +89,7 @@
       </ClaimType>
 
       <!-- The claim types newPassword and reenterPassword are considered special, please do not change the names. 
-           The UI validates the the user correctly re-entered their password during account creation based on these 
+           The UI validates that the user correctly re-entered their password during account creation based on these 
            claim types.	  -->
       <ClaimType Id="newPassword">
         <DisplayName>New Password</DisplayName>
