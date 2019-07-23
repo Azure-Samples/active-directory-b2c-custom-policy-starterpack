@@ -4,6 +4,8 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 # Changes
 
+07/20/2019 - Updated policies to use the new Ocean Blue template
+
 01/29/2019 - Updates to Starterpack
 
 A collection of bugfixes, improvements to code, and additional feature support is included in this starterpack.  It is not necessary or encouraged for developers to change policies currently in production or in testing.  We do encourage the use of these new versions for all new projects.
