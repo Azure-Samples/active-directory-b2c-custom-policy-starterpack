@@ -261,7 +261,7 @@
 
       <!-- This content definition is to render an error page that displays unhandled errors. -->
       <ContentDefinition Id="api.error">
-        <LoadUri>~/tenant/default/exception.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
         <Metadata>
@@ -270,7 +270,7 @@
       </ContentDefinition>
 
       <ContentDefinition Id="api.idpselections">
-        <LoadUri>~/tenant/default/idpSelector.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
         <Metadata>
@@ -280,7 +280,7 @@
       </ContentDefinition>
 
       <ContentDefinition Id="api.idpselections.signup">
-        <LoadUri>~/tenant/default/idpSelector.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
         <Metadata>
@@ -290,7 +290,7 @@
       </ContentDefinition>
 
       <ContentDefinition Id="api.signuporsignin">
-        <LoadUri>~/tenant/default/unified.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:unifiedssp:1.0.0</DataUri>
         <Metadata>
@@ -299,7 +299,7 @@
       </ContentDefinition>
 
       <ContentDefinition Id="api.selfasserted">
-        <LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
         <Metadata>
@@ -308,7 +308,7 @@
       </ContentDefinition>
 
       <ContentDefinition Id="api.selfasserted.profileupdate">
-        <LoadUri>~/tenant/default/updateProfile.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
         <Metadata>
