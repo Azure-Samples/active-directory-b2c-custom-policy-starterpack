@@ -31,11 +31,6 @@
       </ClaimType>
       <ClaimType Id="signInNames.phoneNumber">
         <DataType>phoneNumber</DataType>
-          <DefaultPartnerClaimTypes>
-          <Protocol Name="OpenIdConnect" PartnerClaimType="phone" />
-        </DefaultPartnerClaimTypes>
-        <AdminHelpText>Phone number of the user</AdminHelpText>
-        <UserHelpText>Phone number that can be used to contact you.</UserHelpText>
       </ClaimType>
       <ClaimType Id="fullPhoneNumber">
         <DataType>string</DataType>
