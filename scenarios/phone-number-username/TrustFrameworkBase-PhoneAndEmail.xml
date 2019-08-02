@@ -5,8 +5,7 @@
   PolicySchemaVersion="0.3.0.0" 
   TenantId="yourtenant.onmicrosoft.com" 
   PolicyId="B2C_1A_TrustFrameworkBase_PhoneAndEmail" 
-  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_TrustFrameworkBase_PhoneAndEmail"
-  DeploymentMode="Development">
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_TrustFrameworkBase_PhoneAndEmail">
   <BuildingBlocks>
     <ClaimsSchema>
       <ClaimType Id="tenantId">
@@ -761,7 +760,7 @@
       </LocalizedResources>
     </Localization>
     <DisplayWidgets>
-      <DisplayWidget Id="phoneWidget" UserInterfaceWidgetType="PhoneVerificationWidget">
+      <DisplayWidget Id="phoneWidget" UserInterfaceWidgetType="VerificationWidget">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="phoneNumber" />
         </InputClaims>
@@ -774,12 +773,12 @@
           <OutputClaim ClaimTypeReferenceId="azureMfaSessionId" />
         </OutputClaims>
         <Actions>
-          <Action Id="SendSms">
+          <Action Id="SendCode">
             <ValidationClaimsExchange>
               <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AzureMfa-SendSms" />
             </ValidationClaimsExchange>
           </Action>
-          <Action Id="VerifySms">
+          <Action Id="VerifyCode">
             <ValidationClaimsExchange>
               <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AzureMfa-VerifySms" />
             </ValidationClaimsExchange>
