@@ -467,8 +467,8 @@
         <Parameters>
           <!--
               This regex will match a string with an optional leading "+", 4 to 16 digits, and any number of dashes, parentheses, and spaces, in any order.
-              It is intentionally overinclusive to allow the user to continue their journey with any input that might be an international or national phone number 
-              in any country with any customary punctuation/formatting. In this policy, the ConvertStringToPhoneNumberClaim claims converter will do the the final validation, 
+              It is intentionally overinclusive to allow the user to continue their journey with any input that might be an international or national phone number
+              in any country with any customary punctuation/formatting. In this policy, the ConvertStringToPhoneNumberClaim claims converter will do the the final validation,
               ignoring the dashes, parentheses, and spaces.
             -->
           <Parameter Id="RegularExpression">^\+?(?:[-()\s]*\d[-()\s]*){4,16}$</Parameter>
@@ -817,7 +817,7 @@
     </DisplayControls>
   </BuildingBlocks>
   <!--
-        A list of all the claim providers that can be used in the technical policies. If a claims provider is not listed 
+        A list of all the claim providers that can be used in the technical policies. If a claims provider is not listed
         in this section, then it cannot be used in a technical policy.
     -->
   <ClaimsProviders>
@@ -1414,6 +1414,7 @@
             <Item Key="response_types">id_token</Item>
             <Item Key="response_mode">query</Item>
             <Item Key="scope">email openid</Item>
+            <Item Key="grant_type">password</Item>
             <!-- Policy Engine Clients -->
             <Item Key="UsePolicyInRedirectUri">false</Item>
             <Item Key="HttpBinding">POST</Item>
