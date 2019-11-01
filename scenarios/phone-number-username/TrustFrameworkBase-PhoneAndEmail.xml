@@ -31,9 +31,6 @@
       <ClaimType Id="signInNames.phoneNumber">
         <DataType>phoneNumber</DataType>
       </ClaimType>
-      <ClaimType Id="fullPhoneNumber">
-        <DataType>string</DataType>
-      </ClaimType>
       <ClaimType Id="signInNames.emailAddress">
         <DisplayName>Email Address</DisplayName>
         <DataType>string</DataType>
@@ -147,239 +144,234 @@
         <UserHelpText>Enter Country</UserHelpText>
         <UserInputType>DropdownSingleSelect</UserInputType>
         <Restriction>
-          <Enumeration Text="Albania(+355)" Value="+355" />
-          <Enumeration Text="Algeria(+213)" Value="+213" />
-          <Enumeration Text="American Samoa(+1684)" Value="+1684" />
-          <Enumeration Text="Andorra(+376)" Value="+376" />
-          <Enumeration Text="Angola(+244)" Value="+244" />
-          <Enumeration Text="Anguilla(+1264)" Value="+1264" />
-          <Enumeration Text="Antarctica(+672)" Value="+672" />
-          <Enumeration Text="Antigua and Barbuda(+1268)" Value="+1268" />
-          <Enumeration Text="Argentina(+54)" Value="+54" />
-          <Enumeration Text="Armenia(+374)" Value="+374" />
-          <Enumeration Text="Aruba(+297)" Value="+297" />
-          <Enumeration Text="Ascension Island (+247)" Value="+247" />
-          <Enumeration Text="Australia(+61)" Value="+61" />
-          <Enumeration Text="Austria(+43)" Value="+43" />
-          <Enumeration Text="Azerbaijan(+994)" Value="+994" />
-          <Enumeration Text="Bahamas(+1242)" Value="+1242" />
-          <Enumeration Text="Bahrain(+973)" Value="+973" />
-          <Enumeration Text="Bangladesh(+880)" Value="+880" />
-          <Enumeration Text="Barbados(+1246)" Value="+1246" />
-          <Enumeration Text="Belarus(+375)" Value="+375" />
-          <Enumeration Text="Belgium(+32)" Value="+32" />
-          <Enumeration Text="Belize(+501)" Value="+501" />
-          <Enumeration Text="Benin(+229)" Value="+229" />
-          <Enumeration Text="Bermuda(+1441)" Value="+1441" />
-          <Enumeration Text="Bhutan(+975)" Value="+975" />
-          <Enumeration Text="Bolivia(+591)" Value="+591" />
-          <Enumeration Text="Bosnia and Herzegovina(+387)" Value="+387" />
-          <Enumeration Text="Botswana(+267)" Value="+267" />
-          <Enumeration Text="Brazil(+55)" Value="+55" />
-          <Enumeration Text="British Virgin Islands (+1284)" Value="+1284" />
-          <Enumeration Text="Brunei Darussalam(+673)" Value="+673" />
-          <Enumeration Text="Bulgaria(+359)" Value="+359" />
-          <Enumeration Text="Burkina Faso(+226)" Value="+226" />
-          <Enumeration Text="Burundi(+257)" Value="+257" />
-          <Enumeration Text="Cambodia(+855)" Value="+855" />
-          <Enumeration Text="Cameroon(+237)" Value="+237" />
-          <Enumeration Text="Canada(+1)" Value="+1" />
-          <Enumeration Text="Cape Verde(+238)" Value="+238" />
-          <Enumeration Text="Cayman Islands(+1345)" Value="+1345" />
-          <Enumeration Text="Central African Republic(+236)" Value="+236" />
-          <Enumeration Text="Chad(+235)" Value="+235" />
-          <Enumeration Text="Chile(+56)" Value="+56" />
-          <Enumeration Text="China(+86)" Value="+86" />
-          <Enumeration Text="Colombia(+57)" Value="+57" />
-          <Enumeration Text="Comoros(+269)" Value="+269" />
-          <Enumeration Text="Congo(+242)" Value="+242" />
-          <Enumeration Text="Cook Islands(+682)" Value="+682" />
-          <Enumeration Text="Costa Rica(+506)" Value="+506" />
-          <Enumeration Text="Côte d'Ivoire(+225)" Value="+225" />
-          <Enumeration Text="Croatia(+385)" Value="+385" />
-          <Enumeration Text="Cuba(+53)" Value="+53" />
-          <Enumeration Text="Cyprus(+357)" Value="+357" />
-          <Enumeration Text="Czech Republic(+420)" Value="+420" />
-          <Enumeration Text="Congo (+243)" Value="+243" />
-          <Enumeration Text="Denmark(+45)" Value="+45" />
-          <Enumeration Text="Diego Garcia (+246)" Value="+246" />
-          <Enumeration Text="Djibouti(+253)" Value="+253" />
-          <Enumeration Text="Dominica(+1767)" Value="+1767" />
-          <Enumeration Text="Dominican Republic(+1809)" Value="+1809" />
-          <Enumeration Text="Dominican Republic(+1829)" Value="+1829" />
-          <Enumeration Text="Dominican Republic(+1849)" Value="+1849" />
-          <Enumeration Text="Timor-Leste(+670)" Value="+670" />
-          <Enumeration Text="Ecuador(+593)" Value="+593" />
-          <Enumeration Text="Egypt(+20)" Value="+20" />
-          <Enumeration Text="El Salvador(+503)" Value="+503" />
-          <Enumeration Text="Equatorial Guinea(+240)" Value="+240" />
-          <Enumeration Text="Eritrea(+291)" Value="+291" />
-          <Enumeration Text="Estonia(+372)" Value="+372" />
-          <Enumeration Text="Ethiopia(+251)" Value="+251" />
-          <Enumeration Text="Falkland Islands (Malvinas)(+500)" Value="+500" />
-          <Enumeration Text="Faroe Islands(+298)" Value="+298" />
-          <Enumeration Text="Fiji(+679)" Value="+679" />
-          <Enumeration Text="Finland(+358)" Value="+358" />
-          <Enumeration Text="France(+33)" Value="+33" />
-          <Enumeration Text="French Guiana(+594)" Value="+594" />
-          <Enumeration Text="French Polynesia(+689)" Value="+689" />
-          <Enumeration Text="Gabon(+241)" Value="+241" />
-          <Enumeration Text="Gambia(+220)" Value="+220" />
-          <Enumeration Text="Georgia(+995)" Value="+995" />
-          <Enumeration Text="Germany(+49)" Value="+49" />
-          <Enumeration Text="Ghana(+233)" Value="+233" />
-          <Enumeration Text="Gibraltar(+350)" Value="+350" />
-          <Enumeration Text="Greece(+30)" Value="+30" />
-          <Enumeration Text="Greenland(+299)" Value="+299" />
-          <Enumeration Text="Grenada(+1473)" Value="+1473" />
-          <Enumeration Text="Guadeloupe(+590)" Value="+590" />
-          <Enumeration Text="Guam(+1671)" Value="+1671" />
-          <Enumeration Text="Guatemala(+502)" Value="+502" />
-          <Enumeration Text="Guinea(+224)" Value="+224" />
-          <Enumeration Text="Guinea-Bissau(+245)" Value="+245" />
-          <Enumeration Text="Guyana(+592)" Value="+592" />
-          <Enumeration Text="Haiti(+509)" Value="+509" />
-          <Enumeration Text="Honduras(+504)" Value="+504" />
-          <Enumeration Text="Hong Kong(+852)" Value="+852" />
-          <Enumeration Text="Hungary(+36)" Value="+36" />
-          <Enumeration Text="Iceland(+354)" Value="+354" />
-          <Enumeration Text="India(+91)" Value="+91" />
-          <Enumeration Text="Indonesia(+62)" Value="+62" />
-          <Enumeration Text="Iran(+98)" Value="+98" />
-          <Enumeration Text="Iraq(+964)" Value="+964" />
-          <Enumeration Text="Ireland(+353)" Value="+353" />
-          <Enumeration Text="Israel(+972)" Value="+972" />
-          <Enumeration Text="Italy(+39)" Value="+39" />
-          <Enumeration Text="Jamaica(+1876)" Value="+1876" />
-          <Enumeration Text="Jamaica(+1658)" Value="+1658" />
-          <Enumeration Text="Japan(+81)" Value="+81" />
-          <Enumeration Text="Jordan(+962)" Value="+962" />
-          <Enumeration Text="Kazakhstan(+7)" Value="+7" />
-          <Enumeration Text="Kenya(+254)" Value="+254" />
-          <Enumeration Text="Kiribati(+686)" Value="+686" />
-          <Enumeration Text="Kuwait(+965)" Value="+965" />
-          <Enumeration Text="Kyrgyzstan(+996)" Value="+996" />
-          <Enumeration Text="Lao People's Democratic Republic(+856)" Value="+856" />
-          <Enumeration Text="Latvia(+371)" Value="+371" />
-          <Enumeration Text="Lebanon(+961)" Value="+961" />
-          <Enumeration Text="Lesotho(+266)" Value="+266" />
-          <Enumeration Text="Liberia(+231)" Value="+231" />
-          <Enumeration Text="Libya(+218)" Value="+218" />
-          <Enumeration Text="Liechtenstein(+423)" Value="+423" />
-          <Enumeration Text="Lithuania(+370)" Value="+370" />
-          <Enumeration Text="Luxembourg(+352)" Value="+352" />
-          <Enumeration Text="Macao(+853)" Value="+853" />
-          <Enumeration Text="North Macedonia, Republic of (+389)" Value="+389" />
-          <Enumeration Text="Madagascar(+261)" Value="+261" />
-          <Enumeration Text="Malawi(+265)" Value="+265" />
-          <Enumeration Text="Malaysia(+60)" Value="+60" />
-          <Enumeration Text="Maldives(+960)" Value="+960" />
-          <Enumeration Text="Mali(+223)" Value="+223" />
-          <Enumeration Text="Malta(+356)" Value="+356" />
-          <Enumeration Text="Marshall Islands(+692)" Value="+692" />
-          <Enumeration Text="Martinique(+596)" Value="+596" />
-          <Enumeration Text="Mauritania(+222)" Value="+222" />
-          <Enumeration Text="Mauritius(+230)" Value="+230" />
-          <Enumeration Text="Mexico(+52)" Value="+52" />
-          <Enumeration Text="Micronesia(+691)" Value="+691" />
-          <Enumeration Text="Moldova, Republic of(+373)" Value="+373" />
-          <Enumeration Text="Monaco(+377)" Value="+377" />
-          <Enumeration Text="Mongolia(+976)" Value="+976" />
-          <Enumeration Text="Montenegro(+382)" Value="+382" />
-          <Enumeration Text="Montserrat(+1664)" Value="+1664" />
-          <Enumeration Text="Morocco(+212)" Value="+212" />
-          <Enumeration Text="Mozambique(+258)" Value="+258" />
-          <Enumeration Text="Myanmar(+95)" Value="+95" />
-          <Enumeration Text="Namibia(+264)" Value="+264" />
-          <Enumeration Text="Nauru(+674)" Value="+674" />
-          <Enumeration Text="Nepal(+977)" Value="+977" />
-          <Enumeration Text="Netherlands(+31)" Value="+31" />
-          <Enumeration Text="Netherlands Antilles(+599)" Value="+599" />
-          <Enumeration Text="New Caledonia(+687)" Value="+687" />
-          <Enumeration Text="New Zealand(+64)" Value="+64" />
-          <Enumeration Text="Nicaragua(+505)" Value="+505" />
-          <Enumeration Text="Niger(+227)" Value="+227" />
-          <Enumeration Text="Nigeria(+234)" Value="+234" />
-          <Enumeration Text="Niue(+683)" Value="+683" />
-          <Enumeration Text="Korea, Democratic People's Republic of (North Korea)(+850)" Value="+850" />
-          <Enumeration Text="Norway(+47)" Value="+47" />
-          <Enumeration Text="Oman(+968)" Value="+968" />
-          <Enumeration Text="Pakistan(+92)" Value="+92" />
-          <Enumeration Text="Palau(+680)" Value="+680" />
-          <Enumeration Text="Palestine, State of(+970)" Value="+970" />
-          <Enumeration Text="Panama(+507)" Value="+507" />
-          <Enumeration Text="Papua New Guinea(+675)" Value="+675" />
-          <Enumeration Text="Paraguay(+595)" Value="+595" />
-          <Enumeration Text="Peru(+51)" Value="+51" />
-          <Enumeration Text="Philippines(+63)" Value="+63" />
-          <Enumeration Text="Poland(+48)" Value="+48" />
-          <Enumeration Text="Portugal(+351)" Value="+351" />
-          <Enumeration Text="Puerto Rico(+1787)" Value="+1787" />
-          <Enumeration Text="Puerto Rico(+1939)" Value="+1939" />
-          <Enumeration Text="Qatar(+974)" Value="+974" />
-          <Enumeration Text="Réunion(+262)" Value="+262" />
-          <Enumeration Text="Romania(+40)" Value="+40" />
-          <Enumeration Text="Russian Federation(+7)" Value="+7" />
-          <Enumeration Text="Rwanda(+250)" Value="+250" />
-          <Enumeration Text="Saint Helena, Ascension and Tristan da Cunha(+290)" Value="+290" />
-          <Enumeration Text="Saint Kitts and Nevis(+1869)" Value="+1869" />
-          <Enumeration Text="Saint Lucia(+1758)" Value="+1758" />
-          <Enumeration Text="Saint Pierre and Miquelon(+508)" Value="+508" />
-          <Enumeration Text="Saint Vincent and the Grenadines(+1784)" Value="+1784" />
-          <Enumeration Text="Northern Mariana Islands(CNMI)(+1670)" Value="+1670" />
-          <Enumeration Text="Samoa(+685)" Value="+685" />
-          <Enumeration Text="San Marino(+378)" Value="+378" />
-          <Enumeration Text="Sao Tome and Principe(+239)" Value="+239" />
-          <Enumeration Text="Saudi Arabia(+966)" Value="+966" />
-          <Enumeration Text="Senegal(+221)" Value="+221" />
-          <Enumeration Text="Serbia(+381)" Value="+381" />
-          <Enumeration Text="Seychelles(+248)" Value="+248" />
-          <Enumeration Text="Sierra Leone(+232)" Value="+232" />
-          <Enumeration Text="Singapore(+65)" Value="+65" />
-          <Enumeration Text="Slovakia(+421)" Value="+421" />
-          <Enumeration Text="Slovenia(+386)" Value="+386" />
-          <Enumeration Text="Solomon Islands(+677)" Value="+677" />
-          <Enumeration Text="Somalia(+252)" Value="+252" />
-          <Enumeration Text="South Africa(+27)" Value="+27" />
-          <Enumeration Text="Korea, Republic of(+82)" Value="+82" />
-          <Enumeration Text="South Sudan(+211)" Value="+211" />
-          <Enumeration Text="Spain(+34)" Value="+34" />
-          <Enumeration Text="Sri Lanka(+94)" Value="+94" />
-          <Enumeration Text="Sudan(+249)" Value="+249" />
-          <Enumeration Text="Suriname(+597)" Value="+597" />
-          <Enumeration Text="Swaziland(+268)" Value="+268" />
-          <Enumeration Text="Sweden(+46)" Value="+46" />
-          <Enumeration Text="Switzerland(+41)" Value="+41" />
-          <Enumeration Text="Syrian Arab Republic(+963)" Value="+963" />
-          <Enumeration Text="Taiwan, Province of China(+886)" Value="+886" />
-          <Enumeration Text="Tajikistan(+992)" Value="+992" />
-          <Enumeration Text="Tanzania, United Republic of(+255)" Value="+255" />
-          <Enumeration Text="Thailand(+66)" Value="+66" />
-          <Enumeration Text="Togo(+228)" Value="+228" />
-          <Enumeration Text="Tokelau(+690)" Value="+690" />
-          <Enumeration Text="Tonga(+676)" Value="+676" />
-          <Enumeration Text="Trinidad and Tobago(+1868)" Value="+1868" />
-          <Enumeration Text="Tunisia(+216)" Value="+216" />
-          <Enumeration Text="Turkey(+90)" Value="+90" />
-          <Enumeration Text="Turkmenistan(+993)" Value="+993" />
-          <Enumeration Text="Turks and Caicos Islands(+1649)" Value="+1649" />
-          <Enumeration Text="Tuvalu(+688)" Value="+688" />
-          <Enumeration Text="Uganda(+256)" Value="+256" />
-          <Enumeration Text="Ukraine(+380)" Value="+380" />
-          <Enumeration Text="United Arab Emirates(+971)" Value="+971" />
-          <Enumeration Text="United Kingdom(+44)" Value="+44" />
-          <Enumeration Text="United States(+1)" Value="+1" />
-          <Enumeration Text="Virgin Islands, U.S.(+1340)" Value="+1340" />
-          <Enumeration Text="Uruguay(+598)" Value="+598" />
-          <Enumeration Text="Uzbekistan(+998)" Value="+998" />
-          <Enumeration Text="Vanuatu(+678)" Value="+678" />
-          <Enumeration Text="Holy See (Vatican City State)(+379)" Value="+379" />
-          <Enumeration Text="Venezuela, Bolivarian Republic of(+58)" Value="+58" />
-          <Enumeration Text="Viet Nam(+84)" Value="+84" />
-          <Enumeration Text="Wallis and Futuna(+681)" Value="+681" />
-          <Enumeration Text="Yemen(+967)" Value="+967" />
-          <Enumeration Text="Zambia(+260)" Value="+260" />
-          <Enumeration Text="Zimbabwe(+263)" Value="+263" />
+          <Enumeration Text="Albania(+355)" Value="AL" />
+          <Enumeration Text="Algeria(+213)" Value="DZ" />
+          <Enumeration Text="American Samoa(+1684)" Value="AS" />
+          <Enumeration Text="Andorra(+376)" Value="AD" />
+          <Enumeration Text="Angola(+244)" Value="AO" />
+          <Enumeration Text="Anguilla(+1264)" Value="AI" />
+          <Enumeration Text="Antarctica(+672)" Value="AQ" />
+          <Enumeration Text="Antigua and Barbuda(+1268)" Value="AG" />
+          <Enumeration Text="Argentina(+54)" Value="AR" />
+          <Enumeration Text="Armenia(+374)" Value="AM" />
+          <Enumeration Text="Aruba(+297)" Value="AW" />
+          <Enumeration Text="Australia(+61)" Value="AU" />
+          <Enumeration Text="Austria(+43)" Value="AT" />
+          <Enumeration Text="Azerbaijan(+994)" Value="AZ" />
+          <Enumeration Text="Bahamas(+1242)" Value="BS" />
+          <Enumeration Text="Bahrain(+973)" Value="BH" />
+          <Enumeration Text="Bangladesh(+880)" Value="BD" />
+          <Enumeration Text="Barbados(+1246)" Value="BB" />
+          <Enumeration Text="Belarus(+375)" Value="BY" />
+          <Enumeration Text="Belgium(+32)" Value="BE" />
+          <Enumeration Text="Belize(+501)" Value="BZ" />
+          <Enumeration Text="Benin(+229)" Value="BJ" />
+          <Enumeration Text="Bermuda(+1441)" Value="BM" />
+          <Enumeration Text="Bhutan(+975)" Value="BT" />
+          <Enumeration Text="Bolivia(+591)" Value="BO" />
+          <Enumeration Text="Bonaire, Sint Eustatius and Saba(+599)" Value="BQ" />
+          <Enumeration Text="Bosnia and Herzegovina(+387)" Value="BA" />
+          <Enumeration Text="Botswana(+267)" Value="BW" />
+          <Enumeration Text="Brazil(+55)" Value="BR" />
+          <Enumeration Text="British Virgin Islands (+1284)" Value="VG" />
+          <Enumeration Text="Brunei Darussalam(+673)" Value="BN" />
+          <Enumeration Text="Bulgaria(+359)" Value="BG" />
+          <Enumeration Text="Burkina Faso(+226)" Value="BF" />
+          <Enumeration Text="Burundi(+257)" Value="BI" />
+          <Enumeration Text="Cambodia(+855)" Value="KH" />
+          <Enumeration Text="Cameroon(+237)" Value="CM" />
+          <Enumeration Text="Canada(+1)" Value="CA" />
+          <Enumeration Text="Cape Verde(+238)" Value="CV" />
+          <Enumeration Text="Cayman Islands(+1345)" Value="KY" />
+          <Enumeration Text="Central African Republic(+236)" Value="CF" />
+          <Enumeration Text="Chad(+235)" Value="TD" />
+          <Enumeration Text="Chile(+56)" Value="CL" />
+          <Enumeration Text="China(+86)" Value="CN" />
+          <Enumeration Text="Colombia(+57)" Value="CO" />
+          <Enumeration Text="Comoros(+269)" Value="KM" />
+          <Enumeration Text="Congo(+242)" Value="CG" />
+          <Enumeration Text="Cook Islands(+682)" Value="CK" />
+          <Enumeration Text="Costa Rica(+506)" Value="CR" />
+          <Enumeration Text="Côte d'Ivoire(+225)" Value="CI" />
+          <Enumeration Text="Croatia(+385)" Value="HR" />
+          <Enumeration Text="Cuba(+53)" Value="CU" />
+          <Enumeration Text="Curaçao(+599)" Value="CZ" />
+          <Enumeration Text="Cyprus(+357)" Value="CW" />
+          <Enumeration Text="Czech Republic(+420)" Value="CZ" />
+          <Enumeration Text="Congo (+243)" Value="CD" />
+          <Enumeration Text="Denmark(+45)" Value="DK" />
+          <Enumeration Text="Djibouti(+253)" Value="DJ" />
+          <Enumeration Text="Dominica(+1767)" Value="DM" />
+          <Enumeration Text="Dominican Republic(+1)" Value="DO" />
+          <Enumeration Text="Timor-Leste(+670)" Value="TL" />
+          <Enumeration Text="Ecuador(+593)" Value="EC" />
+          <Enumeration Text="Egypt(+20)" Value="EG" />
+          <Enumeration Text="El Salvador(+503)" Value="SV" />
+          <Enumeration Text="Equatorial Guinea(+240)" Value="GQ" />
+          <Enumeration Text="Eritrea(+291)" Value="ER" />
+          <Enumeration Text="Estonia(+372)" Value="EE" />
+          <Enumeration Text="Ethiopia(+251)" Value="ET" />
+          <Enumeration Text="Falkland Islands (Malvinas)(+500)" Value="FK" />
+          <Enumeration Text="Faroe Islands(+298)" Value="FO" />
+          <Enumeration Text="Fiji(+679)" Value="FJ" />
+          <Enumeration Text="Finland(+358)" Value="FI" />
+          <Enumeration Text="France(+33)" Value="FR" />
+          <Enumeration Text="French Guiana(+594)" Value="GF" />
+          <Enumeration Text="French Polynesia(+689)" Value="PF" />
+          <Enumeration Text="Gabon(+241)" Value="GA" />
+          <Enumeration Text="Gambia(+220)" Value="GM" />
+          <Enumeration Text="Georgia(+995)" Value="GE" />
+          <Enumeration Text="Germany(+49)" Value="DE" />
+          <Enumeration Text="Ghana(+233)" Value="GH" />
+          <Enumeration Text="Gibraltar(+350)" Value="GI" />
+          <Enumeration Text="Greece(+30)" Value="GR" />
+          <Enumeration Text="Greenland(+299)" Value="GL" />
+          <Enumeration Text="Grenada(+1473)" Value="GD" />
+          <Enumeration Text="Guadeloupe(+590)" Value="GP" />
+          <Enumeration Text="Guam(+1671)" Value="GU" />
+          <Enumeration Text="Guatemala(+502)" Value="GT" />
+          <Enumeration Text="Guinea(+224)" Value="GN" />
+          <Enumeration Text="Guinea-Bissau(+245)" Value="GW" />
+          <Enumeration Text="Guyana(+592)" Value="GY" />
+          <Enumeration Text="Haiti(+509)" Value="HT" />
+          <Enumeration Text="Honduras(+504)" Value="HN" />
+          <Enumeration Text="Hong Kong(+852)" Value="HK" />
+          <Enumeration Text="Hungary(+36)" Value="HU" />
+          <Enumeration Text="Iceland(+354)" Value="IS" />
+          <Enumeration Text="India(+91)" Value="IN" />
+          <Enumeration Text="Indonesia(+62)" Value="ID" />
+          <Enumeration Text="Iran(+98)" Value="IR" />
+          <Enumeration Text="Iraq(+964)" Value="IQ" />
+          <Enumeration Text="Ireland(+353)" Value="IE" />
+          <Enumeration Text="Israel(+972)" Value="IL" />
+          <Enumeration Text="Italy(+39)" Value="IT" />
+          <Enumeration Text="Jamaica(+1)" Value="JM" />
+          <Enumeration Text="Japan(+81)" Value="JP" />
+          <Enumeration Text="Jordan(+962)" Value="JO" />
+          <Enumeration Text="Kazakhstan(+7)" Value="KZ" />
+          <Enumeration Text="Kenya(+254)" Value="KE" />
+          <Enumeration Text="Kiribati(+686)" Value="KI" />
+          <Enumeration Text="Kuwait(+965)" Value="KW" />
+          <Enumeration Text="Kyrgyzstan(+996)" Value="KG" />
+          <Enumeration Text="Lao People's Democratic Republic(+856)" Value="LA" />
+          <Enumeration Text="Latvia(+371)" Value="LV" />
+          <Enumeration Text="Lebanon(+961)" Value="LB" />
+          <Enumeration Text="Lesotho(+266)" Value="LS" />
+          <Enumeration Text="Liberia(+231)" Value="LR" />
+          <Enumeration Text="Libya(+218)" Value="LY" />
+          <Enumeration Text="Liechtenstein(+423)" Value="LI" />
+          <Enumeration Text="Lithuania(+370)" Value="LT" />
+          <Enumeration Text="Luxembourg(+352)" Value="LU" />
+          <Enumeration Text="Macao(+853)" Value="MO" />
+          <Enumeration Text="North Macedonia, Republic of (+389)" Value="MK" />
+          <Enumeration Text="Madagascar(+261)" Value="MG" />
+          <Enumeration Text="Malawi(+265)" Value="MW" />
+          <Enumeration Text="Malaysia(+60)" Value="MY" />
+          <Enumeration Text="Maldives(+960)" Value="MV" />
+          <Enumeration Text="Mali(+223)" Value="ML" />
+          <Enumeration Text="Malta(+356)" Value="MT" />
+          <Enumeration Text="Marshall Islands(+692)" Value="MH" />
+          <Enumeration Text="Martinique(+596)" Value="MQ" />
+          <Enumeration Text="Mauritania(+222)" Value="MR" />
+          <Enumeration Text="Mauritius(+230)" Value="MU" />
+          <Enumeration Text="Mexico(+52)" Value="MX" />
+          <Enumeration Text="Micronesia(+691)" Value="FM" />
+          <Enumeration Text="Moldova, Republic of(+373)" Value="MD" />
+          <Enumeration Text="Monaco(+377)" Value="MC" />
+          <Enumeration Text="Mongolia(+976)" Value="MN" />
+          <Enumeration Text="Montenegro(+382)" Value="ME" />
+          <Enumeration Text="Montserrat(+1664)" Value="MS" />
+          <Enumeration Text="Morocco(+212)" Value="MA" />
+          <Enumeration Text="Mozambique(+258)" Value="MZ" />
+          <Enumeration Text="Myanmar(+95)" Value="MM" />
+          <Enumeration Text="Namibia(+264)" Value="NA" />
+          <Enumeration Text="Nauru(+674)" Value="NR" />
+          <Enumeration Text="Nepal(+977)" Value="NP" />
+          <Enumeration Text="Netherlands(+31)" Value="NL" />
+          <Enumeration Text="New Caledonia(+687)" Value="NC" />
+          <Enumeration Text="New Zealand(+64)" Value="NZ" />
+          <Enumeration Text="Nicaragua(+505)" Value="NI" />
+          <Enumeration Text="Niger(+227)" Value="NE" />
+          <Enumeration Text="Nigeria(+234)" Value="NG" />
+          <Enumeration Text="Niue(+683)" Value="NU" />
+          <Enumeration Text="Korea, Democratic People's Republic of (North Korea)(+850)" Value="KP" />
+          <Enumeration Text="Norway(+47)" Value="NO" />
+          <Enumeration Text="Oman(+968)" Value="OM" />
+          <Enumeration Text="Pakistan(+92)" Value="PK" />
+          <Enumeration Text="Palau(+680)" Value="PW" />
+          <Enumeration Text="Palestine, State of(+970)" Value="PS" />
+          <Enumeration Text="Panama(+507)" Value="PA" />
+          <Enumeration Text="Papua New Guinea(+675)" Value="PG" />
+          <Enumeration Text="Paraguay(+595)" Value="PY" />
+          <Enumeration Text="Peru(+51)" Value="PE" />
+          <Enumeration Text="Philippines(+63)" Value="PH" />
+          <Enumeration Text="Poland(+48)" Value="PL" />
+          <Enumeration Text="Portugal(+351)" Value="PT" />
+          <Enumeration Text="Puerto Rico(+1)" Value="PR" />
+          <Enumeration Text="Qatar(+974)" Value="QA" />
+          <Enumeration Text="Réunion(+262)" Value="RE" />
+          <Enumeration Text="Romania(+40)" Value="RO" />
+          <Enumeration Text="Russian Federation(+7)" Value="RU" />
+          <Enumeration Text="Rwanda(+250)" Value="RW" />
+          <Enumeration Text="Saint Helena, Ascension and Tristan da Cunha(+290)" Value="SH" />
+          <Enumeration Text="Saint Kitts and Nevis(+1869)" Value="KN" />
+          <Enumeration Text="Saint Lucia(+1758)" Value="LC" />
+          <Enumeration Text="Saint Pierre and Miquelon(+508)" Value="PM" />
+          <Enumeration Text="Saint Vincent and the Grenadines(+1784)" Value="VC" />
+          <Enumeration Text="Northern Mariana Islands(CNMI)(+1670)" Value="MP" />
+          <Enumeration Text="Samoa(+685)" Value="WS" />
+          <Enumeration Text="San Marino(+378)" Value="SM" />
+          <Enumeration Text="Sao Tome and Principe(+239)" Value="ST" />
+          <Enumeration Text="Saudi Arabia(+966)" Value="SA" />
+          <Enumeration Text="Senegal(+221)" Value="SN" />
+          <Enumeration Text="Serbia(+381)" Value="RS" />
+          <Enumeration Text="Seychelles(+248)" Value="SC" />
+          <Enumeration Text="Sierra Leone(+232)" Value="SL" />
+          <Enumeration Text="Singapore(+65)" Value="SG" />
+          <Enumeration Text="Slovakia(+421)" Value="SK" />
+          <Enumeration Text="Slovenia(+386)" Value="SI" />
+          <Enumeration Text="Solomon Islands(+677)" Value="SB" />
+          <Enumeration Text="Somalia(+252)" Value="SO" />
+          <Enumeration Text="South Africa(+27)" Value="ZA" />
+          <Enumeration Text="Korea, Republic of(+82)" Value="KR" />
+          <Enumeration Text="South Sudan(+211)" Value="SS" />
+          <Enumeration Text="Spain(+34)" Value="ES" />
+          <Enumeration Text="Sri Lanka(+94)" Value="LK" />
+          <Enumeration Text="Sudan(+249)" Value="SD" />
+          <Enumeration Text="Suriname(+597)" Value="SR" />
+          <Enumeration Text="Swaziland(+268)" Value="SZ" />
+          <Enumeration Text="Sweden(+46)" Value="SE" />
+          <Enumeration Text="Switzerland(+41)" Value="CH" />
+          <Enumeration Text="Syrian Arab Republic(+963)" Value="SY" />
+          <Enumeration Text="Taiwan, Province of China(+886)" Value="TW" />
+          <Enumeration Text="Tajikistan(+992)" Value="TJ" />
+          <Enumeration Text="Tanzania, United Republic of(+255)" Value="TZ" />
+          <Enumeration Text="Thailand(+66)" Value="TH" />
+          <Enumeration Text="Togo(+228)" Value="TG" />
+          <Enumeration Text="Tokelau(+690)" Value="TK" />
+          <Enumeration Text="Tonga(+676)" Value="TO" />
+          <Enumeration Text="Trinidad and Tobago(+1868)" Value="TT" />
+          <Enumeration Text="Tunisia(+216)" Value="TN" />
+          <Enumeration Text="Turkey(+90)" Value="TR" />
+          <Enumeration Text="Turkmenistan(+993)" Value="TM" />
+          <Enumeration Text="Turks and Caicos Islands(+1649)" Value="TC" />
+          <Enumeration Text="Tuvalu(+688)" Value="TV" />
+          <Enumeration Text="Uganda(+256)" Value="UG" />
+          <Enumeration Text="Ukraine(+380)" Value="UA" />
+          <Enumeration Text="United Arab Emirates(+971)" Value="UA" />
+          <Enumeration Text="United Kingdom(+44)" Value="GB" />
+          <Enumeration Text="United States(+1)" Value="US" />
+          <Enumeration Text="Virgin Islands, U.S.(+1340)" Value="VI" />
+          <Enumeration Text="Uruguay(+598)" Value="UY" />
+          <Enumeration Text="Uzbekistan(+998)" Value="UZ" />
+          <Enumeration Text="Vanuatu(+678)" Value="VU" />
+          <Enumeration Text="Holy See (Vatican City State)(+379)" Value="VA" />
+          <Enumeration Text="Venezuela, Bolivarian Republic of(+58)" Value="VE" />
+          <Enumeration Text="Viet Nam(+84)" Value="VN" />
+          <Enumeration Text="Wallis and Futuna(+681)" Value="WF" />
+          <Enumeration Text="Yemen(+967)" Value="YE" />
+          <Enumeration Text="Zambia(+260)" Value="ZM" />
+          <Enumeration Text="Zimbabwe(+263)" Value="ZW" />
         </Restriction>
       </ClaimType>
       <ClaimType Id="verificationCode">
@@ -544,21 +536,10 @@
           <OutputClaim ClaimTypeReferenceId="userPrincipalName" TransformationClaimType="outputClaim" />
         </OutputClaims>
       </ClaimsTransformation>
-      <ClaimsTransformation Id="CombinePhoneAndCountryCode" TransformationMethod="FormatStringMultipleClaims">
-        <InputClaims>
-          <InputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="inputClaim1" />
-          <InputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="inputClaim2" />
-        </InputClaims>
-        <InputParameters>
-          <InputParameter Id="stringFormat" DataType="string" Value="{0}{1}" />
-        </InputParameters>
-        <OutputClaims>
-          <OutputClaim ClaimTypeReferenceId="fullPhoneNumber" TransformationClaimType="outputClaim" />
-        </OutputClaims>
-      </ClaimsTransformation>
       <ClaimsTransformation Id="ConvertStringToPhoneNumber" TransformationMethod="ConvertStringToPhoneNumberClaim">
         <InputClaims>
-          <InputClaim ClaimTypeReferenceId="fullPhoneNumber" TransformationClaimType="inputClaim" />
+          <InputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="country" />
+          <InputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="phoneNumberString" />
         </InputClaims>
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" TransformationClaimType="outputClaim" />
@@ -569,7 +550,13 @@
           <InputClaim ClaimTypeReferenceId="signInName" TransformationClaimType="claimToMatch" />
         </InputClaims>
         <InputParameters>
-          <InputParameter Id="matchTo" DataType="string" Value="^(?:[-()\s]*\d[-()\s]*){4,16}$" />
+            <!--
+              This regex will match a string with an optional leading "+", 4 to 16 digits, and any number of dashes, parentheses, and spaces, in any order.
+              It is intentionally overinclusive to allow the user to continue their journey with any input that might be an international or national phone number 
+              in any country with any customary punctuation/formatting. In this policy, the ConvertStringToPhoneNumberClaim claims converter will do the the final validation, 
+              ignoring the dashes, parentheses, and spaces.
+            -->
+          <InputParameter Id="matchTo" DataType="string" Value="^\+?(?:[-()\s]*\d[-()\s]*){4,16}$" />
           <InputParameter Id="outputClaimIfMatched" DataType="string" Value="isPhone" />
         </InputParameters>
         <OutputClaims>
@@ -588,6 +575,19 @@
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="validationResult" TransformationClaimType="outputClaim" />
           <OutputClaim ClaimTypeReferenceId="isEmailBoolean" TransformationClaimType="regexCompareResultClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="GetNationalNumberAndCountryCodeIfInternationalFormat" TransformationMethod="GetNationalNumberAndCountryCodeFromPhoneNumberString">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="signInName" TransformationClaimType="phoneNumber" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="throwExceptionOnFailure" DataType="boolean" Value="false" />
+          <InputParameter Id="countryCodeType" DataType="string" Value="ISO3166" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="signInName" TransformationClaimType="nationalNumber" />
+          <OutputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="countryCode" />
         </OutputClaims>
       </ClaimsTransformation>
       <ClaimsTransformation Id="SignInNameToPhoneNumber" TransformationMethod="CopyClaim">
@@ -656,7 +656,7 @@
     <ContentDefinitions>
       <!-- This content definition is to render an error page that displays unhandled errors. -->
       <ContentDefinition Id="api.error">
-        <LoadUri>~/tenant/default/exception.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
         <Metadata>
@@ -664,7 +664,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted.2.0.0">
-        <LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.0.0</DataUri>
         <Metadata>
@@ -672,7 +672,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="localSignUp">
-        <LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.0.0</DataUri>
         <Metadata>
@@ -683,7 +683,7 @@
         </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="localAccountDiscovery">
-        <LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.0.0</DataUri>
         <Metadata>
@@ -694,7 +694,7 @@
         </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="api.signuporsignin-phone">
-        <LoadUri>~/tenant/default/unified.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.0.0</DataUri>
         <Metadata>
@@ -705,7 +705,7 @@
         </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="api.signuporsignin-phone-email">
-        <LoadUri>~/tenant/default/unified.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.0.0</DataUri>
         <Metadata>
@@ -716,7 +716,7 @@
         </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="api.idpselections">
-        <LoadUri>~/tenant/default/idpSelector.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
         <Metadata>
@@ -725,7 +725,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountpasswordreset">
-        <LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.0.0</DataUri>
         <Metadata>
@@ -763,6 +763,7 @@
       <DisplayWidget Id="phoneWidget" UserInterfaceWidgetType="VerificationWidget">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="phoneNumber" />
+          <InputClaim ClaimTypeReferenceId="countryCode" />
         </InputClaims>
         <DisplayClaims>
           <DisplayClaim ClaimTypeReferenceId="countryCode" ControlClaimType="CountryCode" Required="true" />
@@ -813,7 +814,6 @@
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
-            <InputClaimsTransformation ReferenceId="CombinePhoneAndCountryCode" />
             <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
@@ -879,12 +879,11 @@
             <Item Key="allowTestNumberPassthrough">false</Item>
           </Metadata>
           <InputClaimsTransformations>
-            <InputClaimsTransformation ReferenceId="CombinePhoneAndCountryCode" />
             <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="userPrincipalName" />
-            <InputClaim ClaimTypeReferenceId="fullPhoneNumber" PartnerClaimType="phoneNumber" />
+            <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber" PartnerClaimType="phoneNumber" />
           </InputClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="azureMfaSessionId" PartnerClaimType="sessionId" />
@@ -912,7 +911,7 @@
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="ContentDefinitionReferenceId">localSignUp</Item>
-            <Item Key="ClaimsProviderSelectionDisplayType">SignUpLink</Item>
+            <Item Key="ClaimsProviderSelectionDisplayType">TextLink</Item>
             <Item Key="UserMessageIfClaimsTransformationInvalidPhoneNumber">Please enter a valid phone number and country code.</Item>
           </Metadata>
           <CryptographicKeys>
@@ -957,7 +956,7 @@
           <Metadata>
             <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
             <Item Key="ContentDefinitionReferenceId">localSignUp</Item>
-            <Item Key="ClaimsProviderSelectionDisplayType">SignUpLink</Item>
+            <Item Key="ClaimsProviderSelectionDisplayType">TextLink</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -1008,6 +1007,7 @@
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="setting.operatingMode">Username</Item>
+            <Item Key="setting.showSignupLink">false</Item>
             <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Please enter a valid phone number or email address.</Item>
           </Metadata>
           <InputClaims>
@@ -1035,10 +1035,15 @@
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
+            <!-- The first transformation will take the signInName entered on the first step and attempt to parse it into a national number and country code if it is in international format. This will prefill the values for 
+            the phoneNumber and countryCode claims. If it is not in international format, or it cannot be parsed, no transformation will happen; the phoneNumber claim will be prefilled with the original signInName value
+            and countryCode will not be prefilled. -->
+            <InputClaimsTransformation ReferenceId="GetNationalNumberAndCountryCodeIfInternationalFormat" />
             <InputClaimsTransformation ReferenceId="SignInNameToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="phoneNumber" />
+            <InputClaim ClaimTypeReferenceId="countryCode" />
           </InputClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="countryCode" Required="true" />
@@ -1080,7 +1085,7 @@
             <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress" />
           </ValidationTechnicalProfiles>
         </TechnicalProfile>
-        <!-- This technical profile forces the user to verify the phone number that they provide on the UI. Only after email is verified, the user account is
+        <!-- This technical profile forces the user to verify the phone number that they provide on the UI. Only after the number is verified, the user account is
         read from the directory. -->
         <TechnicalProfile Id="LocalAccountDiscoveryUsingPhoneForPhoneEmailJourney">
           <DisplayName>Phone</DisplayName>
@@ -1094,10 +1099,15 @@
           <InputClaimsTransformations>
             <InputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
             <InputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+            <!-- The first transformation will take the signInName entered on the first step and attempt to parse it into a national number and country code if it is in international format. This will prefill the values for 
+            the phoneNumber and countryCode claims. If it is not in international format, or it cannot be parsed, no transformation will happen; the phoneNumber claim will be prefilled with the original signInName value
+            and countryCode will not be prefilled. -->
+            <InputClaimsTransformation ReferenceId="GetNationalNumberAndCountryCodeIfInternationalFormat" />
             <InputClaimsTransformation ReferenceId="SignInNameToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="phoneNumber" DefaultValue="" />
+            <InputClaim ClaimTypeReferenceId="phoneNumber" />
+            <InputClaim ClaimTypeReferenceId="countryCode" />
           </InputClaims>
           <DisplayClaims>
             <DisplayClaim DisplayWidgetReferenceId="phoneWidget" />
@@ -1105,12 +1115,16 @@
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="objectId" />
             <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingPhone" />
           </ValidationTechnicalProfiles>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
         </TechnicalProfile>
+
         <!-- This technical profile forces the user to verify the phone number that they provide on the UI. Only after email is verified, the user account is
         read from the directory. -->
         <TechnicalProfile Id="LocalAccountDiscoveryUsingPhoneForPhoneOnlyJourney">
@@ -1218,7 +1232,6 @@
             <Item Key="HttpBinding">POST</Item>
           </Metadata>
           <InputClaimsTransformations>
-            <InputClaimsTransformation ReferenceId="CombinePhoneAndCountryCode" />
             <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
@@ -1349,7 +1362,6 @@
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
-            <InputClaimsTransformation ReferenceId="CombinePhoneAndCountryCode" />
             <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
           </InputClaimsTransformations>
           <InputClaims>
