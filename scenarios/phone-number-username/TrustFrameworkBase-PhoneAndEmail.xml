@@ -876,7 +876,6 @@
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="Operation">OneWaySMS</Item>
-            <Item Key="allowTestNumberPassthrough">false</Item>
           </Metadata>
           <InputClaimsTransformations>
             <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
@@ -894,7 +893,6 @@
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="Operation">Verify</Item>
-            <Item Key="allowTestNumberPassthrough">false</Item>
           </Metadata>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="azureMfaSessionId" PartnerClaimType="sessionId" />
