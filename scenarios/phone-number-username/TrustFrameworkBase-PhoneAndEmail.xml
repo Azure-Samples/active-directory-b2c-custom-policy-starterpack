@@ -53,7 +53,7 @@
         <UserHelpText>Enter Phone Number</UserHelpText>
         <UserInputType>TextBox</UserInputType>
         <Restriction>
-          <Pattern RegularExpression="^[0-9]{1,15}$" HelpText="Please enter digits" />
+          <Pattern RegularExpression="^(?:[-()\s]*\d[-()\s]*){4,16}$" HelpText="Please enter a valid phone number" />
         </Restriction>
       </ClaimType>
       <ClaimType Id="signInName">
