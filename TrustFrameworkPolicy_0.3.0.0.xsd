@@ -1677,7 +1677,7 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute use="optional" name="UserHelpText" type="xs:string">
+    <xs:attribute use="optional" name="HelpText" type="xs:string">
       <xs:annotation>
         <xs:documentation>
           An error message for users if the check fails.
