@@ -683,6 +683,32 @@
         </xs:key>
       </xs:element>
 
+      <xs:element minOccurs="0" maxOccurs="1" name="Predicates">
+        <xs:annotation>
+          <xs:documentation>
+            A list of predicates.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="Predicate" type="tfp:Predicate" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" maxOccurs="1" name="PredicateValidations">
+        <xs:annotation>
+          <xs:documentation>
+            A list of predicates.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="PredicateValidation" type="tfp:PredicateValidation" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
       <xs:element minOccurs="0" maxOccurs="1" name="ClaimsTransformations">
         <xs:annotation>
           <xs:documentation>
@@ -1249,6 +1275,13 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="PredicateValidationReference" type="tfp:PredicateValidationReference">
+        <xs:annotation>
+          <xs:documentation>
+            The Predicates and PredicateValidations elements enable you to perform a validation process to ensure that only properly formed data is entered into your tenant.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute use="required" name="Id" type="xs:string">
       <xs:annotation>
@@ -1594,6 +1627,13 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute use="optional" name="AlwaysUseDefaultValue" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Force the use of the default value.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="ClaimsTransformationClaimTypeReference">
@@ -1612,6 +1652,135 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Predicate">
+    <xs:annotation>
+      <xs:documentation>
+        The Predicate element defines a basic validation to check the value of a claim type and returns `true` or `false`.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Parameters" type="tfp:PredicateParameters" />
+    </xs:sequence>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that's used for the predicate. Other elements can use this identifier in the policy.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="Method" type="tfp:PredicateParameterType">
+      <xs:annotation>
+        <xs:documentation>
+          The method type to use for validation.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="UserHelpText" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An error message for users if the check fails.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateParameters">
+    <xs:annotation>
+      <xs:documentation>
+        The parameters for the method type of the string validation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Parameter" maxOccurs="unbounded" type="tfp:PredicateParameter">
+        <xs:key name="UniquePredicateParameterId">
+          <xs:selector xpath="tfp:PredicateParameter"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateParameter">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Id" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              The identifier of the parameter.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateValidation">
+    <xs:annotation>
+      <xs:documentation>
+        While the predicates define the validation to check against a claim type, the PredicateValidations group a set of predicates to form a user input validation that can be applied to a claim type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PredicateGroups" type="tfp:PredicateGroups" />
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that's used for the predicate validation. The `ClaimType` element can use this identifier in the policy.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateGroups">
+    <xs:annotation>
+      <xs:documentation>
+        Each PredicateValidation element contains a set of PredicateGroup elements that contain a set of PredicateReference elements that points to a Predicate. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PredicateGroup" maxOccurs="unbounded" type="tfp:PredicateGroup">
+        <xs:key name="UniquePredicatePredicateGroupId">
+          <xs:selector xpath="tfp:PredicateGroup"/>
+          <xs:field xpath="@Id"/>
+        </xs:key>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateGroup">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PredicateReferences" type="tfp:PredicateReferences" />
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that's used for the predicate group.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateReferences">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PredicateReference" type="tfp:PredicateReference" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateReference">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Id" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              An identifier that's used for the predicate validation.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
 
   <xs:complexType name="FromTechnicalProfileReference">
@@ -1737,6 +1906,21 @@
       <xs:annotation>
         <xs:documentation>
           The value that is to be provided to the TransformationMethod when invoked.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PredicateValidationReference">
+    <xs:annotation>
+      <xs:documentation>
+        The Predicates and PredicateValidations elements enable you to perform a validation process to ensure that only properly formed data is entered into your tenant.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          An identifier that's used for the predicate validation. The ClaimType element can use this identifier in the policy.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -1923,6 +2107,39 @@
       <xs:enumeration value="SAML2" />
       <xs:enumeration value="CpimUnsigned" />
       <xs:enumeration value="UProve11" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PredicateParameterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IsLengthRange">
+          <xs:annotation>
+            <xs:documentation>
+              The `IsLengthRange` value checks whether the length of a string claim value is within the range of minimum and maximum parameters specified. 
+            </xs:documentation>
+          </xs:annotation>
+        </xs:enumeration>
+      <xs:enumeration value="MatchesRegex">
+          <xs:annotation>
+            <xs:documentation>
+              The `MatchesRegex` value checks whether a string claim value matches a regular expression.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:enumeration>
+      <xs:enumeration value="IncludesCharacters">
+          <xs:annotation>
+            <xs:documentation>
+              The `IncludesCharacters` value checks whether a string claim value contains a character set.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:enumeration>
+      <xs:enumeration value="IsDateRange">
+          <xs:annotation>
+            <xs:documentation>
+              The `IsDateRange` value checks whether a date claim value is between a range of minimum and maximum parameters specified.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
