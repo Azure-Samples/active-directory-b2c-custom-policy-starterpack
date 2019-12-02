@@ -1,4 +1,8 @@
-<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" DeploymentMode="Development" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_EditProfileWithPhoneOtp" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_EditProfileWithPhoneOtp" TenantObjectId="d239865a-34ce-4c87-8969-0be4f45a6d90">
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
+  PolicySchemaVersion="0.3.0.0" 
+  TenantId="yourtenant.onmicrosoft.com" 
+  PolicyId="B2C_1A_EditProfileWithPhoneOtp" 
+  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_EditProfileWithPhoneOtp">
   <BasePolicy>
     <TenantId>yourtenant.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_PasswordlessPhoneEmailBase</PolicyId>
