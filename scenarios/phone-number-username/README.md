@@ -14,6 +14,6 @@ To sign-in, user provides an email address or phone number, then clicks continue
 
 ![Sign-in flow](media/sign-in-flow.png)
 
-User has the option to choose to sign-in with Email or Phone. 
+User can sign-up with Email or Phone. 
 
 ![Sign-up flow](media/sign-up-flow.png)
