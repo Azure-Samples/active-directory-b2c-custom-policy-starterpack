@@ -1,14 +1,10 @@
-<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
-  PolicySchemaVersion="0.3.0.0" 
-  TenantId="yourtenant.onmicrosoft.com" 
-  PolicyId="B2C_1A_EditProfileWithPhoneOtpOrEmailOtp" 
-  PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_EditProfileWithPhoneOtpOrEmailOtp">
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_ProfileEditPhoneEmail" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_ProfileEditPhoneEmail" >
   <BasePolicy>
     <TenantId>yourtenant.onmicrosoft.com</TenantId>
-    <PolicyId>B2C_1A_PasswordlessPhoneEmailBase</PolicyId>
+    <PolicyId>B2C_1A_Phone_Email_Base</PolicyId>
   </BasePolicy>
   <RelyingParty>
-    <DefaultUserJourney ReferenceId="EditProfileWithPhoneOtpOrEmailOtp" />
+    <DefaultUserJourney ReferenceId="ProfileEditPhoneEmail" />
     <TechnicalProfile Id="PolicyProfile">
       <DisplayName>PolicyProfile</DisplayName>
       <Protocol Name="OpenIdConnect" />
@@ -16,8 +12,9 @@
         <OutputClaim ClaimTypeReferenceId="displayName" />
         <OutputClaim ClaimTypeReferenceId="givenName" />
         <OutputClaim ClaimTypeReferenceId="surname" />
-        <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" PartnerClaimType="phone" />
-        <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" PartnerClaimType="email" />
+        <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+        <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+        <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
         <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub" />
         <OutputClaim ClaimTypeReferenceId="tenantId" AlwaysUseDefaultValue="true" DefaultValue="{Policy:TenantObjectId}" />
       </OutputClaims>
