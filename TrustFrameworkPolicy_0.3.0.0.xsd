@@ -936,7 +936,8 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" maxOccurs="1" name="OutputClaim" type="tfp:ClaimsTransformationClaimTypeReference">
+              <!-- Changed minOccurs from "1" to "0" -->
+            <xs:element minOccurs="0" maxOccurs="1" name="OutputClaim" type="tfp:ClaimsTransformationClaimTypeReference">
               <xs:annotation>
                 <xs:documentation>
                   The Claim Type that is outputted by the Claims Transformation. This element contains reference to a ClaimType already defined
