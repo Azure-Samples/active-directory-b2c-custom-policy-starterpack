@@ -52,7 +52,7 @@
             <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
             <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
           </OutputClaimsTransformations>
-          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-GoogleLogin" />
           <ErrorHandlers>
             <ErrorHandler>
               <ErrorResponseFormat>json</ErrorResponseFormat>
@@ -62,6 +62,14 @@
               <!--AdditionalRequestParameters Key="prompt">select_account</AdditionalRequestParameters-->
             </ErrorHandler>
           </ErrorHandlers>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="SM-GoogleLogin">
+          <DisplayName>Session Mananagement Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.ExternalLoginSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="UserId" />
+          </PersistedClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
