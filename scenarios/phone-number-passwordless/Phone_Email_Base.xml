@@ -1,6 +1,10 @@
 <TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_Phone_Email_Base" >
   <BuildingBlocks>
     <ClaimsSchema>
+      <ClaimType Id="newUser">
+        <DisplayName>New signup user</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>    
       <ClaimType Id="tenantId">
         <DisplayName>User's Object's Tenant ID</DisplayName>
         <DataType>string</DataType>
@@ -918,6 +922,7 @@
             <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
             <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
             <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="newUser" DefaultValue="true" />
           </OutputClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -945,6 +950,7 @@
             <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
             <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
             <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+            <OutputClaim ClaimTypeReferenceId="newUser" DefaultValue="true" />
           </OutputClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -1127,6 +1133,7 @@
             <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
             <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
             <OutputClaim ClaimTypeReferenceId="hasFullProfile" />
+            <OutputClaim ClaimTypeReferenceId="newUser" />
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonPhoneNumber" />
@@ -1180,6 +1187,7 @@
             <OutputClaim ClaimTypeReferenceId="hasFullProfile" />
             <OutputClaim ClaimTypeReferenceId="isEmailSignUp" DefaultValue="true" />
             <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="newUser" />
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonEmail" />
