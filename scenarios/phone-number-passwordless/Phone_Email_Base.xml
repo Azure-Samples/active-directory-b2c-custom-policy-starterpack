@@ -1,4 +1,4 @@
-<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="B2CE2Emegatetanttest.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://B2CE2Emegatetanttest.onmicrosoft.com/B2C_1A_Phone_Email_Base" TenantObjectId="c8d2915b-6226-4730-8065-61bec12c1f9f">
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_Phone_Email_Base" >
   <BuildingBlocks>
     <ClaimsSchema>
       <ClaimType Id="tenantId">
