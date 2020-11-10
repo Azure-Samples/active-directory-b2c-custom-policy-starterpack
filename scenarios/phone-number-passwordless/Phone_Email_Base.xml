@@ -1094,9 +1094,6 @@
           <DisplayName>Send Sms</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="allowTestNumberPassthrough">true</Item>
-            <Item Key="testPhoneNumber">+15148465801</Item>
-            <Item Key="testCode">123456</Item>
             <Item Key="Operation">OneWaySMS</Item>
           </Metadata>
           <InputClaims>
@@ -1108,9 +1105,6 @@
           <DisplayName>Verify Sms</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="allowTestNumberPassthrough">true</Item>
-            <Item Key="testPhoneNumber">+15148465801</Item>
-            <Item Key="testCode">123456</Item>
             <Item Key="Operation">Verify</Item>
           </Metadata>
           <InputClaims>
