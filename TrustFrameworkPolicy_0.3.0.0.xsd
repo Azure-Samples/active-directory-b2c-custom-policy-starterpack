@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <!-- <xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2014/07" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"> -->
   <!--
@@ -130,10 +130,24 @@
                         </xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="JourneyInsights" type="tfp:JourneyInsights" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Specifies the Microsoft Azure Application Insights instrumentation key to be used in the application insights javascript.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="ContentDefinitionParameters" type="tfp:ContentDefinitionParameters" minOccurs="0" maxOccurs="1">
                       <xs:annotation>
                         <xs:documentation>
                           Specifies the a list of key value pairs to be appended to the content definition load uri.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ScriptExecution" type="tfp:ScriptExecution" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation>
+                          The supported JavaScript execution modes. Possible values: Allow or Disallow (default).
                         </xs:documentation>
                       </xs:annotation>
                     </xs:element>
@@ -757,6 +771,13 @@
               </xs:annotation>
             </xs:element>
           </xs:sequence>
+          <xs:attribute name="Enabled" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>
+                Possible values: true or false.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -781,6 +802,18 @@
       <xs:annotation>
         <xs:documentation>
           This is the default language that the customer will see user journeys in, if he doesnt specify any other supported culture.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MergeBehavior" type="tfp:MergeBehavior">
+      <xs:annotation>
+        <xs:documentation>
+          An enumeration values of values that are merged together with any ClaimType present in a parent policy with the same identifier. 
+          Use this attribute when you overwrite a claim specified in base policy. 
+          Possible values: Append, Prepend, or ReplaceAll. 
+          The Append value specifies that the collection of data present should be appended to the end of the collection specified in the parent policy. 
+          The Prepend value specifies that the collection of data present should be added before the collection specified in the parent policy. 
+          The ReplaceAll value specifies that the collection of data defined in the parent policy should be ignored, using instead the data defined in the current policy.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -827,9 +860,54 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute use="required" name="Culture" type="tfp:Culture">
+    <xs:attribute name="Id" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>
+          An identifier that is used to uniquely identify localized resources.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+  </xs:complexType>
+
+  <xs:complexType name="LocalizedResourcesReferences">
+    <xs:sequence>
+      <xs:element name="LocalizedResourcesReference" minOccurs="1" maxOccurs="unbounded" type="tfp:LocalizedResourcesReference">
+      <xs:annotation>
+        <xs:documentation>
+            A list of localized resource references for the content definition.
+        </xs:documentation>
+      </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute use="required" name="MergeBehavior" type="tfp:MergeBehavior">
+      <xs:annotation>
+        <xs:documentation>
+          A string that contains a supported language for the policy per RFC 5646 - Tags for Identifying Languages.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+  </xs:complexType>
+  
+  <xs:complexType name="LocalizedResourcesReference">
+    <xs:annotation>
+      <xs:documentation>
+
+      </xs:documentation>
+    </xs:annotation>
+    
+    <xs:attribute use="required" name="Language" type="tfp:Language">
+      <xs:annotation>
+        <xs:documentation>
+          A string that contains a supported language for the policy per RFC 5646 - Tags for Identifying Languages.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LocalizedResourcesReferenceId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The identifier of the LocalizedResources element.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -862,6 +940,61 @@
       <xs:annotation>
         <xs:documentation>
           Defines the instrumentation key for the application insights element.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="JourneyInsights">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the Azure Applications Insight element which includes the application insights script in the user journeys.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute use="required" name="TelemetryEngine" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The value must be ApplicationInsights.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="InstrumentationKey" type="tfp:InstrumentationKey">
+      <xs:annotation>
+        <xs:documentation>
+          Defines the instrumentation key for the application insights element.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="DeveloperMode" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Possible values: true or false. If true, Application Insights expedites the telemetry through the 
+          processing pipeline. This setting is good for development, but constrained at high volumes. 
+          The detailed activity logs are designed only to aid in development of custom policies. 
+          Do not use development mode in production. 
+          Logs collect all claims sent to and from the identity providers during development. 
+          If used in production, the developer assumes responsibility for PII (Privately Identifiable Information) collected in the App Insights log that they own. 
+          These detailed logs are only collected when this value is set to true.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="ClientEnabled" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Possible values: true or false. If true, sends the Application Insights client-side script for tracking page view and client-side errors.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="ServerEnabled" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Possible values: true or false. If true, sends the existing UserJourneyRecorder JSON as a custom event to Application Insights.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="required" name="TelemetryVersion" type="tfp:TelemetryVersion">
+      <xs:annotation>
+        <xs:documentation>
+          The value must be 1.0.0.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -976,7 +1109,13 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-
+      <xs:element minOccurs="0" maxOccurs="1" name="LocalizedResourcesReferences" type="tfp:LocalizedResourcesReferences">
+        <xs:annotation>
+          <xs:documentation>
+            A list of localized resource references for the content definition.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute use="required" name="Id" type="xs:string">
       <xs:annotation>
@@ -1802,7 +1941,7 @@
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute use="required" name="ElementId" type="xs:string">
+        <xs:attribute use="optional" name="ElementId" type="xs:string">
           <xs:annotation>
             <xs:documentation>
 
@@ -1856,6 +1995,19 @@
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="Language">
+    <xs:annotation>
+      <xs:documentation>
+        The types of claim masks
+        1. Simple, a simple text mask that is
+        applied to the leading portion of a string claim.
+        2. A regular expression that can be applied
+        to the string claim as whole
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string" />
   </xs:simpleType>
   
   <xs:simpleType name="MaskTypeTYPE">
@@ -2200,6 +2352,17 @@
     </xs:restriction>
   </xs:simpleType>
   
+  <xs:simpleType name="TelemetryVersion">
+    <xs:annotation>
+      <xs:documentation>
+        The value must be 1.0.0
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1.0.0"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+    
   <xs:simpleType name="PolicyId">
     <xs:annotation>
       <xs:documentation>
@@ -2292,6 +2455,18 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="Rolling" />
       <xs:enumeration value="Absolute" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ScriptExecution">
+    <xs:annotation>
+      <xs:documentation>
+        The supported JavaScript execution modes. Possible values: Allow or Disallow (default).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Allow"/>
+      <xs:enumeration value="Disallow"/>
     </xs:restriction>
   </xs:simpleType>
 
