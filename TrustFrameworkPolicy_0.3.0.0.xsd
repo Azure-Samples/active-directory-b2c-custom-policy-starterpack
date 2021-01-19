@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2013/06" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <!-- <xs:schema xmlns="http://schemas.microsoft.com/online/cpim/schemas/2014/07" targetNamespace="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:tfp="http://schemas.microsoft.com/online/cpim/schemas/2014/07" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"> -->
   <!--
@@ -1684,6 +1684,13 @@
         <xs:documentation>
           Provides an optional property to the claims provider indicating whether the claim can be overwritten in the claims providers
           records if the claim provider supports overwriting.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute use="optional" name="AlwaysUseDefaultValue" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>
+          Force the use of the default value.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
