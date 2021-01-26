@@ -1715,6 +1715,14 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute use="optional" name="AlwaysUseDefaultValue" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Force the use of the default value.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
     <xs:attribute use="optional" name="PartnerClaimType" type="xs:string">
       <xs:annotation>
         <xs:documentation>
