@@ -1,0 +1,2 @@
+Adding Dynamic UI Customization to Azure AD B2C Custom policy workflows.
+With custom policy, you can also customize the look and feel for your user, dynamically. B2C custom policy allows you to send through a parameter in a query string. That parameter  passes on to your HTML endpoint and can dynamically change the page content. For example, you can change the B2C sign-up or sign in background image, based on a parameter you pass from your web/mobile application. 

@@ -1,0 +1,2045 @@
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_Phone_Email_Base" >
+  <BuildingBlocks>
+    <ClaimsSchema>
+      <ClaimType Id="tenantId">
+        <DisplayName>User's Object's Tenant ID</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OAuth2" PartnerClaimType="tid" />
+          <Protocol Name="OpenIdConnect" PartnerClaimType="tid" />
+          <Protocol Name="SAML2" PartnerClaimType="http://schemas.microsoft.com/identity/claims/tenantid" />
+        </DefaultPartnerClaimTypes>
+        <UserHelpText>Tenant identifier (ID) of the user object in Azure AD.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="objectId">
+        <DisplayName>User's Object ID</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OAuth2" PartnerClaimType="oid" />
+          <Protocol Name="OpenIdConnect" PartnerClaimType="oid" />
+          <Protocol Name="SAML2" PartnerClaimType="http://schemas.microsoft.com/identity/claims/objectidentifier" />
+        </DefaultPartnerClaimTypes>
+        <UserHelpText>Object identifier (ID) of the user object in Azure AD.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="signInNames.phoneNumber">
+        <DataType>phoneNumber</DataType>
+      </ClaimType>
+      <ClaimType Id="strongAuthenticationEmailAddress">
+        <DisplayName>Email Address</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OpenIdConnect" PartnerClaimType="email" />
+        </DefaultPartnerClaimTypes>
+        <AdminHelpText>Email address of the user</AdminHelpText>
+        <UserHelpText>Email address that can be used to contact you.</UserHelpText>
+        <UserInputType>Readonly</UserInputType>
+        <PredicateValidationReference Id="email" />
+      </ClaimType>
+      <ClaimType Id="signInNames.emailAddress">
+        <DataType>string</DataType>
+      </ClaimType>
+      <ClaimType Id="phoneNumber">
+        <DisplayName>Phone Number</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter Phone Number</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+        <PredicateValidationReference Id="internationalOrNationalPhoneNumber" />
+      </ClaimType>
+      <ClaimType Id="nationalNumber">
+        <DisplayName>Phone Number</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter National Phone Number</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+        <PredicateValidationReference Id="nationalNumber" />
+      </ClaimType>
+      <ClaimType Id="signInName">
+        <DisplayName>Phone Number or Email Address</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Please enter a valid phone number or email address.</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+        <PredicateValidationReference Id="phoneOrEmailSignInName" />
+      </ClaimType>
+      <ClaimType Id="email">
+        <DisplayName>Email Address</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OpenIdConnect" PartnerClaimType="email" />
+        </DefaultPartnerClaimTypes>
+        <AdminHelpText>Email address of the user</AdminHelpText>
+        <UserHelpText>Email address that can be used to contact you.</UserHelpText>
+        <UserInputType>EmailBox</UserInputType>
+        <PredicateValidationReference Id="email" />
+      </ClaimType>
+      <ClaimType Id="isLocalAccountSignIn">
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="isEmailSignUp">
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="isChangePhoneNumber">
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="changePhoneSuccessMessage">
+        <DataType>string</DataType>
+        <UserInputType>Paragraph</UserInputType>
+      </ClaimType>
+      <ClaimType Id="countryCode">
+        <DisplayName>Country</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter Country</UserHelpText>
+        <UserInputType>DropdownSingleSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text="Albania(+355)" Value="AL" />
+          <Enumeration Text="Algeria(+213)" Value="DZ" />
+          <Enumeration Text="American Samoa(+1684)" Value="AS" />
+          <Enumeration Text="Andorra(+376)" Value="AD" />
+          <Enumeration Text="Angola(+244)" Value="AO" />
+          <Enumeration Text="Anguilla(+1264)" Value="AI" />
+          <Enumeration Text="Antarctica(+672)" Value="AQ" />
+          <Enumeration Text="Antigua and Barbuda(+1268)" Value="AG" />
+          <Enumeration Text="Argentina(+54)" Value="AR" />
+          <Enumeration Text="Armenia(+374)" Value="AM" />
+          <Enumeration Text="Aruba(+297)" Value="AW" />
+          <Enumeration Text="Australia(+61)" Value="AU" />
+          <Enumeration Text="Austria(+43)" Value="AT" />
+          <Enumeration Text="Azerbaijan(+994)" Value="AZ" />
+          <Enumeration Text="Bahamas(+1242)" Value="BS" />
+          <Enumeration Text="Bahrain(+973)" Value="BH" />
+          <Enumeration Text="Bangladesh(+880)" Value="BD" />
+          <Enumeration Text="Barbados(+1246)" Value="BB" />
+          <Enumeration Text="Belarus(+375)" Value="BY" />
+          <Enumeration Text="Belgium(+32)" Value="BE" />
+          <Enumeration Text="Belize(+501)" Value="BZ" />
+          <Enumeration Text="Benin(+229)" Value="BJ" />
+          <Enumeration Text="Bermuda(+1441)" Value="BM" />
+          <Enumeration Text="Bhutan(+975)" Value="BT" />
+          <Enumeration Text="Bolivia(+591)" Value="BO" />
+          <Enumeration Text="Bonaire, Sint Eustatius and Saba(+599)" Value="BQ" />
+          <Enumeration Text="Bosnia and Herzegovina(+387)" Value="BA" />
+          <Enumeration Text="Botswana(+267)" Value="BW" />
+          <Enumeration Text="Brazil(+55)" Value="BR" />
+          <Enumeration Text="British Virgin Islands (+1284)" Value="VG" />
+          <Enumeration Text="Brunei Darussalam(+673)" Value="BN" />
+          <Enumeration Text="Bulgaria(+359)" Value="BG" />
+          <Enumeration Text="Burkina Faso(+226)" Value="BF" />
+          <Enumeration Text="Burundi(+257)" Value="BI" />
+          <Enumeration Text="Cambodia(+855)" Value="KH" />
+          <Enumeration Text="Cameroon(+237)" Value="CM" />
+          <Enumeration Text="Canada(+1)" Value="CA" />
+          <Enumeration Text="Cape Verde(+238)" Value="CV" />
+          <Enumeration Text="Cayman Islands(+1345)" Value="KY" />
+          <Enumeration Text="Central African Republic(+236)" Value="CF" />
+          <Enumeration Text="Chad(+235)" Value="TD" />
+          <Enumeration Text="Chile(+56)" Value="CL" />
+          <Enumeration Text="China(+86)" Value="CN" />
+          <Enumeration Text="Colombia(+57)" Value="CO" />
+          <Enumeration Text="Comoros(+269)" Value="KM" />
+          <Enumeration Text="Congo(+242)" Value="CG" />
+          <Enumeration Text="Cook Islands(+682)" Value="CK" />
+          <Enumeration Text="Costa Rica(+506)" Value="CR" />
+          <Enumeration Text="Côte d'Ivoire(+225)" Value="CI" />
+          <Enumeration Text="Croatia(+385)" Value="HR" />
+          <Enumeration Text="Cuba(+53)" Value="CU" />
+          <Enumeration Text="Curaçao(+599)" Value="CZ" />
+          <Enumeration Text="Cyprus(+357)" Value="CW" />
+          <Enumeration Text="Czech Republic(+420)" Value="CZ" />
+          <Enumeration Text="Congo (+243)" Value="CD" />
+          <Enumeration Text="Denmark(+45)" Value="DK" />
+          <Enumeration Text="Djibouti(+253)" Value="DJ" />
+          <Enumeration Text="Dominica(+1767)" Value="DM" />
+          <Enumeration Text="Dominican Republic(+1)" Value="DO" />
+          <Enumeration Text="Timor-Leste(+670)" Value="TL" />
+          <Enumeration Text="Ecuador(+593)" Value="EC" />
+          <Enumeration Text="Egypt(+20)" Value="EG" />
+          <Enumeration Text="El Salvador(+503)" Value="SV" />
+          <Enumeration Text="Equatorial Guinea(+240)" Value="GQ" />
+          <Enumeration Text="Eritrea(+291)" Value="ER" />
+          <Enumeration Text="Estonia(+372)" Value="EE" />
+          <Enumeration Text="Ethiopia(+251)" Value="ET" />
+          <Enumeration Text="Falkland Islands (Malvinas)(+500)" Value="FK" />
+          <Enumeration Text="Faroe Islands(+298)" Value="FO" />
+          <Enumeration Text="Fiji(+679)" Value="FJ" />
+          <Enumeration Text="Finland(+358)" Value="FI" />
+          <Enumeration Text="France(+33)" Value="FR" />
+          <Enumeration Text="French Guiana(+594)" Value="GF" />
+          <Enumeration Text="French Polynesia(+689)" Value="PF" />
+          <Enumeration Text="Gabon(+241)" Value="GA" />
+          <Enumeration Text="Gambia(+220)" Value="GM" />
+          <Enumeration Text="Georgia(+995)" Value="GE" />
+          <Enumeration Text="Germany(+49)" Value="DE" />
+          <Enumeration Text="Ghana(+233)" Value="GH" />
+          <Enumeration Text="Gibraltar(+350)" Value="GI" />
+          <Enumeration Text="Greece(+30)" Value="GR" />
+          <Enumeration Text="Greenland(+299)" Value="GL" />
+          <Enumeration Text="Grenada(+1473)" Value="GD" />
+          <Enumeration Text="Guadeloupe(+590)" Value="GP" />
+          <Enumeration Text="Guam(+1671)" Value="GU" />
+          <Enumeration Text="Guatemala(+502)" Value="GT" />
+          <Enumeration Text="Guinea(+224)" Value="GN" />
+          <Enumeration Text="Guinea-Bissau(+245)" Value="GW" />
+          <Enumeration Text="Guyana(+592)" Value="GY" />
+          <Enumeration Text="Haiti(+509)" Value="HT" />
+          <Enumeration Text="Honduras(+504)" Value="HN" />
+          <Enumeration Text="Hong Kong(+852)" Value="HK" />
+          <Enumeration Text="Hungary(+36)" Value="HU" />
+          <Enumeration Text="Iceland(+354)" Value="IS" />
+          <Enumeration Text="India(+91)" Value="IN" />
+          <Enumeration Text="Indonesia(+62)" Value="ID" />
+          <Enumeration Text="Iran(+98)" Value="IR" />
+          <Enumeration Text="Iraq(+964)" Value="IQ" />
+          <Enumeration Text="Ireland(+353)" Value="IE" />
+          <Enumeration Text="Israel(+972)" Value="IL" />
+          <Enumeration Text="Italy(+39)" Value="IT" />
+          <Enumeration Text="Jamaica(+1)" Value="JM" />
+          <Enumeration Text="Japan(+81)" Value="JP" />
+          <Enumeration Text="Jordan(+962)" Value="JO" />
+          <Enumeration Text="Kazakhstan(+7)" Value="KZ" />
+          <Enumeration Text="Kenya(+254)" Value="KE" />
+          <Enumeration Text="Kiribati(+686)" Value="KI" />
+          <Enumeration Text="Kuwait(+965)" Value="KW" />
+          <Enumeration Text="Kyrgyzstan(+996)" Value="KG" />
+          <Enumeration Text="Lao People's Democratic Republic(+856)" Value="LA" />
+          <Enumeration Text="Latvia(+371)" Value="LV" />
+          <Enumeration Text="Lebanon(+961)" Value="LB" />
+          <Enumeration Text="Lesotho(+266)" Value="LS" />
+          <Enumeration Text="Liberia(+231)" Value="LR" />
+          <Enumeration Text="Libya(+218)" Value="LY" />
+          <Enumeration Text="Liechtenstein(+423)" Value="LI" />
+          <Enumeration Text="Lithuania(+370)" Value="LT" />
+          <Enumeration Text="Luxembourg(+352)" Value="LU" />
+          <Enumeration Text="Macao(+853)" Value="MO" />
+          <Enumeration Text="North Macedonia, Republic of (+389)" Value="MK" />
+          <Enumeration Text="Madagascar(+261)" Value="MG" />
+          <Enumeration Text="Malawi(+265)" Value="MW" />
+          <Enumeration Text="Malaysia(+60)" Value="MY" />
+          <Enumeration Text="Maldives(+960)" Value="MV" />
+          <Enumeration Text="Mali(+223)" Value="ML" />
+          <Enumeration Text="Malta(+356)" Value="MT" />
+          <Enumeration Text="Marshall Islands(+692)" Value="MH" />
+          <Enumeration Text="Martinique(+596)" Value="MQ" />
+          <Enumeration Text="Mauritania(+222)" Value="MR" />
+          <Enumeration Text="Mauritius(+230)" Value="MU" />
+          <Enumeration Text="Mexico(+52)" Value="MX" />
+          <Enumeration Text="Micronesia(+691)" Value="FM" />
+          <Enumeration Text="Moldova, Republic of(+373)" Value="MD" />
+          <Enumeration Text="Monaco(+377)" Value="MC" />
+          <Enumeration Text="Mongolia(+976)" Value="MN" />
+          <Enumeration Text="Montenegro(+382)" Value="ME" />
+          <Enumeration Text="Montserrat(+1664)" Value="MS" />
+          <Enumeration Text="Morocco(+212)" Value="MA" />
+          <Enumeration Text="Mozambique(+258)" Value="MZ" />
+          <Enumeration Text="Myanmar(+95)" Value="MM" />
+          <Enumeration Text="Namibia(+264)" Value="NA" />
+          <Enumeration Text="Nauru(+674)" Value="NR" />
+          <Enumeration Text="Nepal(+977)" Value="NP" />
+          <Enumeration Text="Netherlands(+31)" Value="NL" />
+          <Enumeration Text="New Caledonia(+687)" Value="NC" />
+          <Enumeration Text="New Zealand(+64)" Value="NZ" />
+          <Enumeration Text="Nicaragua(+505)" Value="NI" />
+          <Enumeration Text="Niger(+227)" Value="NE" />
+          <Enumeration Text="Nigeria(+234)" Value="NG" />
+          <Enumeration Text="Niue(+683)" Value="NU" />
+          <Enumeration Text="Korea, Democratic People's Republic of (North Korea)(+850)" Value="KP" />
+          <Enumeration Text="Norway(+47)" Value="NO" />
+          <Enumeration Text="Oman(+968)" Value="OM" />
+          <Enumeration Text="Pakistan(+92)" Value="PK" />
+          <Enumeration Text="Palau(+680)" Value="PW" />
+          <Enumeration Text="Palestine, State of(+970)" Value="PS" />
+          <Enumeration Text="Panama(+507)" Value="PA" />
+          <Enumeration Text="Papua New Guinea(+675)" Value="PG" />
+          <Enumeration Text="Paraguay(+595)" Value="PY" />
+          <Enumeration Text="Peru(+51)" Value="PE" />
+          <Enumeration Text="Philippines(+63)" Value="PH" />
+          <Enumeration Text="Poland(+48)" Value="PL" />
+          <Enumeration Text="Portugal(+351)" Value="PT" />
+          <Enumeration Text="Puerto Rico(+1)" Value="PR" />
+          <Enumeration Text="Qatar(+974)" Value="QA" />
+          <Enumeration Text="Réunion(+262)" Value="RE" />
+          <Enumeration Text="Romania(+40)" Value="RO" />
+          <Enumeration Text="Russian Federation(+7)" Value="RU" />
+          <Enumeration Text="Rwanda(+250)" Value="RW" />
+          <Enumeration Text="Saint Helena, Ascension and Tristan da Cunha(+290)" Value="SH" />
+          <Enumeration Text="Saint Kitts and Nevis(+1869)" Value="KN" />
+          <Enumeration Text="Saint Lucia(+1758)" Value="LC" />
+          <Enumeration Text="Saint Pierre and Miquelon(+508)" Value="PM" />
+          <Enumeration Text="Saint Vincent and the Grenadines(+1784)" Value="VC" />
+          <Enumeration Text="Northern Mariana Islands(CNMI)(+1670)" Value="MP" />
+          <Enumeration Text="Samoa(+685)" Value="WS" />
+          <Enumeration Text="San Marino(+378)" Value="SM" />
+          <Enumeration Text="Sao Tome and Principe(+239)" Value="ST" />
+          <Enumeration Text="Saudi Arabia(+966)" Value="SA" />
+          <Enumeration Text="Senegal(+221)" Value="SN" />
+          <Enumeration Text="Serbia(+381)" Value="RS" />
+          <Enumeration Text="Seychelles(+248)" Value="SC" />
+          <Enumeration Text="Sierra Leone(+232)" Value="SL" />
+          <Enumeration Text="Singapore(+65)" Value="SG" />
+          <Enumeration Text="Slovakia(+421)" Value="SK" />
+          <Enumeration Text="Slovenia(+386)" Value="SI" />
+          <Enumeration Text="Solomon Islands(+677)" Value="SB" />
+          <Enumeration Text="Somalia(+252)" Value="SO" />
+          <Enumeration Text="South Africa(+27)" Value="ZA" />
+          <Enumeration Text="Korea, Republic of(+82)" Value="KR" />
+          <Enumeration Text="South Sudan(+211)" Value="SS" />
+          <Enumeration Text="Spain(+34)" Value="ES" />
+          <Enumeration Text="Sri Lanka(+94)" Value="LK" />
+          <Enumeration Text="Sudan(+249)" Value="SD" />
+          <Enumeration Text="Suriname(+597)" Value="SR" />
+          <Enumeration Text="Swaziland(+268)" Value="SZ" />
+          <Enumeration Text="Sweden(+46)" Value="SE" />
+          <Enumeration Text="Switzerland(+41)" Value="CH" />
+          <Enumeration Text="Syrian Arab Republic(+963)" Value="SY" />
+          <Enumeration Text="Taiwan, Province of China(+886)" Value="TW" />
+          <Enumeration Text="Tajikistan(+992)" Value="TJ" />
+          <Enumeration Text="Tanzania, United Republic of(+255)" Value="TZ" />
+          <Enumeration Text="Thailand(+66)" Value="TH" />
+          <Enumeration Text="Togo(+228)" Value="TG" />
+          <Enumeration Text="Tokelau(+690)" Value="TK" />
+          <Enumeration Text="Tonga(+676)" Value="TO" />
+          <Enumeration Text="Trinidad and Tobago(+1868)" Value="TT" />
+          <Enumeration Text="Tunisia(+216)" Value="TN" />
+          <Enumeration Text="Turkey(+90)" Value="TR" />
+          <Enumeration Text="Turkmenistan(+993)" Value="TM" />
+          <Enumeration Text="Turks and Caicos Islands(+1649)" Value="TC" />
+          <Enumeration Text="Tuvalu(+688)" Value="TV" />
+          <Enumeration Text="Uganda(+256)" Value="UG" />
+          <Enumeration Text="Ukraine(+380)" Value="UA" />
+          <Enumeration Text="United Arab Emirates(+971)" Value="UA" />
+          <Enumeration Text="United Kingdom(+44)" Value="GB" />
+          <Enumeration Text="United States(+1)" Value="US" />
+          <Enumeration Text="Virgin Islands, U.S.(+1340)" Value="VI" />
+          <Enumeration Text="Uruguay(+598)" Value="UY" />
+          <Enumeration Text="Uzbekistan(+998)" Value="UZ" />
+          <Enumeration Text="Vanuatu(+678)" Value="VU" />
+          <Enumeration Text="Holy See (Vatican City State)(+379)" Value="VA" />
+          <Enumeration Text="Venezuela, Bolivarian Republic of(+58)" Value="VE" />
+          <Enumeration Text="Viet Nam(+84)" Value="VN" />
+          <Enumeration Text="Wallis and Futuna(+681)" Value="WF" />
+          <Enumeration Text="Yemen(+967)" Value="YE" />
+          <Enumeration Text="Zambia(+260)" Value="ZM" />
+          <Enumeration Text="Zimbabwe(+263)" Value="ZW" />
+        </Restriction>
+      </ClaimType>
+      <ClaimType Id="verificationCode">
+        <DisplayName>Verification Code</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter your SMS verification code</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+        <!--Restriction>
+          <Pattern RegularExpression="^[0-9]{1,15}$" HelpText="Please enter digits" />
+        </Restriction-->
+      </ClaimType>
+      <ClaimType Id="password">
+        <DisplayName>Password</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter password</UserHelpText>
+        <UserInputType>Password</UserInputType>
+      </ClaimType>
+      <ClaimType Id="newPassword">
+        <DisplayName>New Password</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter new password</UserHelpText>
+        <UserInputType>Password</UserInputType>
+        <Restriction>
+          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText="8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits (0-9), and one or more of the following symbols: @ # $ % ^ &amp; * - _ + = [ ] { } | \ : ' , ? / ` ~ &quot; ( ) ; ." />
+        </Restriction>
+      </ClaimType>
+      <ClaimType Id="reenterPassword">
+        <DisplayName>Confirm New Password</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Confirm new password</UserHelpText>
+        <UserInputType>Password</UserInputType>
+        <Restriction>
+          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText=" " />
+        </Restriction>
+      </ClaimType>
+      <ClaimType Id="passwordPolicies">
+        <DisplayName>Password Policies</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Password policies used by Azure AD to determine password strength, expiry etc.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="client_id">
+        <DisplayName>client_id</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
+        <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="resource_id">
+        <DisplayName>resource_id</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Special parameter passed to EvoSTS.</AdminHelpText>
+        <UserHelpText>Special parameter passed to EvoSTS.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="sub">
+        <DisplayName>Subject</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OpenIdConnect" PartnerClaimType="sub" />
+        </DefaultPartnerClaimTypes>
+        <UserHelpText />
+      </ClaimType>
+      <ClaimType Id="displayName">
+        <DisplayName>Display Name</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OAuth2" PartnerClaimType="unique_name" />
+          <Protocol Name="OpenIdConnect" PartnerClaimType="name" />
+          <Protocol Name="SAML2" PartnerClaimType="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" />
+        </DefaultPartnerClaimTypes>
+        <UserHelpText>Your display name.</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+      <ClaimType Id="hasFullProfile">
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="strongAuthEmailExists">
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <!-- SECTION II: Claims required to pass on special parameters (including some query string parameters) to other claims providers -->
+      <ClaimType Id="nca">
+        <DisplayName>nca</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Special parameter passed for local account authentication to login.microsoftonline.com.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="grant_type">
+        <DisplayName>grant_type</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Special parameter passed for local account authentication to login.microsoftonline.com.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="scope">
+        <DisplayName>scope</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Special parameter passed for local account authentication to login.microsoftonline.com.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="objectIdFromSession">
+        <DisplayName>objectIdFromSession</DisplayName>
+        <DataType>boolean</DataType>
+        <UserHelpText>Parameter provided by the default session management provider to indicate that the object id has been retrieved from an SSO session.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="upnUserName">
+        <DisplayName>UPN User Name</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>The user name for creating user principal name.</AdminHelpText>
+        <UserHelpText>The user name for creating user principal name.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="userPrincipalName">
+        <DisplayName>UserPrincipalName</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OAuth2" PartnerClaimType="upn" />
+          <Protocol Name="OpenIdConnect" PartnerClaimType="upn" />
+          <Protocol Name="SAML2" PartnerClaimType="http://schemas.microsoft.com/identity/claims/userprincipalname" />
+        </DefaultPartnerClaimTypes>
+        <AdminHelpText>The user name as stored in the Azure Active Directory.</AdminHelpText>
+        <UserHelpText>Your user name as stored in the Azure Active Directory.</UserHelpText>
+      </ClaimType>
+      <!-- SECTION III: Additional claims that can be collected from the users, stored in the directory, and sent in the token. Add additional claims here. -->
+      <ClaimType Id="givenName">
+        <DisplayName>Given Name</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your given name (also known as first name).</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+      <ClaimType Id="surname">
+        <DisplayName>Surname</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your surname (also known as family name or last name).</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+    </ClaimsSchema>
+    <Predicates>
+      <Predicate Id="email" Method="MatchesRegex">
+        <UserHelpText>Please enter a valid email address.</UserHelpText>
+        <Parameters>
+          <!--
+            This regex is constructed mostly from RFC 5322 for email, with intentional omissions based on discovery of characters that don't work for other services we use
+            # the below two lines cover the local part of the email, before the '@' sign
+            [a-zA-Z0-9!#$%&amp;'+^_`{}~-]+         # matches lower or upper case letters, digits, and certain special characters
+            (?:\.[a-zA-Z0-9!#$%&amp;'+^_`{}~-]+)*  # same list as above, but including an optional '.' character at the beginning, repeated
+            # together, the above two lines prevent the '.' character from appearing at the start, end, or twice in a row in the local part
+            @                                      # the '@' symbol appears exactly once, seperating the local and domain sections
+            (?:[a-zA-Z0-9]                         # matches lower and uppercase letters and digits
+            (?:[a-zA-Z0-9-]*                       # same as above, but also allowing '-'
+            [a-zA-Z0-9])                           # only lower and uppercase letters and digits again
+            ?\.)+                                  # allows for a '.' character to terminate a section
+            # the above lines mean that '.' can create segments, and segments can't begin or end with a '-'. Also, no repeating '.' chars
+            [a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$
+            # the above line is the essentially same as the previous section, but forces the email to not end with a '.'
+          -->
+          <Parameter Id="RegularExpression">^[a-zA-Z0-9!#$%&amp;'+^_`{}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'+^_`{}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$</Parameter>
+        </Parameters>
+      </Predicate>
+      <Predicate Id="internationalOrNationalPhoneNumber" Method="MatchesRegex">
+        <UserHelpText>The value entered needs to be a phone number.</UserHelpText>
+        <Parameters>
+          <!--
+              This regex will match a string with an optional leading "+", 4 to 16 digits, and any number of dashes, parentheses, and spaces, in any order.
+              It is intentionally overinclusive to allow the user to continue their journey with any input that might be an international or national phone number 
+              in any country with any customary punctuation/formatting. In this policy, the ConvertStringToPhoneNumberClaim claims converter will do the the final validation, 
+              ignoring the dashes, parentheses, and spaces.
+            -->
+          <Parameter Id="RegularExpression">^\+?(?:[-()\s]*\d[-()\s]*){4,16}$</Parameter>
+        </Parameters>
+      </Predicate>
+      <Predicate Id="noLeadingPlus" Method="MatchesRegex">
+        <UserHelpText>The national number should not include a country code.</UserHelpText>
+        <Parameters>
+          <!-- Combine this with the predicate above to match only a national phone number -->
+          <Parameter Id="RegularExpression">^[^\\+]+$</Parameter>
+        </Parameters>
+      </Predicate>
+    </Predicates>
+    <PredicateValidations>
+      <PredicateValidation Id="email">
+        <PredicateGroups>
+          <PredicateGroup Id="email">
+            <PredicateReferences>
+              <PredicateReference Id="email" />
+            </PredicateReferences>
+          </PredicateGroup>
+        </PredicateGroups>
+      </PredicateValidation>
+      <PredicateValidation Id="phoneOrEmailSignInName">
+        <PredicateGroups>
+          <PredicateGroup Id="phoneOrEmailSignInName">
+            <UserHelpText>Please enter a valid email address or phone number.</UserHelpText>
+            <PredicateReferences MatchAtLeast="1">
+              <PredicateReference Id="email" />
+              <PredicateReference Id="internationalOrNationalPhoneNumber" />
+            </PredicateReferences>
+          </PredicateGroup>
+        </PredicateGroups>
+      </PredicateValidation>
+      <PredicateValidation Id="nationalNumber">
+        <PredicateGroups>
+          <PredicateGroup Id="internationalOrNationalPhoneNumber">
+            <PredicateReferences>
+              <PredicateReference Id="internationalOrNationalPhoneNumber" />
+            </PredicateReferences>
+          </PredicateGroup>
+          <PredicateGroup Id="noLeadingPlus">
+            <PredicateReferences>
+              <PredicateReference Id="noLeadingPlus" />
+            </PredicateReferences>
+          </PredicateGroup>
+        </PredicateGroups>
+      </PredicateValidation>
+      <PredicateValidation Id="internationalOrNationalPhoneNumber">
+        <PredicateGroups>
+          <PredicateGroup Id="internationalOrNationalPhoneNumber">
+            <UserHelpText>Please enter a valid phone number.</UserHelpText>
+            <PredicateReferences>
+              <PredicateReference Id="internationalOrNationalPhoneNumber" />
+            </PredicateReferences>
+          </PredicateGroup>
+        </PredicateGroups>
+      </PredicateValidation>
+    </PredicateValidations>
+    <ClaimsTransformations>
+      <ClaimsTransformation Id="CreateRandomUPNUserName" TransformationMethod="CreateRandomString">
+        <InputParameters>
+          <InputParameter Id="randomGeneratorType" DataType="string" Value="GUID" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="upnUserName" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="CreateUserPrincipalName" TransformationMethod="FormatStringClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="upnUserName" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="stringFormat" DataType="string" Value="cpim_{0}@{RelyingPartyTenantId}" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="userPrincipalName" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="ConvertStringToPhoneNumber" TransformationMethod="ConvertStringToPhoneNumberClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="country" />
+          <InputClaim ClaimTypeReferenceId="nationalNumber" TransformationClaimType="phoneNumberString" />
+        </InputClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="SetPhoneNumberIfPredicateMatch" TransformationMethod="CopyClaimIfPredicateMatch">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="signInName" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="SetEmailIfPredicateMatch" TransformationMethod="CopyClaimIfPredicateMatch">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="signInName" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="email" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="GetNationalNumberAndCountryCodeIfInternationalFormat" TransformationMethod="GetNationalNumberAndCountryCodeFromPhoneNumberString">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="phoneNumber" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="throwExceptionOnFailure" DataType="boolean" Value="false" />
+          <InputParameter Id="countryCodeType" DataType="string" Value="ISO3166" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="nationalNumber" />
+          <OutputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="countryCode" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="PhoneNumberToNationalNumber" TransformationMethod="CopyClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="phoneNumber" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="nationalNumber" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="CheckIfStrongAuthEmailExists" TransformationMethod="DoesClaimExist">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="strongAuthEmailExists" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      <ClaimsTransformation Id="ThrowErrorIfStrongAuthEmailDoesNotExist" TransformationMethod="AssertBooleanClaimIsEqualToValue">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="strongAuthEmailExists" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="valueToCompareTo" DataType="boolean" Value="true" />
+        </InputParameters>
+      </ClaimsTransformation>
+    </ClaimsTransformations>
+    <ClientDefinitions>
+      <ClientDefinition Id="DefaultWeb">
+        <ClientUIFilterFlags>LineMarkers, MetaRefresh</ClientUIFilterFlags>
+      </ClientDefinition>
+    </ClientDefinitions>
+    <ContentDefinitions>
+      <!-- This content definition is to render an error page that displays unhandled errors. -->
+      <ContentDefinition Id="api.error">
+        <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Error page</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="phoneInput">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Enter phone number to continue</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="phoneInput.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="newPhoneNumber">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify new phone number</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="newPhoneNumber.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="phoneSignIn">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify phone to sign in</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="phoneSignIn.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="phoneSignUp">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify phone to sign up</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="phoneSignUp.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="changePhoneNumberVerifyEmailAddress">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify email address</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="changePhoneNumberVerifyEmailAddress.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="phoneSignUpCollectEmailAddress">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Collect email address during phone sign up</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="phoneSignUpCollectEmailAddress.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="emailSignIn">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Use email to sign in</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="emailSignUp">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify email to sign up</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="emailSignUp.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="emailDiscovery">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Verify email address</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="signuporsignin-phone">
+        <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Signin and Signup using phone</Item>
+          <Item Key="setting.bottomUnderFormClaimsProviderSelections">ChangePhoneNumber</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="signuporsignin-phone.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="signuporsignin-phone-email">
+        <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Signin and Signup using phone or email</Item>
+          <Item Key="setting.bottomUnderFormClaimsProviderSelections">ChangePhoneNumber</Item>
+        </Metadata>
+        <LocalizedResourcesReferences MergeBehavior="Prepend">
+          <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="signuporsignin-phone-email.en" />
+        </LocalizedResourcesReferences>
+      </ContentDefinition>
+      <ContentDefinition Id="resetemailpassword">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Change password for email account</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="profileUpdate">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Update profile</Item>
+        </Metadata>
+      </ContentDefinition>
+    </ContentDefinitions>
+    <Localization Enabled="true">
+      <LocalizedResources Id="signuporsignin-phone.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="local_intro_generic">Sign in with your existing account</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="button_signin">Continue</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="signuporsignin-phone-email.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="local_intro_generic">Sign in with your existing account</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="button_signin">Continue</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="emailSignUp.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="button_continue">Create</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="phoneSignIn.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="initial_intro">Please verify your country code and phone number</LocalizedString>
+          <!-- The following elements will display a message and two links at the bottom of the signin page. 
+          For policies that you intend to show to users in the United States, we suggest displaying the following text. Replace the content of the disclaimer_link_X_url elements with links to your organization's privacy statement and terms and conditions. 
+          Remove any of these lines if you do not wish to display them.  -->
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="phoneSignUp.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="initial_intro">Please verify your country code and phone number</LocalizedString>
+          <!-- The following elements will display a message and two links at the bottom of the signup page. 
+          For policies that you intend to show to users in the United States, we suggest displaying the following text. Replace the content of the disclaimer_link_X_url elements with links to your organization's privacy statement and terms and conditions. 
+          Remove any of these lines if you do not wish to display them.  -->
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="phoneInput.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="initial_intro">Please enter your old country code and phone number</LocalizedString>
+          <LocalizedString ElementType="ClaimType" ElementId="nationalNumber" StringId="DisplayName">Old phone number</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="newPhoneNumber.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="ClaimType" ElementId="nationalNumber" StringId="DisplayName">New phone number</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="changePhoneNumberVerifyEmailAddress.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="button_continue">Continue</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="ver_intro_msg">We need to verify the email address you used to sign up with</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+      <LocalizedResources Id="phoneSignUpCollectEmailAddress.en">
+        <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="button_continue">Create</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="ver_intro_msg">Add a recovery email now so you can recover your account if your phone number changes. Note that this email address is for recovery purposes and not for signing in.</LocalizedString>
+        </LocalizedStrings>
+      </LocalizedResources>
+    </Localization>
+    <DisplayControls>
+      <DisplayControl Id="phoneControl" UserInterfaceControlType="VerificationControl">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="nationalNumber" />
+          <InputClaim ClaimTypeReferenceId="countryCode" />
+        </InputClaims>
+        <DisplayClaims>
+          <DisplayClaim ClaimTypeReferenceId="countryCode" ControlClaimType="CountryCode" Required="true" />
+          <DisplayClaim ClaimTypeReferenceId="nationalNumber" ControlClaimType="Phone" Required="true" />
+          <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
+        </DisplayClaims>
+        <Actions>
+          <Action Id="SendCode">
+            <ValidationClaimsExchange>
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="CombineCountryCodeAndNationalNumber" />
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AzureMfa-SendSms" />
+            </ValidationClaimsExchange>
+          </Action>
+          <Action Id="VerifyCode">
+            <ValidationClaimsExchange>
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="CombineCountryCodeAndNationalNumber" />
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AzureMfa-VerifySms" />
+            </ValidationClaimsExchange>
+          </Action>
+        </Actions>
+      </DisplayControl>
+    </DisplayControls>
+  </BuildingBlocks>
+  <!--
+        A list of all the claim providers that can be used in the technical policies. If a claims provider is not listed 
+        in this section, then it cannot be used in a technical policy.
+    -->
+  <ClaimsProviders>
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-Common">
+          <DisplayName>Azure Active Directory</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureActiveDirectoryProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <!-- We need this here to suppress the SelfAsserted provider from invoking SSO on validation profiles. -->
+          <IncludeInSso>false</IncludeInSso>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+        <!-- The following technical profile is used to read data after user authenticates with ESTS. -->
+        <TechnicalProfile Id="AAD-UserReadUsingObjectId">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profiles for phone number discovery -->
+        <TechnicalProfile Id="AAD-UserDiscoveryUsingLogonPhoneNumber-Common">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">That phone number doesn't exist in our system. Please try signing up with the number.</Item>
+          </Metadata>
+          <IncludeInSso>false</IncludeInSso>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for discover phone number that raises error if number exists -->
+        <TechnicalProfile Id="AAD-UserDiscoveryUsingLogonPhoneNumber-RaiseErrorIfExists">
+          <Metadata>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">true</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+            <Item Key="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="AAD-UserDiscoveryUsingLogonPhoneNumber-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for reading user profile using phone number-->
+        <TechnicalProfile Id="AAD-UserDiscoveryUsingLogonPhoneNumber-FullProfile">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-UserDiscoveryUsingLogonPhoneNumber-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for creating user using phone number -->
+        <TechnicalProfile Id="AAD-UserWriteUsingLogonPhoneNumber">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">true</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+            <Item Key="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="userPrincipalName" />
+            <PersistedClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+            <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
+            <PersistedClaim ClaimTypeReferenceId="givenName" />
+            <PersistedClaim ClaimTypeReferenceId="surname" />
+          </PersistedClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for creating user using phone number -->
+        <TechnicalProfile Id="AAD-UserWriteRecoveryEmailUsingObjectId">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="objectId" />
+            <PersistedClaim ClaimTypeReferenceId="email" PartnerClaimType="strongAuthenticationEmailAddress" />
+          </PersistedClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for creating user using email address -->
+        <TechnicalProfile Id="AAD-UserWriteUsingLogonEmail">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">true</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+            <Item Key="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress" />
+            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password" />
+            <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
+            <PersistedClaim ClaimTypeReferenceId="givenName" />
+            <PersistedClaim ClaimTypeReferenceId="surname" />
+            <PersistedClaim ClaimTypeReferenceId="passwordPolicies" DefaultValue="DisablePasswordExpiration,DisableStrongPassword" />
+          </PersistedClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for reading user using email address-->
+        <TechnicalProfile Id="AAD-UserReadUsingEmailAddress">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">An account could not be found for the provided email address.</Item>
+          </Metadata>
+          <IncludeInSso>false</IncludeInSso>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress" Required="true" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" DefaultValue="true" AlwaysUseDefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for modifying user profile using object id -->
+        <TechnicalProfile Id="AAD-UserWriteProfileUsingObjectId">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="objectId" />
+            <PersistedClaim ClaimTypeReferenceId="givenName" />
+            <PersistedClaim ClaimTypeReferenceId="displayName" />
+            <PersistedClaim ClaimTypeReferenceId="surname" />
+          </PersistedClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for modifying user profile using object id -->
+        <TechnicalProfile Id="AAD-UserUpdatePhoneNumberUsingObjectId">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="objectId" />
+            <PersistedClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </PersistedClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+        <!-- Technical profile for modifying user password using object id -->
+        <TechnicalProfile Id="AAD-UserWritePasswordUsingObjectId">
+          <Metadata>
+            <Item Key="Operation">Write</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">false</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="objectId" />
+            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password" />
+          </PersistedClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Azure MFA</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AzureMfa-SendSms">
+          <DisplayName>Send Sms</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="Operation">OneWaySMS</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber" PartnerClaimType="phoneNumber" />
+          </InputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="AzureMfa-VerifySms">
+          <DisplayName>Verify Sms</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="Operation">Verify</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="verificationCode" />
+            <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber" PartnerClaimType="phoneNumber" />
+          </InputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Local Account Sign Up With Phone</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="LocalAccountInputNewPhoneNumber">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">newPhoneNumber</Item>
+            <Item Key="UserMessageIfClaimsTransformationInvalidPhoneNumber">Please enter a valid phone number and country code.</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <DisplayClaims>
+            <DisplayClaim DisplayControlReferenceId="phoneControl" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surName" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="CombineCountryCodeAndNationalNumber" />
+            <ValidationTechnicalProfile ReferenceId="AAD-UserUpdatePhoneNumberUsingObjectId" />
+          </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+        <TechnicalProfile Id="LocalAccountSignUpWithLogonPhoneNumber">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">phoneSignUp</Item>
+            <Item Key="ClaimsProviderSelectionDisplayType">TextLink</Item>
+            <Item Key="UserMessageIfClaimsTransformationInvalidPhoneNumber">Please enter a valid phone number and country code.</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <InputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+          </InputClaimsTransformations>
+          <DisplayClaims>
+            <DisplayClaim DisplayControlReferenceId="phoneControl" />
+            <DisplayClaim ClaimTypeReferenceId="displayName" />
+            <DisplayClaim ClaimTypeReferenceId="givenName" />
+            <DisplayClaim ClaimTypeReferenceId="surName" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surName" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="CombineCountryCodeAndNationalNumber" />
+            <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonPhoneNumber" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">phoneSignUpCollectEmailAddress</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="Verified.Email" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserWriteRecoveryEmailUsingObjectId" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="ChangePhoneNumber_VerifyEmailAddress">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">changePhoneNumberVerifyEmailAddress</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" PartnerClaimType="Verified.Email" Required="true" />
+          </OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Local Account Sign Up With Email</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="LocalAccountSignUpWithLogonEmail">
+          <DisplayName>Email</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
+            <Item Key="ContentDefinitionReferenceId">emailSignUp</Item>
+            <Item Key="ClaimsProviderSelectionDisplayType">TextLink</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="Verified.Email" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="newPassword" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surName" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" />
+            <OutputClaim ClaimTypeReferenceId="isEmailSignUp" DefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonEmail" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Local Account Sign In With Phone</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Phone-Only">
+          <DisplayName>Local Account Signin Using Phone Only</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="setting.operatingMode">Username</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="phoneNumber" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="phoneNumber" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="isLocalAccountSignIn" DefaultValue="true" />
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSigninForProfileEdit-Phone-Only">
+          <Metadata>
+            <Item Key="setting.showSignupLink">false</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="SelfAsserted-LocalAccountSignin-Phone-Only" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Phone-Email">
+          <DisplayName>Local Account Signin Using Phone Email</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="setting.operatingMode">Username</Item>
+            <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Please enter a valid phone number or email address.</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="signInName" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="signInName" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="phoneNumber" />
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="isLocalAccountSignIn" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="ValidateUsernameType" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSigninForProfileEdit-Phone-Email">
+          <Metadata>
+            <Item Key="setting.showSignupLink">false</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="SelfAsserted-LocalAccountSignin-Phone-Email" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneInput-ChangePhoneNumber-Common">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">phoneInput</Item>
+            <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">We don't have a recovery email address listed under the phone number you entered. Contact your organization's IT administrator to change your phone number.</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <DisplayClaims>
+            <DisplayClaim ClaimTypeReferenceId="countryCode" Required="true" />
+            <DisplayClaim ClaimTypeReferenceId="nationalNumber" Required="true" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="CombineCountryCodeAndNationalNumber" />
+            <ValidationTechnicalProfile ReferenceId="AAD-UserDiscoveryUsingLogonPhoneNumber-Common" />
+            <ValidationTechnicalProfile ReferenceId="DoesStrongAuthEmailExist" />
+          </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneInputPage-ChangePhoneNumberPolicy">
+          <DisplayName>Phone</DisplayName>
+          <IncludeTechnicalProfile ReferenceId="PhoneInput-ChangePhoneNumber-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneInputPage-ChangePhoneNumberClaimsProviderSelection">
+          <DisplayName>Change Phone Number</DisplayName>
+          <Metadata>
+            <Item Key="ClaimsProviderSelectionDisplayType">TextLink</Item>
+          </Metadata>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isChangePhoneNumber" DefaultValue="true" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="PhoneInput-ChangePhoneNumber-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneVerificationPage1">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">phoneSignIn</Item>
+          </Metadata>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="GetNationalNumberAndCountryCodeIfInternationalFormat" />
+            <InputClaimsTransformation ReferenceId="PhoneNumberToNationalNumber" />
+            <InputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <InputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+          </InputClaimsTransformations>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="countryCode" />
+            <InputClaim ClaimTypeReferenceId="nationalNumber" />
+          </InputClaims>
+          <DisplayClaims>
+            <DisplayClaim ClaimTypeReferenceId="countryCode" Required="true" />
+            <DisplayClaim ClaimTypeReferenceId="nationalNumber" Required="true" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="strongAuthenticationEmailAddress" />
+            <OutputClaim ClaimTypeReferenceId="hasFullProfile" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="CombineCountryCodeAndNationalNumber" />
+            <ValidationTechnicalProfile ReferenceId="AAD-UserDiscoveryUsingLogonPhoneNumber-FullProfile" />
+            <ValidationTechnicalProfile ReferenceId="AzureMfa-SendSms" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="PhoneVerificationPage2">
+          <DisplayName>Phone</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">phoneSignIn</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <DisplayClaims>
+            <DisplayClaim ClaimTypeReferenceId="verificationCode" Required="true" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="verificationCode" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AzureMfa-VerifySms" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <!-- This technical profile forces the user to verify the email address that they provide on the UI. Only after email is verified, the user account is
+        read from the directory. -->
+        <TechnicalProfile Id="LocalAccountDiscoveryUsingEmailAddress">
+          <DisplayName>Reset password using email address</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
+            <Item Key="ContentDefinitionReferenceId">emailDiscovery</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <IncludeInSso>false</IncludeInSso>
+          <!-- The email address needs to be read only if pre-filled, otherwise the self-asserted attribute provider will not verify it-->
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="Verified.Email" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress" />
+          </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+        <TechnicalProfile Id="LocalAccountWritePasswordUsingObjectId">
+          <DisplayName>Change password (username)</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">resetemailpassword</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="newPassword" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserWritePasswordUsingObjectId" />
+          </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
+          <DisplayName>Local Account Signin</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="setting.operatingMode">Email</Item>
+            <Item Key="ContentDefinitionReferenceId">emailSignIn</Item>
+            <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Please enter a valid email address.</Item>
+          </Metadata>
+          <IncludeInSso>false</IncludeInSso>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="email" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="password" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="login-NonInteractive" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="ChangePhoneNumberSuccessPage">
+          <DisplayName>Local Account Signin</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">emailSignIn</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="changePhoneSuccessMessage" DefaultValue="Your phone number has been updated." />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="changePhoneSuccessMessage" />
+          </OutputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="login-NonInteractive">
+          <DisplayName>Local Account SignIn</DisplayName>
+          <Protocol Name="OpenIdConnect" />
+          <Metadata>
+            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
+            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
+            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">We can't seem to find your account</Item>
+            <Item Key="UserMessageIfInvalidPassword">Your password is incorrect</Item>
+            <Item Key="UserMessageIfOldPasswordUsed">Looks like you used an old password</Item>
+            <Item Key="DefaultMessage">Invalid email or password</Item>
+            <Item Key="ProviderName">https://sts.windows.net/</Item>
+            <Item Key="METADATA">https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration</Item>
+            <Item Key="authorization_endpoint">https://login.microsoftonline.com/{tenant}/oauth2/token</Item>
+            <Item Key="response_types">id_token</Item>
+            <Item Key="response_mode">query</Item>
+            <Item Key="scope">email openid</Item>
+            <!-- Policy Engine Clients -->
+            <Item Key="UsePolicyInRedirectUri">false</Item>
+            <Item Key="HttpBinding">POST</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppId" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppId" />
+            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="username" Required="true" />
+            <InputClaim ClaimTypeReferenceId="password" Required="true" />
+            <InputClaim ClaimTypeReferenceId="grant_type" DefaultValue="password" />
+            <InputClaim ClaimTypeReferenceId="scope" DefaultValue="openid" />
+            <InputClaim ClaimTypeReferenceId="nca" PartnerClaimType="nca" DefaultValue="1" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="oid" />
+            <OutputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="tid" />
+            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
+            <OutputClaim ClaimTypeReferenceId="surName" PartnerClaimType="family_name" />
+            <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" PartnerClaimType="upn" />
+          </OutputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="SelfAsserted-ProfileUpdate">
+          <DisplayName>User ID signup</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">profileUpdate</Item>
+            <Item Key="AllowGenerationOfClaimsWithNullValues">true</Item>
+          </Metadata>
+          <IncludeInSso>false</IncludeInSso>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="displayName" />
+            <InputClaim ClaimTypeReferenceId="givenName" />
+            <InputClaim ClaimTypeReferenceId="surname" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserWriteProfileUsingObjectId" />
+          </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Claims Transformation</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="ValidateUsernameType">
+          <DisplayName>Validate UserName Type</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="SetPhoneNumberIfPredicateMatch" />
+            <InputClaimsTransformation ReferenceId="SetEmailIfPredicateMatch" />
+          </InputClaimsTransformations>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="phoneNumber" />
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="isLocalAccountSignIn" DefaultValue="true" />
+          </OutputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="CombineCountryCodeAndNationalNumber">
+          <DisplayName>Combine country code and national number</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
+          </InputClaimsTransformations>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="DoesStrongAuthEmailExist">
+          <DisplayName>Does recovery email exist</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CheckIfStrongAuthEmailExists" />
+            <InputClaimsTransformation ReferenceId="ThrowErrorIfStrongAuthEmailDoesNotExist" />
+          </InputClaimsTransformations>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="strongAuthEmailExists" />
+          </OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Session Management</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SM-Noop">
+          <DisplayName>Noop Session Management Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.NoopSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="SM-AAD">
+          <DisplayName>Session Mananagement Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.DefaultSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="objectId" />
+          </PersistedClaims>
+          <OutputClaims></OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Trustframework Policy Engine TechnicalProfiles</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="TpEngine_c3bd4fe2-1775-4013-b91d-35f16d377d13">
+          <DisplayName>Trustframework Policy Engine Default Technical Profile</DisplayName>
+          <Protocol Name="None" />
+          <Metadata>
+            <Item Key="url">{service:te}</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Token Issuer</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="JwtIssuer">
+          <DisplayName>JWT Issuer</DisplayName>
+          <Protocol Name="None" />
+          <OutputTokenFormat>JWT</OutputTokenFormat>
+          <Metadata>
+            <Item Key="client_id">{service:te}</Item>
+            <Item Key="issuer_refresh_token_user_identity_claim_type">objectId</Item>
+            <Item Key="SendTokenResponseBodyWithJsonNumbers">true</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+            <Key Id="issuer_refresh_token_key" StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
+          </CryptographicKeys>
+          <InputClaims />
+          <OutputClaims />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+  </ClaimsProviders>
+  <UserJourneys>
+    <UserJourney Id="SignUpOrSignInWithPhone">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithPhone" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="ChangePhoneNumber" />
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneExchange" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninPhoneExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Phone-Only" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber" />
+            <ClaimsExchange Id="ChangePhoneNumber" TechnicalProfileReferenceId="PhoneInputPage-ChangePhoneNumberClaimsProviderSelection" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isChangePhoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone_CollectEmailAddress" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="4" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="SignInWithPhone" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="5" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isChangePhoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="ChangePhoneNumber" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="6" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>hasFullProfile</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="7" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+    <UserJourney Id="SignUpOrSignInWithPhoneOrEmail">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone-email">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithEmail" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithPhone" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="ChangePhoneNumber" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninPhoneEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Phone-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber" />
+            <ClaimsExchange Id="SignUpWithEmail" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+            <ClaimsExchange Id="ChangePhoneNumber" TechnicalProfileReferenceId="PhoneInputPage-ChangePhoneNumberClaimsProviderSelection" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isEmailSignUp</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>isChangePhoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone_CollectEmailAddress" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isLocalAccountSignIn</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="SignInWithPhoneOrEmail" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="5" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isChangePhoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="ChangePhoneNumber" />
+          </JourneyList>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="6" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>hasFullProfile</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="7" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+    <UserJourney Id="ProfileEditPhoneOnly">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneExchange" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninPhoneExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSigninForProfileEdit-Phone-Only" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart1" TechnicalProfileReferenceId="PhoneVerificationPage1" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart2" TechnicalProfileReferenceId="PhoneVerificationPage2" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>strongAuthenticationEmailAddress</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone_CollectEmailAddress" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="5" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>hasFullProfile</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="6" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="B2CUserProfileUpdateExchange" TechnicalProfileReferenceId="SelfAsserted-ProfileUpdate" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="7" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+    <UserJourney Id="ProfileEditPhoneEmail">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone-email">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneEmailExchange" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninPhoneEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSigninForProfileEdit-Phone-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>email</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="EmailInputExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>phoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="SignInWithPhone" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>hasFullProfile</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="5" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="B2CUserProfileUpdateExchange" TechnicalProfileReferenceId="SelfAsserted-ProfileUpdate" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="6" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+    <UserJourney Id="PasswordResetEmail">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PasswordResetUsingEmailAddressExchange" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewCredentials" TechnicalProfileReferenceId="LocalAccountWritePasswordUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+    <UserJourney Id="ChangePhoneNumber">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="OldPhoneInputExchange" TechnicalProfileReferenceId="PhoneInputPage-ChangePhoneNumberPolicy" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="InvokeSubJourney">
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="ChangePhoneNumber" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>hasFullProfile</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+  </UserJourneys>
+  <SubJourneys>
+    <SubJourney Id="ChangePhoneNumber" Type="Call">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="VerifyEmailAddress" TechnicalProfileReferenceId="ChangePhoneNumber_VerifyEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewPhoneInputExchange" TechnicalProfileReferenceId="LocalAccountInputNewPhoneNumber" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="ChangePhoneNumberSuccessPage" TechnicalProfileReferenceId="ChangePhoneNumberSuccessPage" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+    <SubJourney Id="SignInWithPhoneOrEmail" Type="Call">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>email</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="EmailInputExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>phoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart1" TechnicalProfileReferenceId="PhoneVerificationPage1" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>phoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart2" TechnicalProfileReferenceId="PhoneVerificationPage2" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>strongAuthenticationEmailAddress</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>phoneNumber</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone_CollectEmailAddress" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+    <SubJourney Id="SignInWithPhone" Type="Call">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart1" TechnicalProfileReferenceId="PhoneVerificationPage1" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PhoneVerificationExchangePart2" TechnicalProfileReferenceId="PhoneVerificationPage2" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>strongAuthenticationEmailAddress</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithPhone_CollectEmailAddress" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonPhoneNumber_CollectEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
+</TrustFrameworkPolicy>
