@@ -1,0 +1,2 @@
+# Invoke custom API when acquiring token silently (refresh token)
+In this scenario, we enable the capability to add custom claims by calling a custom API both during sign up/sign in and during token refresh. This is useful when the custom claims get updated after the interactive token acquisition has been completed and when a token needs to be acquired silently. Without adding the ```<UserJourney Id="TokenRefresh">``` and doing the related updates, the custom API will not be invoked when acquiring a token silently.
