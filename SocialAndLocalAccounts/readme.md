@@ -386,7 +386,7 @@ The following implements the `AAD-UserReadUsingAlternativeSecurityId` technical 
     <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">User does not exist. Please sign up before you can sign in.</Item>
   </Metadata>
   <InputClaims>
-    <InputClaim ClaimTypeReferenceId="AlternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
+    <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
   </InputClaims>
   <OutputClaims>
     <!-- Required claims -->
@@ -494,7 +494,7 @@ This technical profile appears as follows:
     <InputClaimsTransformation ReferenceId="CreateOtherMailsFromEmail" />
   </InputClaimsTransformations>
   <InputClaims>
-    <InputClaim ClaimTypeReferenceId="AlternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
+    <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
   </InputClaims>
   <PersistedClaims>
     <!-- Required claims -->
