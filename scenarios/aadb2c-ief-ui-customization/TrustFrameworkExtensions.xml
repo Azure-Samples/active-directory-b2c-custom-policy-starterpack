@@ -18,7 +18,7 @@
       <ContentDefinition Id="api.error">
         <LoadUri>~/tenant/default/exception.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Error page</Item>
         </Metadata>
@@ -27,7 +27,7 @@
       <ContentDefinition Id="api.idpselections">
         <LoadUri>~/tenant/default/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Idp selection page</Item>
           <Item Key="language.intro">Sign in</Item>
@@ -37,7 +37,7 @@
       <ContentDefinition Id="api.idpselections.signup">
         <LoadUri>~/tenant/default/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Idp selection page</Item>
           <Item Key="language.intro">Sign up</Item>
@@ -48,7 +48,7 @@
         <!--<LoadUri>~/tenant/default/unified.cshtml</LoadUri>-->
         <LoadUri>https://contosoaadb2cui.azurewebsites.net/home/unified</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:unifiedssp:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
         <Metadata>
           <Item Key="DisplayName">Signin and Signup</Item>
         </Metadata>
@@ -58,7 +58,7 @@
         <!--<LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>-->
         <LoadUri>https://contosoaadb2cui.azurewebsites.net/home/selfAsserted</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Collect information from user page</Item>
         </Metadata>
@@ -67,7 +67,7 @@
       <ContentDefinition Id="api.selfasserted.profileupdate">
         <LoadUri>~/tenant/default/updateProfile.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Collect information from user page</Item>
         </Metadata>
@@ -77,7 +77,7 @@
         <!--<LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>-->
         <LoadUri>https://contosoaadb2cui.azurewebsites.net/home/selfAsserted</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Local account sign up page</Item>
         </Metadata>
@@ -87,7 +87,7 @@
         <!--<LoadUri>~/tenant/default/selfAsserted.cshtml</LoadUri>-->
         <LoadUri>https://contosoaadb2cui.azurewebsites.net/home/selfAsserted</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Local account change password page</Item>
         </Metadata>
