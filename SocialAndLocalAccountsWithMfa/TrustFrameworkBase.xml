@@ -415,7 +415,7 @@
       <ContentDefinition Id="api.error">
         <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Error page</Item>
         </Metadata>
@@ -424,7 +424,7 @@
       <ContentDefinition Id="api.idpselections">
         <LoadUri>~/tenant/templates/AzureBlue/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Idp selection page</Item>
           <Item Key="language.intro">Sign in</Item>
@@ -434,7 +434,7 @@
       <ContentDefinition Id="api.idpselections.signup">
         <LoadUri>~/tenant/templates/AzureBlue/idpSelector.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Idp selection page</Item>
           <Item Key="language.intro">Sign up</Item>
@@ -444,7 +444,7 @@
       <ContentDefinition Id="api.signuporsignin">
         <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:unifiedssp:1.0.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
         <Metadata>
           <Item Key="DisplayName">Signin and Signup</Item>
         </Metadata>
@@ -453,7 +453,7 @@
       <ContentDefinition Id="api.phonefactor">
         <LoadUri>~/tenant/templates/AzureBlue/multifactor-1.0.0.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:multifactor:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:multifactor:1.2.5</DataUri>
         <Metadata>
           <Item Key="DisplayName">Multi-factor authentication page</Item>
         </Metadata>
@@ -462,7 +462,7 @@
       <ContentDefinition Id="api.selfasserted">
         <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Collect information from user page</Item>
         </Metadata>
@@ -471,7 +471,7 @@
       <ContentDefinition Id="api.selfasserted.profileupdate">
         <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Collect information from user page</Item>
         </Metadata>
@@ -480,7 +480,7 @@
       <ContentDefinition Id="api.localaccountsignup">
         <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Local account sign up page</Item>
         </Metadata>
@@ -489,7 +489,7 @@
       <ContentDefinition Id="api.localaccountpasswordreset">
         <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
           <Item Key="DisplayName">Local account change password page</Item>
         </Metadata>
@@ -651,7 +651,7 @@
             <InputClaimsTransformation ReferenceId="CreateOtherMailsFromEmail" />
           </InputClaimsTransformations>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="AlternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
+            <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
           </InputClaims>
           <PersistedClaims>
             <!-- Required claims -->
@@ -683,7 +683,7 @@
             <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">User does not exist. Please sign up before you can sign in.</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="AlternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
+            <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
           </InputClaims>
           <OutputClaims>
             <!-- Required claims -->
@@ -920,7 +920,7 @@
             <InputClaim ClaimTypeReferenceId="userPrincipalName" />
 
             <!-- Optional claims. These claims are collected from the user and can be modified. Any claim added here should be updated in the
-                 ValidationTechnicalProfile referenced below so it can be written to directory after being updateed by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
+                 ValidationTechnicalProfile referenced below so it can be written to directory after being updated by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
             <InputClaim ClaimTypeReferenceId="givenName" />
             <InputClaim ClaimTypeReferenceId="surname" />
           </InputClaims>
@@ -929,7 +929,7 @@
             <OutputClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" DefaultValue="true" />
 
             <!-- Optional claims. These claims are collected from the user and can be modified. Any claim added here should be updated in the
-                 ValidationTechnicalProfile referenced below so it can be written to directory after being updateed by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
+                 ValidationTechnicalProfile referenced below so it can be written to directory after being updated by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" />
           </OutputClaims>
@@ -1094,7 +1094,7 @@
             <Item Key="AlwaysFetchClaimsFromProvider">true</Item>
           </Metadata>
           <PersistedClaims>
-            <PersistedClaim ClaimTypeReferenceId="AlternativeSecurityId" />
+            <PersistedClaim ClaimTypeReferenceId="alternativeSecurityId" />
           </PersistedClaims>
         </TechnicalProfile>
  

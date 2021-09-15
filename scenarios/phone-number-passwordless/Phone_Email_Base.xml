@@ -627,7 +627,7 @@
       <ContentDefinition Id="api.error">
         <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.1</DataUri>
         <Metadata>
           <Item Key="DisplayName">Error page</Item>
         </Metadata>

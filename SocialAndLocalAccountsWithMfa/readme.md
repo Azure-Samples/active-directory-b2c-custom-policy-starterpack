@@ -81,7 +81,7 @@ The following [content definition](https://docs.microsoft.com/azure/active-direc
     <ContentDefinition Id="api.phonefactor">
       <LoadUri>~/tenant/templates/AzureBlue/multifactor-1.0.0.cshtml</LoadUri>
       <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-      <DataUri>urn:com:microsoft:aad:b2c:elements:multifactor:1.1.0</DataUri>
+      <DataUri>urn:com:microsoft:aad:b2c:elements:contract:multifactor:1.2.5</DataUri>
       <Metadata>
         <Item Key="DisplayName">Multi-factor authentication page</Item>
       </Metadata>
