@@ -141,8 +141,8 @@ By calling this technical profile, we now satisfy the initial logical step for s
   <InputClaims>
     <InputClaim ClaimTypeReferenceId="signInName" PartnerClaimType="username" Required="true" />
     <InputClaim ClaimTypeReferenceId="password" Required="true" />
-    <InputClaim ClaimTypeReferenceId="grant_type" DefaultValue="password" />
-    <InputClaim ClaimTypeReferenceId="scope" DefaultValue="openid" />
+    <InputClaim ClaimTypeReferenceId="grant_type" DefaultValue="password" AlwaysUseDefaultValue="true" />
+    <InputClaim ClaimTypeReferenceId="scope" DefaultValue="openid" AlwaysUseDefaultValue="true" />
     <InputClaim ClaimTypeReferenceId="nca" PartnerClaimType="nca" DefaultValue="1" />
   </InputClaims>
   <OutputClaims>
