@@ -7,14 +7,12 @@
   TenantId="yourtenant.onmicrosoft.com" 
   PolicyId="B2C_1A_TrustFrameworkExtensions" 
   PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions">
-  
+
   <BasePolicy>
     <TenantId>yourtenant.onmicrosoft.com</TenantId>
-    <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
+    <PolicyId>B2C_1A_TrustFrameworkLocalization</PolicyId>
   </BasePolicy>
-  <BuildingBlocks>
-
-  </BuildingBlocks>
+  <BuildingBlocks></BuildingBlocks>
 
   <ClaimsProviders>
 
@@ -22,7 +20,7 @@
     <ClaimsProvider>
       <DisplayName>Local Account SignIn</DisplayName>
       <TechnicalProfiles>
-         <TechnicalProfile Id="login-NonInteractive">
+        <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
             <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
             <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
@@ -37,7 +35,7 @@
 
   </ClaimsProviders>
 
-    <!--UserJourneys>
+  <!--UserJourneys>
 	
 	</UserJourneys-->
 
