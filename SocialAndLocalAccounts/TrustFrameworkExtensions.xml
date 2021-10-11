@@ -10,7 +10,7 @@
   
   <BasePolicy>
     <TenantId>yourtenant.onmicrosoft.com</TenantId>
-    <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
+    <PolicyId>B2C_1A_TrustFrameworkLocalization</PolicyId>
   </BasePolicy>
  <BuildingBlocks>
 
@@ -35,7 +35,7 @@
     <ClaimsProvider>
       <DisplayName>Local Account SignIn</DisplayName>
       <TechnicalProfiles>
-        <TechnicalProfile Id="login-NonInteractive">
+         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
             <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
             <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>

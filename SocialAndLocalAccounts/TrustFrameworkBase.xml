@@ -73,7 +73,7 @@
         <UserHelpText>Email address to use for signing in.</UserHelpText>
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
-	  	  
+
       <ClaimType Id="accountEnabled">
         <DisplayName>Account Enabled</DisplayName>
         <DataType>boolean</DataType>
@@ -353,7 +353,7 @@
           <OutputClaim ClaimTypeReferenceId="sub" TransformationClaimType="createdClaim" />
         </OutputClaims>
       </ClaimsTransformation>
- 
+
       <ClaimsTransformation Id="AssertAccountEnabledIsTrue" TransformationMethod="AssertBooleanClaimIsEqualToValue">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="accountEnabled" TransformationClaimType="inputClaim" />
@@ -447,6 +447,24 @@
         </Metadata>
       </ContentDefinition>
 
+      <ContentDefinition Id="api.socialccountsignup">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Collect information from user page</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.localaccountsignin">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Collect information from user page</Item>
+        </Metadata>
+      </ContentDefinition>
+
     </ContentDefinitions>
   </BuildingBlocks>
 
@@ -456,7 +474,7 @@
     -->
   <ClaimsProviders>
 
-        <ClaimsProvider>
+    <ClaimsProvider>
       <!-- The following Domain element allows this profile to be used if the request comes with domain_hint 
            query string parameter, e.g. domain_hint=facebook.com  -->
       <Domain>facebook.com</Domain>
@@ -499,7 +517,7 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
- 
+
     <ClaimsProvider>
       <DisplayName>Local Account SignIn</DisplayName>
       <TechnicalProfiles>
@@ -507,17 +525,13 @@
           <DisplayName>Local Account SignIn</DisplayName>
           <Protocol Name="OpenIdConnect" />
           <Metadata>
-            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">We can't seem to find your account</Item>
-            <Item Key="UserMessageIfInvalidPassword">Your password is incorrect</Item>
-            <Item Key="UserMessageIfOldPasswordUsed">Looks like you used an old password</Item>
-
             <Item Key="ProviderName">https://sts.windows.net/</Item>
             <Item Key="METADATA">https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration</Item>
             <Item Key="authorization_endpoint">https://login.microsoftonline.com/{tenant}/oauth2/token</Item>
             <Item Key="response_types">id_token</Item>
             <Item Key="response_mode">query</Item>
             <Item Key="scope">email openid</Item>
-            <Item Key="grant_type">password</Item>
+            <!-- <Item Key="grant_type">password</Item> -->
 
             <!-- Policy Engine Clients -->
             <Item Key="UsePolicyInRedirectUri">false</Item>
@@ -542,7 +556,7 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
- 
+
     <ClaimsProvider>
       <DisplayName>Azure Active Directory</DisplayName>
       <TechnicalProfiles>
@@ -561,12 +575,10 @@
         </TechnicalProfile>
 
         <!-- Technical profiles for social logins -->
-
         <TechnicalProfile Id="AAD-UserWriteUsingAlternativeSecurityId">
           <Metadata>
             <Item Key="Operation">Write</Item>
             <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">true</Item>
-            <Item Key="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</Item>
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
@@ -581,7 +593,7 @@
             <PersistedClaim ClaimTypeReferenceId="userPrincipalName" />
             <PersistedClaim ClaimTypeReferenceId="mailNickName" DefaultValue="unknown" />
             <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
-  
+
             <!-- Optional claims -->
             <PersistedClaim ClaimTypeReferenceId="otherMails" />
             <PersistedClaim ClaimTypeReferenceId="givenName" />
@@ -602,14 +614,12 @@
           <Metadata>
             <Item Key="Operation">Read</Item>
             <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
-            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">User does not exist. Please sign up before you can sign in.</Item>
           </Metadata>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
           </InputClaims>
           <OutputClaims>
             <!-- Required claims -->
-  
             <OutputClaim ClaimTypeReferenceId="objectId" />
 
             <!-- Optional claims -->
@@ -628,9 +638,8 @@
           </Metadata>
           <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingAlternativeSecurityId" />
         </TechnicalProfile>
- 
-        <!-- Technical profiles for local accounts -->
 
+        <!-- Technical profiles for local accounts -->
         <TechnicalProfile Id="AAD-UserWriteUsingLogonEmail">
           <Metadata>
             <Item Key="Operation">Write</Item>
@@ -643,10 +652,10 @@
           <PersistedClaims>
             <!-- Required claims -->
             <PersistedClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress" />
-            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password"/>
+            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password" />
             <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
             <PersistedClaim ClaimTypeReferenceId="passwordPolicies" DefaultValue="DisablePasswordExpiration" />
-  
+
             <!-- Optional claims. -->
             <PersistedClaim ClaimTypeReferenceId="givenName" />
             <PersistedClaim ClaimTypeReferenceId="surname" />
@@ -666,7 +675,6 @@
           <Metadata>
             <Item Key="Operation">Read</Item>
             <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
-            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">An account could not be found for the provided user ID.</Item>
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaims>
@@ -676,7 +684,7 @@
             <!-- Required claims -->
             <OutputClaim ClaimTypeReferenceId="objectId" />
             <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="localAccountAuthentication" />
-  
+
             <!-- Optional claims -->
             <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
             <OutputClaim ClaimTypeReferenceId="displayName" />
@@ -701,8 +709,8 @@
           </InputClaims>
           <PersistedClaims>
             <PersistedClaim ClaimTypeReferenceId="objectId" />
-            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password"/>
-  
+            <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password" />
+
           </PersistedClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -763,7 +771,7 @@
           <DisplayName>User ID signup</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="ContentDefinitionReferenceId">api.selfasserted</Item>
+            <Item Key="ContentDefinitionReferenceId">api.socialccountsignup</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -807,9 +815,7 @@
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaims>
-
             <InputClaim ClaimTypeReferenceId="alternativeSecurityId" />
-
             <InputClaim ClaimTypeReferenceId="userPrincipalName" />
 
             <!-- Optional claims. These claims are collected from the user and can be modified. Any claim added here should be updated in the
@@ -843,7 +849,6 @@
           <Metadata>
             <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
             <Item Key="ContentDefinitionReferenceId">api.localaccountsignup</Item>
-            <Item Key="language.button_continue">Create</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -878,7 +883,7 @@
           <Metadata>
             <Item Key="SignUpTarget">SignUpWithLogonEmailExchange</Item>
             <Item Key="setting.operatingMode">Email</Item>
-            <Item Key="ContentDefinitionReferenceId">api.selfasserted</Item>
+            <Item Key="ContentDefinitionReferenceId">api.localaccountsignin</Item>
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaims>
@@ -904,7 +909,6 @@
           <Metadata>
             <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
             <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
-            <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Your account has been locked. Contact your support person to unlock it, then try again.</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -915,7 +919,7 @@
             <OutputClaim ClaimTypeReferenceId="objectId" />
             <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
             <OutputClaim ClaimTypeReferenceId="authenticationSource" />
-  
+
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress" />
@@ -933,7 +937,7 @@
           </CryptographicKeys>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="objectId" />
-  
+
           </InputClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="newPassword" Required="true" />
@@ -967,7 +971,7 @@
             <PersistedClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" />
           </PersistedClaims>
           <OutputClaims>
-            <OutputClaim ClaimTypeReferenceId="objectIdFromSession" DefaultValue="true"/>
+            <OutputClaim ClaimTypeReferenceId="objectIdFromSession" DefaultValue="true" />
           </OutputClaims>
         </TechnicalProfile>
 
@@ -986,7 +990,7 @@
             <PersistedClaim ClaimTypeReferenceId="alternativeSecurityId" />
           </PersistedClaims>
         </TechnicalProfile>
- 
+
       </TechnicalProfiles>
     </ClaimsProvider>
 
@@ -1030,7 +1034,7 @@
 
     <UserJourney Id="SignUpOrSignIn">
       <OrchestrationSteps>
-      
+
         <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
           <ClaimsProviderSelections>
             <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange" />
@@ -1112,16 +1116,16 @@
             <ClaimsExchange Id="AADUserWrite" TechnicalProfileReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
           </ClaimsExchanges>
         </OrchestrationStep>
- 
+
         <OrchestrationStep Order="7" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
- 
+
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
 
     <UserJourney Id="ProfileEdit">
       <OrchestrationSteps>
-      
+
         <OrchestrationStep Order="1" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
           <ClaimsProviderSelections>
             <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange" />
@@ -1158,14 +1162,14 @@
             <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
           </ClaimsExchanges>
         </OrchestrationStep>
- 
+
         <OrchestrationStep Order="5" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="B2CUserProfileUpdateExchange" TechnicalProfileReferenceId="SelfAsserted-ProfileUpdate" />
           </ClaimsExchanges>
         </OrchestrationStep>
         <OrchestrationStep Order="6" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
- 
+
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
@@ -1186,6 +1190,6 @@
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
- 
+
   </UserJourneys>
 </TrustFrameworkPolicy>

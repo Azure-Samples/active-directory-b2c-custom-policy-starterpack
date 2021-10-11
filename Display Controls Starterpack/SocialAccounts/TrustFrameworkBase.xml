@@ -196,13 +196,6 @@
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
-      <ClaimType Id="verificationCode">
-        <DisplayName>Verification Code</DisplayName>
-        <DataType>string</DataType>
-        <UserHelpText>Enter your SMS verification code</UserHelpText>
-        <UserInputType>TextBox</UserInputType>
-      </ClaimType>
-
     </ClaimsSchema>
 
     <ClaimsTransformations>
@@ -237,7 +230,7 @@
         </OutputClaims>
       </ClaimsTransformation>
 
-  <ClaimsTransformation Id="CreateAlternativeSecurityId" TransformationMethod="CreateAlternativeSecurityId">
+      <ClaimsTransformation Id="CreateAlternativeSecurityId" TransformationMethod="CreateAlternativeSecurityId">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="issuerUserId" TransformationClaimType="key" />
           <InputClaim ClaimTypeReferenceId="identityProvider" TransformationClaimType="identityProvider" />
@@ -247,15 +240,15 @@
         </OutputClaims>
       </ClaimsTransformation>
 
-    <ClaimsTransformation Id="CreateSubjectClaimFromAlternativeSecurityId" TransformationMethod="CreateStringClaim">
+      <ClaimsTransformation Id="CreateSubjectClaimFromAlternativeSecurityId" TransformationMethod="CreateStringClaim">
         <InputParameters>
           <InputParameter Id="value" DataType="string" Value="Not supported currently. Use oid claim." />
         </InputParameters>
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="sub" TransformationClaimType="createdClaim" />
         </OutputClaims>
-    </ClaimsTransformation>
- 
+      </ClaimsTransformation>
+
     </ClaimsTransformations>
 
     <ClientDefinitions>
@@ -323,29 +316,16 @@
         </Metadata>
       </ContentDefinition>
 
-    </ContentDefinitions>
+      <ContentDefinition Id="api.socialccountsignup">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">Collect information from user page</Item>
+        </Metadata>
+      </ContentDefinition>
 
-    <DisplayControls>
-      <DisplayControl Id="emailControl" UserInterfaceControlType="VerificationControl">
-        <DisplayClaims>
-          <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
-          <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
-        </DisplayClaims>
-        <OutputClaims></OutputClaims>
-        <Actions>
-          <Action Id="SendCode">
-            <ValidationClaimsExchange>
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AadSspr-SendCode" />
-            </ValidationClaimsExchange>
-          </Action>
-          <Action Id="VerifyCode">
-            <ValidationClaimsExchange>
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AadSspr-VerifyCode" />
-            </ValidationClaimsExchange>
-          </Action>
-        </Actions>
-      </DisplayControl>
-    </DisplayControls>
+    </ContentDefinitions>
   </BuildingBlocks>
 
   <!--
@@ -354,7 +334,7 @@
     -->
   <ClaimsProviders>
 
-        <ClaimsProvider>
+    <ClaimsProvider>
       <!-- The following Domain element allows this profile to be used if the request comes with domain_hint 
            query string parameter, e.g. domain_hint=facebook.com  -->
       <Domain>facebook.com</Domain>
@@ -397,7 +377,7 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
-  
+
     <ClaimsProvider>
       <DisplayName>Azure Active Directory</DisplayName>
       <TechnicalProfiles>
@@ -421,7 +401,6 @@
           <Metadata>
             <Item Key="Operation">Write</Item>
             <Item Key="RaiseErrorIfClaimsPrincipalAlreadyExists">true</Item>
-            <Item Key="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</Item>
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
@@ -436,7 +415,7 @@
             <PersistedClaim ClaimTypeReferenceId="userPrincipalName" />
             <PersistedClaim ClaimTypeReferenceId="mailNickName" DefaultValue="unknown" />
             <PersistedClaim ClaimTypeReferenceId="displayName" DefaultValue="unknown" />
-  
+
             <!-- Optional claims -->
             <PersistedClaim ClaimTypeReferenceId="otherMails" />
             <PersistedClaim ClaimTypeReferenceId="givenName" />
@@ -457,14 +436,13 @@
           <Metadata>
             <Item Key="Operation">Read</Item>
             <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
-            <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">User does not exist. Please sign up before you can sign in.</Item>
           </Metadata>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="alternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
           </InputClaims>
           <OutputClaims>
             <!-- Required claims -->
-  
+
             <OutputClaim ClaimTypeReferenceId="objectId" />
 
             <!-- Optional claims -->
@@ -483,9 +461,8 @@
           </Metadata>
           <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingAlternativeSecurityId" />
         </TechnicalProfile>
-       
-        <!-- Technical profiles for updating user record using objectId -->
 
+        <!-- Technical profiles for updating user record using objectId -->
         <TechnicalProfile Id="AAD-UserWriteProfileUsingObjectId">
           <Metadata>
             <Item Key="Operation">Write</Item>
@@ -520,7 +497,6 @@
           <OutputClaims>
 
             <!-- Optional claims -->
-
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="otherMails" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
@@ -540,7 +516,7 @@
           <DisplayName>User ID signup</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="ContentDefinitionReferenceId">api.selfasserted</Item>
+            <Item Key="ContentDefinitionReferenceId">api.socialccountsignup</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -623,7 +599,7 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
-    
+
     <ClaimsProvider>
       <DisplayName>Session Management</DisplayName>
       <TechnicalProfiles>
@@ -644,7 +620,7 @@
             <PersistedClaim ClaimTypeReferenceId="executed-SelfAsserted-Input" />
           </PersistedClaims>
           <OutputClaims>
-            <OutputClaim ClaimTypeReferenceId="objectIdFromSession" DefaultValue="true"/>
+            <OutputClaim ClaimTypeReferenceId="objectIdFromSession" DefaultValue="true" />
           </OutputClaims>
         </TechnicalProfile>
 
@@ -663,7 +639,7 @@
             <PersistedClaim ClaimTypeReferenceId="alternativeSecurityId" />
           </PersistedClaims>
         </TechnicalProfile>
- 
+
       </TechnicalProfiles>
     </ClaimsProvider>
 
@@ -698,33 +674,6 @@
           </CryptographicKeys>
           <InputClaims />
           <OutputClaims />
-        </TechnicalProfile>
-      </TechnicalProfiles>
-    </ClaimsProvider>
-
-    <ClaimsProvider>
-      <DisplayName>AAD SSPR</DisplayName>
-      <TechnicalProfiles>
-        <TechnicalProfile Id="AadSspr-SendCode">
-          <DisplayName>Send Code</DisplayName>
-          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AadSsprProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
-          <Metadata>
-            <Item Key="Operation">SendCode</Item>
-          </Metadata>
-          <InputClaims>
-            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="emailAddress"/>
-          </InputClaims>
-        </TechnicalProfile>
-        <TechnicalProfile Id="AadSspr-VerifyCode">
-          <DisplayName>Verify Code</DisplayName>
-          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AadSsprProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
-          <Metadata>
-            <Item Key="Operation">VerifyCode</Item>
-          </Metadata>
-          <InputClaims>
-            <InputClaim ClaimTypeReferenceId="verificationCode" />
-            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="emailAddress"/>
-          </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
@@ -781,9 +730,9 @@
             <ClaimsExchange Id="AADUserWrite" TechnicalProfileReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
           </ClaimsExchanges>
         </OrchestrationStep>
- 
+
         <OrchestrationStep Order="6" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
-       
+
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
@@ -791,7 +740,7 @@
     <UserJourney Id="ProfileEdit">
       <OrchestrationSteps>
 
-      <OrchestrationStep Order="1" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
+        <OrchestrationStep Order="1" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
           <ClaimsProviderSelections>
             <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange" />
           </ClaimsProviderSelections>
@@ -806,17 +755,17 @@
             <ClaimsExchange Id="AADUserRead" TechnicalProfileReferenceId="AAD-UserReadUsingAlternativeSecurityId" />
           </ClaimsExchanges>
         </OrchestrationStep>
- 
+
         <OrchestrationStep Order="4" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="B2CUserProfileUpdateExchange" TechnicalProfileReferenceId="SelfAsserted-ProfileUpdate" />
           </ClaimsExchanges>
         </OrchestrationStep>
         <OrchestrationStep Order="5" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
-       
+
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
- 
+
   </UserJourneys>
 </TrustFrameworkPolicy>
