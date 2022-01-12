@@ -522,7 +522,7 @@
     </ContentDefinitions>
 
     <DisplayControls>
-      <DisplayControl Id="emailControl" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="emailVerificationControl" UserInterfaceControlType="VerificationControl">
         <DisplayClaims>
           <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
           <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
@@ -1008,7 +1008,7 @@
             <InputClaim ClaimTypeReferenceId="email" />
           </InputClaims>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
             <DisplayClaim ClaimTypeReferenceId="newPassword" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
 
@@ -1080,7 +1080,7 @@
           </CryptographicKeys>
           <IncludeInSso>false</IncludeInSso>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" />
