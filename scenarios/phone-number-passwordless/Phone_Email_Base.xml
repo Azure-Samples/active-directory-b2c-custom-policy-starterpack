@@ -322,7 +322,7 @@
       <ClaimType Id="verificationCode">
         <DisplayName>Verification Code</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText>Enter your SMS verification code</UserHelpText>
+        <UserHelpText>Enter your verification code</UserHelpText>
         <UserInputType>TextBox</UserInputType>
         <!--Restriction>
           <Pattern RegularExpression="^[0-9]{1,15}$" HelpText="Please enter digits" />
