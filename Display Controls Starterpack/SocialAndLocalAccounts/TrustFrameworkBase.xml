@@ -304,7 +304,7 @@
       <ClaimType Id="verificationCode">
         <DisplayName>Verification Code</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText>Enter your SMS verification code</UserHelpText>
+        <UserHelpText>Enter your verification code</UserHelpText>
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
@@ -474,7 +474,7 @@
     </ContentDefinitions>
 
     <DisplayControls>
-      <DisplayControl Id="emailControl" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="emailVerificationControl" UserInterfaceControlType="VerificationControl">
         <DisplayClaims>
           <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
           <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
@@ -903,7 +903,7 @@
             <InputClaim ClaimTypeReferenceId="email" />
           </InputClaims>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
             <DisplayClaim ClaimTypeReferenceId="newPassword" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
 
@@ -975,7 +975,7 @@
           </CryptographicKeys>
           <IncludeInSso>false</IncludeInSso>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" />

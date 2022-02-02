@@ -322,7 +322,7 @@
       <ClaimType Id="verificationCode">
         <DisplayName>Verification Code</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText>Enter your SMS verification code</UserHelpText>
+        <UserHelpText>Enter your verification code</UserHelpText>
         <UserInputType>TextBox</UserInputType>
         <!--Restriction>
           <Pattern RegularExpression="^[0-9]{1,15}$" HelpText="Please enter digits" />
@@ -803,11 +803,11 @@
           <!-- The following elements will display a message and two links at the bottom of the signup page. 
           For policies that you intend to show to users in the United States, we suggest displaying the following text. Replace the content of the disclaimer_link_X_url elements with links to your organization's privacy statement and terms and conditions. 
           Remove any of these lines if you do not wish to display them.  -->
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneControl" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
       <LocalizedResources Id="phoneInput.en">
@@ -835,7 +835,7 @@
       </LocalizedResources>
     </Localization>
     <DisplayControls>
-      <DisplayControl Id="phoneControl" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="phoneVerificationControl" UserInterfaceControlType="VerificationControl">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="nationalNumber" />
           <InputClaim ClaimTypeReferenceId="countryCode" />
@@ -1128,7 +1128,7 @@
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
           </CryptographicKeys>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="phoneControl" />
+            <DisplayClaim DisplayControlReferenceId="phoneVerificationControl" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
@@ -1158,7 +1158,7 @@
             <InputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
           </InputClaimsTransformations>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="phoneControl" />
+            <DisplayClaim DisplayControlReferenceId="phoneVerificationControl" />
             <DisplayClaim ClaimTypeReferenceId="displayName" />
             <DisplayClaim ClaimTypeReferenceId="givenName" />
             <DisplayClaim ClaimTypeReferenceId="surName" />
