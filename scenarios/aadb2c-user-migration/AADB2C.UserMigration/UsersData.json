@@ -1,0 +1,46 @@
+﻿{
+  "Users": [
+    {
+      "email": "James@contoso.com",
+      "displayName": "James Davis",
+      "firstName": "James",
+      "lastName": "Davis",
+      "password": "1234567"
+    },
+    {
+      "email": "Linda@contoso.com",
+      "displayName": "Linda Taylor",
+      "firstName": "Linda",
+      "lastName": "Taylor",
+      "password": "1234567"
+    },
+    {
+      "email": "William@contoso.com",
+      "displayName": "William Martin",
+      "firstName": "William",
+      "lastName": "Martin",
+      "password": "1234567"
+    },
+    {
+      "email": "Thomas@contoso.com",
+      "displayName": "Thomas Lee",
+      "firstName": "Thomas",
+      "lastName": "Lee",
+      "password": "1234567"
+    },
+    {
+      "email": "Lisa@contoso.com",
+      "displayName": "Lisa Bell",
+      "firstName": "Lisa",
+      "lastName": "Bell",
+      "password": "1234567"
+    },
+    {
+      "email": "Emily@contoso.com",
+      "displayName": "Emily King",
+      "firstName": "Emily",
+      "lastName": "King",
+      "password": "1234567"
+    }
+  ]
+}
