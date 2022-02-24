@@ -1048,7 +1048,7 @@
           </Metadata>
           <IncludeInSso>false</IncludeInSso>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="signInName" />
+            <InputClaim ClaimTypeReferenceId="signInName" DefaultValue="{OIDC:LoginHint}" />
           </InputClaims>
           <DisplayClaims>
             <DisplayClaim ClaimTypeReferenceId="signInName" Required="true" />
