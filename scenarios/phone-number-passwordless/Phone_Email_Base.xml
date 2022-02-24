@@ -1282,7 +1282,7 @@
             <Item Key="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Please enter a valid phone number or email address.</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="signInName" />
+            <InputClaim ClaimTypeReferenceId="signInName" DefaultValue="{OIDC:LoginHint}" />
           </InputClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="signInName" Required="true" />

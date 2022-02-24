@@ -114,7 +114,7 @@ The `SelfAsserted-LocalAccountSignin-Email` technical profile defines the actual
   </Metadata>
   <IncludeInSso>false</IncludeInSso>
   <InputClaims>
-    <InputClaim ClaimTypeReferenceId="signInName" />
+    <InputClaim ClaimTypeReferenceId="signInName" DefaultValue="{OIDC:LoginHint}" />
   </InputClaims>
   <OutputClaims>
     <OutputClaim ClaimTypeReferenceId="signInName" Required="true" />
