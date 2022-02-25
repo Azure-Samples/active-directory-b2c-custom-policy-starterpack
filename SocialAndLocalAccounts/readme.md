@@ -621,7 +621,7 @@ The referenced technical profile is as follows:
 ```xml
 <TechnicalProfile Id="JwtIssuer">
   <DisplayName>JWT Issuer</DisplayName>
-  <Protocol Name="None" />
+  <Protocol Name="OpenIdConnect" />
   <OutputTokenFormat>JWT</OutputTokenFormat>
   <Metadata>
     <Item Key="client_id">{service:te}</Item>
@@ -632,8 +632,7 @@ The referenced technical profile is as follows:
     <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
     <Key Id="issuer_refresh_token_key" StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
   </CryptographicKeys>
-  <InputClaims />
-  <OutputClaims />
+  <UseTechnicalProfileForSessionManagement ReferenceId="SM-jwt-issuer" />
 </TechnicalProfile>
 ```
 
@@ -786,7 +785,7 @@ The referenced technical profile is as follows:
 ```xml
 <TechnicalProfile Id="JwtIssuer">
   <DisplayName>JWT Issuer</DisplayName>
-  <Protocol Name="None" />
+  <Protocol Name="OpenIdConnect" />
   <OutputTokenFormat>JWT</OutputTokenFormat>
   <Metadata>
     <Item Key="client_id">{service:te}</Item>
@@ -797,8 +796,7 @@ The referenced technical profile is as follows:
     <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
     <Key Id="issuer_refresh_token_key" StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
   </CryptographicKeys>
-  <InputClaims />
-  <OutputClaims />
+  <UseTechnicalProfileForSessionManagement ReferenceId="SM-jwt-issuer" />
 </TechnicalProfile>
 ```
 
