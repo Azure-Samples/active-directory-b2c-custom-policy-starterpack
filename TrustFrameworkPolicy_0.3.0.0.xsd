@@ -3481,6 +3481,8 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="VerificationControl" />
       <xs:enumeration value="QrCodeControl" />
+      <xs:enumeration value="AuthenticatorInfoControl" />
+      <xs:enumeration value="AuthenticatorAppIconControl" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -3807,5 +3809,5 @@
       <xs:minLength value="1" />
     </xs:restriction>
   </xs:simpleType>
-  
+	
 </xs:schema>
