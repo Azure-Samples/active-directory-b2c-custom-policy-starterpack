@@ -3700,7 +3700,7 @@
       <xs:pattern value="(https://)([\w.,@?^=%&amp;:~+#\-_$!’();]+/)*([\w.,@?^=%&amp;:~+#\-_$!’();]+/?)" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="DeploymentModeType">
     <xs:annotation>
       <xs:documentation>
@@ -3809,5 +3809,5 @@
       <xs:minLength value="1" />
     </xs:restriction>
   </xs:simpleType>
-  
+
 </xs:schema>
