@@ -1663,7 +1663,7 @@
       <xs:documentation>
         Represents a Claims Provider, along with its technical profiles.
       </xs:documentation>
-    </xs:annotation>    
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="1" name="Domains">
         <xs:annotation>
@@ -1912,7 +1912,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
   <!--New password complexity schema xsd-->
   <xs:complexType name="PredicateGroups">
     <xs:annotation>
@@ -1924,7 +1924,7 @@
       <xs:element minOccurs="1" maxOccurs="unbounded" name="PredicateGroup" type="tfp:PredicateGroup" />
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="PredicateGroup">
     <xs:annotation>
       <xs:documentation>
@@ -1949,7 +1949,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
   <xs:complexType name="PredicateValidation">
     <xs:annotation>
       <xs:documentation>
@@ -1967,7 +1967,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
   <xs:complexType name="PredicateValidationReference">
     <xs:annotation>
       <xs:documentation>
@@ -2041,7 +2041,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
   <xs:complexType name="JourneyList">
     <xs:annotation>
       <xs:documentation>
@@ -2052,7 +2052,7 @@
       <xs:element minOccurs="1" maxOccurs="unbounded" name="Candidate" type="tfp:Candidate" />
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="Candidate">
     <xs:annotation>
       <xs:documentation>
@@ -3078,7 +3078,7 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="ErrorHandlingAction">
     <xs:annotation>
       <xs:documentation>
@@ -3191,7 +3191,7 @@
       <xs:enumeration value="OnItemAbsenceInStringCollectionClaim" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="ClaimsProviderSelectionDisplayOption">
     <xs:annotation>
       <xs:documentation>
@@ -3448,7 +3448,7 @@
       <xs:enumeration value="userIdentity"/>
       <xs:enumeration value="phoneNumber"/>
       <xs:enumeration value="objectIdentityCollection"/>
-      <xs:enumeration value="objectIdentity"/>      
+      <xs:enumeration value="objectIdentity"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -3471,7 +3471,7 @@
 	  <xs:enumeration value="Paragraph"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="UserInterfaceControlType">
     <xs:annotation>
       <xs:documentation>
@@ -3685,7 +3685,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="(http://|https://|~/)([\w.,@?^=%&amp;:~+#\-_$!’();]+/)*([\w.,@?^=%&amp;:~+#\-_$!’();]+/?)" />
+      <xs:pattern value="((http://)|(https://)|(~/))([\w\.,@?\^=%&amp;:~+#\-_$!’\(\);]+/)*([\w\.,@?\^=%&amp;:~+#\-_$!’\(\);]+/?)" />
       <xs:pattern value="urn:[a-z0-9][a-z0-9-]{0,31}:[a-z0-9()+,\-\.:=@;$_!*'%/?#]+" />
     </xs:restriction>
   </xs:simpleType>
@@ -3697,10 +3697,10 @@
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="^(https://)([\w.,@?^=%&amp;:~+#\-_$!’();]+/)*([\w.,@?^=%&amp;:~+#\-_$!’();]+/?)$" />
+      <xs:pattern value="(https://)([\w.,@?^=%&amp;:~+#\-_$!’();]+/)*([\w.,@?^=%&amp;:~+#\-_$!’();]+/?)" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="DeploymentModeType">
     <xs:annotation>
       <xs:documentation>
@@ -3773,7 +3773,7 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="SubJourneyTYPE">
     <xs:annotation>
       <xs:documentation>
@@ -3809,5 +3809,5 @@
       <xs:minLength value="1" />
     </xs:restriction>
   </xs:simpleType>
-	
+
 </xs:schema>
