@@ -111,10 +111,11 @@ The `SelfAsserted-LocalAccountSignin-Email` technical profile defines the actual
     <Item Key="SignUpTarget">SignUpWithLogonEmailExchange</Item>
     <Item Key="setting.operatingMode">Email</Item>
     <Item Key="ContentDefinitionReferenceId">api.selfasserted</Item>
+    <Item Key="IncludeClaimResolvingInClaimsHandling">true</Item>
   </Metadata>
   <IncludeInSso>false</IncludeInSso>
   <InputClaims>
-    <InputClaim ClaimTypeReferenceId="signInName" DefaultValue="{OIDC:LoginHint}" />
+    <InputClaim ClaimTypeReferenceId="signInName" DefaultValue="{OIDC:LoginHint}" AlwaysUseDefaultValue="true" />
   </InputClaims>
   <OutputClaims>
     <OutputClaim ClaimTypeReferenceId="signInName" Required="true" />
