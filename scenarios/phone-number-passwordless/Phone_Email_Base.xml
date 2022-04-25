@@ -445,6 +445,15 @@
         <UserHelpText>Your surname (also known as family name or last name).</UserHelpText>
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
+
+      <ClaimType Id="refreshTokenIssuedOnDateTime">
+        <DisplayName>An internal parameter used to determine whether the user should be permitted to authenticate again using their existing refresh token.</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+      <ClaimType Id="refreshTokensValidFromDateTime">
+        <DisplayName>An internal parameter used to determine whether the user should be permitted to authenticate again using their existing refresh token.</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
     </ClaimsSchema>
     <Predicates>
       <Predicate Id="email" Method="MatchesRegex">
@@ -614,6 +623,18 @@
         </InputClaims>
         <InputParameters>
           <InputParameter Id="valueToCompareTo" DataType="boolean" Value="true" />
+        </InputParameters>
+      </ClaimsTransformation>
+
+      <ClaimsTransformation Id="AssertRefreshTokenIssuedLaterThanValidFromDate" TransformationMethod="AssertDateTimeIsGreaterThan">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" TransformationClaimType="leftOperand" />
+          <InputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" TransformationClaimType="rightOperand" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="AssertIfEqualTo" DataType="boolean" Value="false" />
+          <InputParameter Id="AssertIfRightOperandIsNotPresent" DataType="boolean" Value="true" />
+          <InputParameter Id="TreatAsEqualIfWithinMillseconds" DataType="int" Value="300000" />
         </InputParameters>
       </ClaimsTransformation>
     </ClaimsTransformations>
@@ -792,9 +813,9 @@
           Remove any of these lines if you do not wish to display them.  -->
           <LocalizedString ElementType="UxElement" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
-          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">https://www.your-web-app</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
-          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_2_url">https://www.your-web-app</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
       <LocalizedResources Id="phoneSignUp.en">
@@ -805,9 +826,9 @@
           Remove any of these lines if you do not wish to display them.  -->
           <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_msg_intro">By providing your phone number, you consent to receiving a one-time passcode sent by text message to help you sign into {insert your application name}. Standard messsage and data rates may apply.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_1_text">Privacy Statement</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_1_url">{insert your privacy statement URL}</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_1_url">https://www.your-web-app</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_2_text">Terms and Conditions</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_2_url">{insert your terms and conditions URL}</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="phoneVerificationControl" StringId="disclaimer_link_2_url">https://www.your-web-app</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
       <LocalizedResources Id="phoneInput.en">
@@ -1083,6 +1104,24 @@
             <PersistedClaim ClaimTypeReferenceId="objectId" />
             <PersistedClaim ClaimTypeReferenceId="newPassword" PartnerClaimType="password" />
           </PersistedClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AAD-UserReadUsingObjectId-CheckRefreshTokenDate">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="objectId" Required="true" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="AssertRefreshTokenIssuedLaterThanValidFromDate" />
+          </OutputClaimsTransformations>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
       </TechnicalProfiles>
@@ -1602,6 +1641,15 @@
           <DisplayName>Session Management Provider</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.OAuthSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
         </TechnicalProfile>
+
+        <TechnicalProfile Id="SM-RefreshTokenReadAndSetup">
+          <DisplayName>Trustframework Policy Engine Refresh Token Setup Technical Profile</DisplayName>
+          <Protocol Name="None" />
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" />
+          </OutputClaims>
+        </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
     <ClaimsProvider>
@@ -1627,6 +1675,8 @@
             <Item Key="client_id">{service:te}</Item>
             <Item Key="issuer_refresh_token_user_identity_claim_type">objectId</Item>
             <Item Key="SendTokenResponseBodyWithJsonNumbers">true</Item>
+            <!-- Point to the redeem refresh token user journey-->
+            <Item Key="RefreshTokenUserJourneyId">RedeemRefreshToken</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -1948,6 +1998,23 @@
         <OrchestrationStep Order="4" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+
+    <UserJourney Id="RedeemRefreshToken">
+      <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="RefreshTokenSetupExchange" TechnicalProfileReferenceId="SM-RefreshTokenReadAndSetup" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="CheckRefreshTokenDateFromAadExchange" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId-CheckRefreshTokenDate" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
     </UserJourney>
   </UserJourneys>
   <SubJourneys>
