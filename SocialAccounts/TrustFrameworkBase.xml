@@ -156,6 +156,7 @@
         <UserHelpText>Specifies whether the user was authenticated at Social IDP or local account.</UserHelpText>
       </ClaimType>
 
+    
       <!--claims for refresh token revocation-->
       <ClaimType Id="refreshTokenIssuedOnDateTime">
         <DisplayName>refreshTokenIssuedOnDateTime</DisplayName>
@@ -264,6 +265,8 @@
         </OutputClaims>
       </ClaimsTransformation>
 
+      
+
       <!--claims transformation for refresh token revocation -->
       <ClaimsTransformation Id="AssertRefreshTokenIssuedLaterThanValidFromDate" TransformationMethod="AssertDateTimeIsGreaterThan">
         <InputClaims>
@@ -276,6 +279,7 @@
           <InputParameter Id="TreatAsEqualIfWithinMillseconds" DataType="int" Value="300000" />
         </InputParameters>
       </ClaimsTransformation>
+
     </ClaimsTransformations>
 
     <ClientDefinitions>
@@ -692,7 +696,8 @@
       </TechnicalProfiles>
     </ClaimsProvider>
 
-    <!--claims provider for refresh token revocation-->
+   
+  <!--claims provider for refresh token revocation-->
   <ClaimsProvider>
     <DisplayName>Refresh token journey</DisplayName>
     <TechnicalProfiles>
@@ -723,6 +728,7 @@
       </TechnicalProfile>
     </TechnicalProfiles>
   </ClaimsProvider>
+
   </ClaimsProviders>
 
   <UserJourneys>
@@ -813,6 +819,7 @@
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
 
+    
     <UserJourney Id="RedeemRefreshToken">
       <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
       <OrchestrationSteps>
@@ -829,6 +836,5 @@
         <OrchestrationStep Order="3" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
       </OrchestrationSteps>
     </UserJourney>
-
   </UserJourneys>
 </TrustFrameworkPolicy>
