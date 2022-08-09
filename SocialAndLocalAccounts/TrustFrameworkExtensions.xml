@@ -13,7 +13,7 @@
     <PolicyId>B2C_1A_TrustFrameworkLocalization</PolicyId>
   </BasePolicy>
  <BuildingBlocks>
-
+      
   </BuildingBlocks>
 
   <ClaimsProviders>

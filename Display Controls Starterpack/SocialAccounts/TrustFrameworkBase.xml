@@ -156,6 +156,22 @@
         <UserHelpText>Specifies whether the user was authenticated at Social IDP or local account.</UserHelpText>
       </ClaimType>
 
+
+       <!--claims for refresh token revocation-->
+       <ClaimType Id="refreshTokenIssuedOnDateTime">
+        <DisplayName>refreshTokenIssuedOnDateTime</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Used to determine if the user should be permitted to reauthenticate silently via their existing refresh token.</AdminHelpText>
+        <UserHelpText>Used to determine if the user should be permitted to reauthenticate silently via their existing refresh token.</UserHelpText>
+      </ClaimType>
+
+      <ClaimType Id="refreshTokensValidFromDateTime">
+        <DisplayName>refreshTokensValidFromDateTime</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Used to determine if the user should be permitted to reauthenticate silently via their existing refresh token.</AdminHelpText>
+        <UserHelpText>Used to determine if the user should be permitted to reauthenticate silently via their existing refresh token.</UserHelpText>
+      </ClaimType>
+
       <!-- SECTION II: Claims required to pass on special parameters (including some query string parameters) to other claims providers -->
 
       <ClaimType Id="objectIdFromSession">
@@ -247,6 +263,21 @@
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="sub" TransformationClaimType="createdClaim" />
         </OutputClaims>
+      </ClaimsTransformation>
+
+      
+
+      <!--claims transformation for refresh token revocation -->
+      <ClaimsTransformation Id="AssertRefreshTokenIssuedLaterThanValidFromDate" TransformationMethod="AssertDateTimeIsGreaterThan">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" TransformationClaimType="leftOperand" />
+          <InputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" TransformationClaimType="rightOperand" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="AssertIfEqualTo" DataType="boolean" Value="false" />
+          <InputParameter Id="AssertIfRightOperandIsNotPresent" DataType="boolean" Value="true" />
+          <InputParameter Id="TreatAsEqualIfWithinMillseconds" DataType="int" Value="300000" />
+        </InputParameters>
       </ClaimsTransformation>
 
     </ClaimsTransformations>
@@ -681,6 +712,42 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
+
+    
+  <!--claims provider for refresh token revocation-->
+  <ClaimsProvider>
+    <DisplayName>Refresh token journey</DisplayName>
+    <TechnicalProfiles>
+      <TechnicalProfile Id="RefreshTokenReadAndSetup">
+        <DisplayName>Trustframework Policy Engine Refresh Token Setup Technical Profile</DisplayName>
+        <Protocol Name="None" />
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="objectId" />
+          <OutputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" />
+           <!--Requirement: Claims that you return in the relying party technical profile output claims
+            that are not stored in Azure AD B2C, must be added to the output claims collection here-->
+          <!--
+          
+          <OutputClaim ClaimTypeReferenceId="RESTAPIclaim1" />
+          <OutputClaim ClaimTypeReferenceId="IDPclaim1" />
+           -->
+        </OutputClaims>
+      </TechnicalProfile>
+
+
+      <TechnicalProfile Id="AAD-UserReadUsingObjectId-CheckRefreshTokenDate">
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" />
+          <OutputClaim ClaimTypeReferenceId="displayName" />
+        </OutputClaims>
+        <OutputClaimsTransformations>
+          <OutputClaimsTransformation ReferenceId="AssertRefreshTokenIssuedLaterThanValidFromDate" />
+        </OutputClaimsTransformations>
+        <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingObjectId" />
+      </TechnicalProfile>
+    </TechnicalProfiles>
+  </ClaimsProvider>
+
   </ClaimsProviders>
 
   <UserJourneys>
@@ -771,5 +838,25 @@
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
 
+    
+    <UserJourney Id="RedeemRefreshToken">
+      <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="RefreshTokenSetupExchange" TechnicalProfileReferenceId="RefreshTokenReadAndSetup" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        
+        <!-- Extra steps can be added before or after this step for REST API or claims transformation calls-->
+
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="CheckRefreshTokenDateFromAadExchange" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId-CheckRefreshTokenDate" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="3" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+    </UserJourney>
   </UserJourneys>
 </TrustFrameworkPolicy>
