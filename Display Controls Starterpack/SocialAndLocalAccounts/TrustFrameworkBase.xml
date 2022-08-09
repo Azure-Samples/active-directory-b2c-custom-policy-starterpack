@@ -1140,8 +1140,10 @@
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="objectId" />
           <OutputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" />
-          <!--Optional additional claims if using REST API or Federated IDP-->
+           <!--Requirement: Claims that you return in the relying party technical profile output claims
+            that are not stored in Azure AD B2C, must be added to the output claims collection here-->
           <!--
+          
           <OutputClaim ClaimTypeReferenceId="RESTAPIclaim1" />
           <OutputClaim ClaimTypeReferenceId="IDPclaim1" />
            -->
@@ -1359,6 +1361,9 @@
             <ClaimsExchange Id="RefreshTokenSetupExchange" TechnicalProfileReferenceId="RefreshTokenReadAndSetup" />
           </ClaimsExchanges>
         </OrchestrationStep>
+
+        <!-- Extra steps can be added before or after this step for REST API or claims transformation calls-->
+        
         <OrchestrationStep Order="2" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="CheckRefreshTokenDateFromAadExchange" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId-CheckRefreshTokenDate" />
