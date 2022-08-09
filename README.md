@@ -4,15 +4,15 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## Change log
 
-### 15 July 2022
+### 09 August 2022
 
-With this version the starter pack now contains a Refresh Token User Journey . This journey will be executed any time a refresh token is issued to the user. It will check the user is part of the B2C directory, check the refresh token is not expired, compile any claims needed including claims from IDP's and REST API calls and issue a new refresh token.
+With this version the starter pack now contains a Refresh Token user journey. This journey will be executed any time an application [refreshes a token](https://docs.microsoft.com/azure/active-directory-b2c/access-tokens#request-a-token). It will check the user still exists and is enabled in the Azure AD B2C directory. It also checks that the refresh token is not expired. It compiles any claims that are not persisted in the user profile, including claims from Identity Provider's and REST API calls. A new set of refreshed tokens is then issued.
 
 This fix allows for refresh token to be revoked from users and prevents directory deleted users from getting continued access.Change affects all starterpack samples.
 
 |Policy  |Notes  |
 |-------|-------|
-| B2C_1A_TrustFrameworkBase | Added Refresh Token claims, Refresh Token ClaimsTransformations, Refresh Token Technical Profiles and Refresh TokenUser Journey |
+| B2C_1A_TrustFrameworkBase | Added Refresh Token claims, Refresh Token ClaimsTransformations, Refresh Token Technical Profiles and Refresh Token User Journey |
 | B2C_1A_SignUpOrSignIn | Added Refresh Token Endpoint to Relying Party |
 
 ### Migrate existing policy to this version
