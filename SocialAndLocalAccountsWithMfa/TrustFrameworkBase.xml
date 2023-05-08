@@ -97,19 +97,19 @@
         <UserHelpText>Enter new password</UserHelpText>
         <UserInputType>Password</UserInputType>
         <Restriction>
-          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText="8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits (0-9), and one or more of the following symbols: @ # $ % ^ &amp; * - _ + = [ ] { } | \ : ' , ? / ` ~ &quot; ( ) ; ." />
+          <Pattern RegularExpression="^((?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*\d)|(?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*[^A-Za-z0-9])|(?=.*[a-z]|[à-ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9])|(?=.*[A-Z]|[À-Ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9]))([A-ZÀ-Üa-zà-ü\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText="8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits (0-9), and one or more of the following symbols: @ # $ % ^ &amp; * - _ + = [ ] { } | \ : ' , ? / ` ~ &quot; ( ) ; ." />
         </Restriction>
       </ClaimType>
       <!-- The password regular expression above is constructed for AAD passwords based on restrictions at https://msdn.microsoft.com/en-us/library/azure/jj943764.aspx
 
         ^( # one of the following four combinations must appear in the password
-         (?=.*[a-z])(?=.*[A-Z])(?=.*\d) |            # matches lower case, upper case or digit
-         (?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]) |  # matches lower case, upper case or special character (i.e. non-alpha or digit)
-         (?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]) |     # matches lower case, digit, or special character
-         (?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])       # matches upper case, digit, or special character
+         (?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*\d) |            # matches lower case, upper case or digit
+         (?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*[^A-Za-z0-9]) |  # matches lower case, upper case or special character (i.e. non-alpha or digit)
+         (?=.*[a-z]|[à-ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9]) |     # matches lower case, digit, or special character
+         (?=.*[A-Z]|[À-Ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9])       # matches upper case, digit, or special character
         )
         ( # The password must match the following restrictions
-         [A-Za-z\d@#$%^&*\-_+=[\]{}|\\:',?/`~"();!] |   # The list of all acceptable characters (without .)
+         [A-ZÀ-Üa-zà-ü\d@#$%^&*\-_+=[\]{}|\\:',?/`~"();!] |   # The list of all acceptable characters (without .)
          \.(?!@)                                        # or . can appear as long as not followed by @
         ) {8,16}$                                       # the length must be between 8 and 16 chars inclusive
 
@@ -121,7 +121,7 @@
         <UserHelpText>Confirm new password</UserHelpText>
         <UserInputType>Password</UserInputType>
         <Restriction>
-          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText=" " />
+          <Pattern RegularExpression="^((?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*\d)|(?=.*[a-z]|[à-ü])(?=.*[A-Z]|[À-Ü])(?=.*[^A-Za-z0-9])|(?=.*[a-z]|[à-ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9])|(?=.*[A-Z]|[À-Ü])(?=.*\d)(?=.*[^A-ZÀ-Üa-zà-ü0-9]))([A-ZÀ-Üa-zà-ü\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText=" " />
         </Restriction>
       </ClaimType>
 
