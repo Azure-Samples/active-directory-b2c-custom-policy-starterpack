@@ -21,7 +21,7 @@
     </Endpoints>
     <TechnicalProfile Id="PolicyProfile">
       <DisplayName>PolicyProfile</DisplayName>
-      <Protocol Name="OpenIdConnect" />
+      <Protocol Name="OAuth2" />
       <OutputClaims>
         <OutputClaim ClaimTypeReferenceId="displayName" />
         <OutputClaim ClaimTypeReferenceId="givenName" />
