@@ -1,0 +1,218 @@
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="vanityb2cpoc.onmicrosoft.com" TenantObjectId="a374dea8-f8fe-4d08-9ef1-a61a5b4541ce" PolicyId="B2C_1_ProfileEditing" PublicPolicyUri="http://vanityb2cpoc.onmicrosoft.com/">
+  <BasePolicy>
+    <TenantId>vanityb2cpoc.onmicrosoft.com</TenantId>
+    <PolicyId>base-v1</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks>
+    <ClaimsSchema>
+      <ClaimType Id="newPassword">
+        <DataType>string</DataType>
+        <PredicateValidationReference Id="StrongPassword" />
+      </ClaimType>
+      <ClaimType Id="reenterPassword">
+        <DataType>string</DataType>
+        <PredicateValidationReference Id="StrongPassword" />
+      </ClaimType>
+    </ClaimsSchema>
+    <ContentDefinitions>
+      <ContentDefinition Id="api.error">
+        <LoadUri>~/tenant/templates/AzureBlue/exception.cshtml</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.blockminor">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:1.2.0</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="api.signin">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.17</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.phoneInput">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.expiredpassword">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.blockpage">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.profileupdate2.1">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.emailSignIn">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.idpselections.signup1.1">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.6</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.localaccountlookup2.1">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.localaccountpasswordchange2.1">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.emailverify">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.progressiveprofile">
+        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:1.2.0</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="api.changePhoneNumberVerifyEmailAddress">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.newPhoneNumber">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.phonesuccess">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.phoneSignIn">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.phoneSignInCollectEmailAddress">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+      <ContentDefinition Id="api.phonefactor1.1">
+        <LoadUri>~/tenant/templates/AzureBlue/multifactor-1.0.0.cshtml</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:multifactor:1.2.15</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+      <ContentDefinition Id="api.selfasserted.totp">
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.29</DataUri>
+      </ContentDefinition>
+    </ContentDefinitions>
+  </BuildingBlocks>
+  <ClaimsProviders>
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-ReadCommon">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="extension_Imie" />
+            <OutputClaim ClaimTypeReferenceId="extension_Nazwisko" />
+            <OutputClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+            <OutputClaim ClaimTypeReferenceId="cpiminternal_dateOfBirth" />
+          </OutputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="AAD-WriteCommon">
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="cpiminternal_dateOfBirth" />
+            <PersistedClaim ClaimTypeReferenceId="extension_Imie" />
+            <PersistedClaim ClaimTypeReferenceId="extension_Nazwisko" />
+            <PersistedClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+          </PersistedClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Evaluate Block User For GDPR</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SetFeatureDefaultValue">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isConditionalAccessOn" DefaultValue="false" />
+            <OutputClaim ClaimTypeReferenceId="mfaEnabledV3" DefaultValue="false" />
+            <OutputClaim ClaimTypeReferenceId="mfaEnroll" DefaultValue="false" />
+            <OutputClaim ClaimTypeReferenceId="needToPerformMfa" DefaultValue="false" />
+            <OutputClaim ClaimTypeReferenceId="collectEmailOnSignUp" DefaultValue="false" />
+            <OutputClaim ClaimTypeReferenceId="collectEmailOnSignIn" DefaultValue="false" />
+          </OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>PhoneFactor</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="EmailFactor-Common">
+          <EnabledForUserJourneys>Always</EnabledForUserJourneys>
+        </TechnicalProfile>
+        <TechnicalProfile Id="PhoneFactor-Common">
+          <EnabledForUserJourneys>OnClaimsExistence</EnabledForUserJourneys>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Self Asserted</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SelfAsserted-Input">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="extension_Imie" />
+            <InputClaim ClaimTypeReferenceId="extension_Nazwisko" />
+            <InputClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+            <InputClaim ClaimTypeReferenceId="cpiminternal_dateOfBirth" />
+          </InputClaims>
+          <DisplayClaims>
+            <DisplayClaim ClaimTypeReferenceId="extension_Imie" />
+            <DisplayClaim ClaimTypeReferenceId="extension_Nazwisko" />
+            <DisplayClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+            <DisplayClaim ClaimTypeReferenceId="cpiminternal_dateOfBirth" />
+          </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="extension_Imie" />
+            <OutputClaim ClaimTypeReferenceId="extension_Nazwisko" />
+            <OutputClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+            <OutputClaim ClaimTypeReferenceId="cpiminternal_dateOfBirth" />
+          </OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <DisplayName>Token Issuer</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="JwtIssuer">
+          <Metadata>
+            <Item Key="token_lifetime_secs">3600</Item>
+            <Item Key="id_token_lifetime_secs">3600</Item>
+            <Item Key="refresh_token_lifetime_secs">1209600</Item>
+            <Item Key="rolling_refresh_token_lifetime_secs">7776000</Item>
+            <Item Key="IssuanceClaimPattern">AuthorityAndTenantGuid</Item>
+            <Item Key="AuthenticationContextReferenceClaimPattern">None</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+  </ClaimsProviders>
+  <SubJourneys>
+    <SubJourney Id="IdentityProviderSelection_SignIn" Type="Call">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signin">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+          </ClaimsProviderSelections>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
+  <RelyingParty>
+    <DefaultUserJourney ReferenceId="B2CUserProfileUpdate_V3" />
+    <UserJourneyBehaviors>
+      <SessionExpiryType>Rolling</SessionExpiryType>
+      <SessionExpiryInSeconds>86400</SessionExpiryInSeconds>
+    </UserJourneyBehaviors>
+    <TechnicalProfile Id="PolicyProfile">
+      <DisplayName>PolicyProfile</DisplayName>
+      <Protocol Name="OpenIdConnect" />
+      <OutputClaims>
+        <OutputClaim ClaimTypeReferenceId="emails" />
+        <OutputClaim ClaimTypeReferenceId="extension_Imie" />
+        <OutputClaim ClaimTypeReferenceId="extension_Nazwisko" />
+        <OutputClaim ClaimTypeReferenceId="extension_NumerTelefonu" />
+        <OutputClaim ClaimTypeReferenceId="objectId" />
+        <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub" />
+        <OutputClaim ClaimTypeReferenceId="identityProvider" />
+        <OutputClaim ClaimTypeReferenceId="trustFrameworkPolicy" Required="true" DefaultValue="{policy}" />
+      </OutputClaims>
+      <SubjectNamingInfo ClaimType="sub" />
+    </TechnicalProfile>
+  </RelyingParty>
+</TrustFrameworkPolicy>
