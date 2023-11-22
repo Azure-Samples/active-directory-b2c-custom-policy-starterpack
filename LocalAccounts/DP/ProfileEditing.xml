@@ -201,7 +201,7 @@
     </UserJourneyBehaviors>
     <TechnicalProfile Id="PolicyProfile">
       <DisplayName>PolicyProfile</DisplayName>
-      <Protocol Name="OpenIdConnect" />
+      <Protocol Name="OAuth2" />
       <OutputClaims>
         <OutputClaim ClaimTypeReferenceId="emails" />
         <OutputClaim ClaimTypeReferenceId="extension_Imie" />
