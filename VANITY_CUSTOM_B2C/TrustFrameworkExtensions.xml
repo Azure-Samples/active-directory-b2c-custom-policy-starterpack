@@ -1,0 +1,105 @@
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="vanityb2cpoc.onmicrosoft.com" PolicyId="B2C_1A_TrustFrameworkExtensions" PublicPolicyUri="http://vanityb2cpoc.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions" TenantObjectId="a374dea8-f8fe-4d08-9ef1-a61a5b4541ce">
+  <BasePolicy>
+    <TenantId>vanityb2cpoc.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkLocalization</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks></BuildingBlocks>
+  <ClaimsProviders>
+    <ClaimsProvider>
+      <DisplayName>Local Account SignIn</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="login-NonInteractive">
+          <Metadata>
+            <Item Key="client_id">defd54c7-95ad-4025-9087-4097f20b4d1c</Item>
+            <Item Key="IdTokenAudience">8ebfd362-b1d1-4f3f-929b-9a892e4a1a08</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="defd54c7-95ad-4025-9087-4097f20b4d1c" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="8ebfd362-b1d1-4f3f-929b-9a892e4a1a08" />
+          </InputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="SM-SocialLogin">
+          <DisplayName>Session Management Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.ExternalLoginSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <PersistedClaims>
+            <PersistedClaim ClaimTypeReferenceId="AlternativeSecurityId" />
+          </PersistedClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+      <Domain>google.com</Domain>
+      <DisplayName>Google</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="Google-OAuth2">
+          <DisplayName>Google</DisplayName>
+          <Protocol Name="OAuth2" />
+          <Metadata>
+            <Item Key="ProviderName">google</Item>
+            <Item Key="authorization_endpoint">https://accounts.google.com/o/oauth2/auth</Item>
+            <Item Key="AccessTokenEndpoint">https://accounts.google.com/o/oauth2/token</Item>
+            <Item Key="ClaimsEndpoint">https://www.googleapis.com/oauth2/v1/userinfo</Item>
+            <Item Key="scope">email profile</Item>
+            <Item Key="HttpBinding">POST</Item>
+            <Item Key="UsePolicyInRedirectUri">false</Item>
+            <Item Key="client_id">839892695110-9o8csfdf2u2s97fukvodei2chlj3okcg.apps.googleusercontent.com</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="client_secret" StorageReferenceId="B2C_1A_GoogleSecret" />
+          </CryptographicKeys>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="id" />
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email" />
+            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
+            <OutputClaim ClaimTypeReferenceId="surname" PartnerClaimType="family_name" />
+            <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
+            <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="google.com" />
+            <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+            <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
+            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
+          </OutputClaimsTransformations>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+  </ClaimsProviders>
+  <UserJourneys>
+    <UserJourney Id="CustomSignUpSignIn">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange" />
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+            <ClaimsExchange Id="GoogleExchange" TechnicalProfileReferenceId="Google-OAuth2" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <!-- This step reads any user attributes that we may not have received when in the token. -->
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+  </UserJourneys>
+</TrustFrameworkPolicy>
