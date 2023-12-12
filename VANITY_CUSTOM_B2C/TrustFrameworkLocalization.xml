@@ -1,20 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<TrustFrameworkPolicy 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
-  PolicySchemaVersion="0.3.0.0" 
-  TenantId="vanityb2cpoc.onmicrosoft.com" 
-  PolicyId="B2C_1A_TrustFrameworkLocalization" 
-  PublicPolicyUri="http://vanityb2cpoc.onmicrosoft.com/B2C_1A_TrustFrameworkLocalization">
-
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="vanityb2cpoc.onmicrosoft.com" PolicyId="B2C_1A_TrustFrameworkLocalization" PublicPolicyUri="http://vanityb2cpoc.onmicrosoft.com/B2C_1A_TrustFrameworkLocalization" TenantObjectId="a374dea8-f8fe-4d08-9ef1-a61a5b4541ce">
   <BasePolicy>
     <TenantId>vanityb2cpoc.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
   </BasePolicy>
-
   <BuildingBlocks>
-
     <ContentDefinitions>
       <ContentDefinition Id="api.signuporsignin">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
@@ -22,42 +11,36 @@
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.localaccountsignup">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.localaccountsignup.en" />
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.selfasserted">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.selfasserted.en" />
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.localaccountpasswordreset">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.localaccountpasswordreset.en" />
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.idpselections">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.idpselections.en" />
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.localaccountsignin">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.localaccountsignin.en" />
           <!-- Add more languages here -->
         </LocalizedResourcesReferences>
       </ContentDefinition>
-
       <ContentDefinition Id="api.selfasserted.profileupdate">
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.selfasserted.profileupdate.en" />
@@ -65,12 +48,10 @@
         </LocalizedResourcesReferences>
       </ContentDefinition>
     </ContentDefinitions>
-
     <Localization Enabled="true">
       <SupportedLanguages DefaultLanguage="en" MergeBehavior="Append">
         <SupportedLanguage>en</SupportedLanguage>
       </SupportedLanguages>
-
       <LocalizedResources Id="api.signuporsignin.en">
         <LocalizedStrings>
           <LocalizedString ElementType="ClaimType" ElementId="signInName" StringId="DisplayName">Email Address</LocalizedString>
@@ -101,7 +82,6 @@
           <LocalizedString ElementType="ErrorMessage" StringId="AADRequestsThrottled">There are too many requests at this moment. Please wait for some time and try again.</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!--Local account sign-up page English-->
       <LocalizedResources Id="api.localaccountsignup.en">
         <LocalizedStrings>
@@ -151,14 +131,12 @@
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfValidationError">Error in validation by: {0}</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!-- Self-asserted page English-->
       <LocalizedResources Id="api.selfasserted.en">
         <LocalizedStrings>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsPrincipalAlreadyExists">You are already registered, please press the back button and sign in instead.</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!-- Password reset page English-->
       <LocalizedResources Id="api.localaccountpasswordreset.en">
         <LocalizedStrings>
@@ -200,7 +178,6 @@
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfValidationError">Error in validation by: {0}</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!-- Edit profile sign-in page English-->
       <LocalizedResources Id="api.idpselections.en">
         <LocalizedStrings>
@@ -209,7 +186,6 @@
           <LocalizedString ElementType="ClaimsProvider" StringId="FacebookExchange">Facebook</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!-- Edit profile sign-in with local account English-->
       <LocalizedResources Id="api.localaccountsignin.en">
         <LocalizedStrings>
@@ -228,7 +204,6 @@
           <LocalizedString ElementType="ErrorMessage" StringId="AADRequestsThrottled">There are too many requests at this moment. Please wait for some time and try again.</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
-
       <!-- Edit profile page English-->
       <LocalizedResources Id="api.selfasserted.profileupdate.en">
         <LocalizedStrings>
@@ -245,5 +220,4 @@
       <!-- Add more languages here -->
     </Localization>
   </BuildingBlocks>
-
 </TrustFrameworkPolicy>
