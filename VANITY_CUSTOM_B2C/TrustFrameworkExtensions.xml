@@ -7,6 +7,24 @@
 
   <BuildingBlocks>
   	<ClaimsSchema>
+
+    <ClaimType Id="dateOfBirth">
+      <DisplayName>Date of Birth</DisplayName>
+      <DataType>date</DataType>
+     <AdminHelpText>The user's date of birth.</AdminHelpText>
+     <UserHelpText>Your date of birth.</UserHelpText>
+     <UserInputType>DateTimeDropdown</UserInputType>
+      <PredicateValidationReference Id="CustomDateRange" />
+    </ClaimType>
+
+
+    <ClaimType Id="mobile">
+      <DisplayName>Mobile Phone</DisplayName>
+      <DataType>string</DataType>
+      <UserInputType>TextBox</UserInputType>
+    </ClaimType>
+   
+
      
       <ClaimType Id="userIdentities">
         <DisplayName>userIdentities</DisplayName>
@@ -83,7 +101,30 @@
         <DataType>string</DataType>
         <UserHelpText>Define whether the user is link or unlink an account</UserHelpText>
       </ClaimType>
+
+
     </ClaimsSchema>
+
+    <Predicates>
+<Predicate Id="DateRange" Method="IsDateRange" HelpText="The date must be between 1960-01-01 and today.">
+  <Parameters>
+    <Parameter Id="Minimum">1960-01-01</Parameter>
+    <Parameter Id="Maximum">Today</Parameter>
+  </Parameters>
+</Predicate>
+</Predicates>
+
+<PredicateValidations>
+  <PredicateValidation Id="CustomDateRange">
+    <PredicateGroups>
+      <PredicateGroup Id="DateRangeGroup">
+        <PredicateReferences>
+          <PredicateReference Id="DateRange" />
+        </PredicateReferences>
+      </PredicateGroup>
+    </PredicateGroups>
+  </PredicateValidation>
+</PredicateValidations>
      
     <ClaimsTransformations>  
       <!--Sample: Initiates the errorMessage claims type with the error message-->
@@ -487,6 +528,8 @@
         </TechnicalProfile>  
       </TechnicalProfiles>
     </ClaimsProvider>
+
+
     <!-- Facebook claims provider -->
     <ClaimsProvider>
       <DisplayName>Facebook</DisplayName>
@@ -586,28 +629,14 @@
             <Item Key="UsePolicyInRedirectUri">0</Item>
 
             <!--Sample action required: Change to your Google App Id-->            
-            <Item Key="client_id">App Id</Item>
+            <Item Key="client_id">839892695110-9o8csfdf2u2s97fukvodei2chlj3okcg.apps.googleusercontent.com</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="client_secret" StorageReferenceId="B2C_1A_GoogleSecret" />
           </CryptographicKeys>
         </TechnicalProfile>
 
-        <TechnicalProfile Id="Google-OAUTH-SignIn">
-         <Protocol Name="OAuth2" />
-            <Metadata>
-            <Item Key="ProviderName">google</Item>
-            <Item Key="authorization_endpoint">https://accounts.google.com/o/oauth2/auth</Item>
-            <Item Key="AccessTokenEndpoint">https://accounts.google.com/o/oauth2/token</Item>
-            <Item Key="ClaimsEndpoint">https://www.googleapis.com/oauth2/v1/userinfo</Item>
-            <Item Key="scope">email profile</Item>
-            <Item Key="HttpBinding">POST</Item>
-            <Item Key="UsePolicyInRedirectUri">false</Item>
-            <Item Key="client_id">839892695110-9o8csfdf2u2s97fukvodei2chlj3okcg.apps.googleusercontent.com</Item>
-          </Metadata>
-          <CryptographicKeys>
-            <Key Id="client_secret" StorageReferenceId="B2C_1A_GoogleSecret" />
-          </CryptographicKeys>
+          <TechnicalProfile Id="Google-OAUTH-SignIn">
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="id" />
             <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email" />
@@ -629,36 +658,22 @@
 
         <TechnicalProfile Id="Google-OAUTH-Link">
         <DisplayName>Link Google</DisplayName>
-         <Protocol Name="OAuth2" />
-            <Metadata>
-            <Item Key="ProviderName">google</Item>
-            <Item Key="authorization_endpoint">https://accounts.google.com/o/oauth2/auth</Item>
-            <Item Key="AccessTokenEndpoint">https://accounts.google.com/o/oauth2/token</Item>
-            <Item Key="ClaimsEndpoint">https://www.googleapis.com/oauth2/v1/userinfo</Item>
-            <Item Key="scope">email profile</Item>
-            <Item Key="HttpBinding">POST</Item>
-            <Item Key="UsePolicyInRedirectUri">false</Item>
-            <Item Key="client_id">839892695110-9o8csfdf2u2s97fukvodei2chlj3okcg.apps.googleusercontent.com</Item>
+          <Metadata>
+            <Item Key="ClaimTypeOnWhichToEnable">issuers</Item>
+            <Item Key="ClaimValueOnWhichToEnable">google.com</Item>
           </Metadata>
-          <CryptographicKeys>
-            <Key Id="client_secret" StorageReferenceId="B2C_1A_GoogleSecret" />
-          </CryptographicKeys>
           <OutputClaims>
-            <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="id" />
-            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email" />
-            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
-            <OutputClaim ClaimTypeReferenceId="surname" PartnerClaimType="family_name" />
-            <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
-            <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="google.com" />
-            <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" />
+            <OutputClaim ClaimTypeReferenceId="issuerUserIdToLink" PartnerClaimType="id" />
+            <OutputClaim ClaimTypeReferenceId="issuerToLink" DefaultValue="google.com" AlwaysUseDefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="linkOrUnlink" DefaultValue="link" AlwaysUseDefaultValue="true" />
           </OutputClaims>
           <OutputClaimsTransformations>
-            <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
-            <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
-            <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
-            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
+              <OutputClaimsTransformation ReferenceId="CreateUserIdentityToLink" />
+              <OutputClaimsTransformation ReferenceId="AppendUserIdentityToLink" />
           </OutputClaimsTransformations>
-          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+          <IncludeTechnicalProfile ReferenceId="Google-OAUTH-Base" />
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+          <EnabledForUserJourneys>OnItemAbsenceInStringCollectionClaim</EnabledForUserJourneys>
         </TechnicalProfile>
 
         <TechnicalProfile Id="Google-Unlink">
@@ -862,6 +877,100 @@
           </ClaimsExchanges>
         </OrchestrationStep>
         <OrchestrationStep Order="4" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+      <ClientDefinition ReferenceId="DefaultWeb" />
+    </UserJourney>
+
+
+<UserJourney Id="SignUpOrSignInnew">
+      <OrchestrationSteps>
+
+        <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
+          <ClaimsProviderSelections>
+            <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"/>
+          </ClaimsProviderSelections>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- Check if the user has selected to sign in using one of the social providers -->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+            <ClaimsExchange Id="GoogleExchange" TechnicalProfileReferenceId="Google-OAuth2" />
+            <ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH-Base"/>
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- For social IDP authentication, attempt to find the user account in the directory. -->
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+              <Value>authenticationSource</Value>
+              <Value>localAccountAuthentication</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadUsingAlternativeSecurityId" TechnicalProfileReferenceId="AAD-UserReadUsingAlternativeSecurityId-NoError" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- Show self-asserted page only if the directory does not have the user account already (i.e. we do not have an objectId). 
+          This can only happen when authentication happened using a social IDP. If local account was created or authentication done
+          using ESTS in step 2, then an user account must exist in the directory by this time. -->
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="SelfAsserted-Social" TechnicalProfileReferenceId="SelfAsserted-Social" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- This step reads any user attributes that we may not have received when authenticating using ESTS so they can be sent 
+          in the token. -->
+        <OrchestrationStep Order="5" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+              <Value>authenticationSource</Value>
+              <Value>socialIdpAuthentication</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        <!-- The previous step (SelfAsserted-Social) could have been skipped if there were no attributes to collect 
+             from the user. So, in that case, create the user in the directory if one does not already exist 
+             (verified using objectId which would be set from the last step if account was created in the directory. -->
+        <OrchestrationStep Order="6" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AADUserWrite" TechnicalProfileReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="7" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
