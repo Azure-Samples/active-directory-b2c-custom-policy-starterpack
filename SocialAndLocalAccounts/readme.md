@@ -93,7 +93,7 @@ The XML required to generate this step is:
 ```
 
 The combined sign in and sign up page is treated specially by Azure AD B2C, since it presents a sign up link that can take the user to the sign up step.
-This is achieved with the following two lines:
+This is achieved with the following line:
 
 ```xml
 <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
