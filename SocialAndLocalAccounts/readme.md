@@ -319,7 +319,7 @@ This claims transform generates a random string, which is in the format of a GUI
 </ClaimsTransformation>
 ```
 
-This claims transform uses the `FormatStringClaim` method to create a string value using claims in the Azure AD B2C claim bag. The claim given to this transform is `upnUserName`, which is available from the output of the previous claims transform. Here the transform inserts the first input claim into `{0}` and Azure AD B2C knows the value of `{RelyingPartyTenantId}` already. Then end result is a fully formed userPrincipalName, which is output in the `userPrincipalName` claim: `00000000-0000-0000-0000-000000000000@something.onmicrosoft.com`.
+This claims transform uses the `FormatStringClaim` method to create a string value using claims in the Azure AD B2C claim bag. The claim given to this transform is `upnUserName`, which is available from the output of the previous claims transform. Here the transform inserts the first input claim into `{0}` and Azure AD B2C knows the value of `{RelyingPartyTenantId}` already. Then end result is a fully formed userPrincipalName, which is output in the `userPrincipalName` claim: `aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb@something.onmicrosoft.com`.
 
 **CreateAlternativeSecurityId** - This creates a user identifier similar to an objectId, which will be used to map the subject claim (sub) from the Facebook token to the Azure AD B2C user on subsequent logons. The generated identifier is output into the claim called `alternativeSecurityId`.
 
