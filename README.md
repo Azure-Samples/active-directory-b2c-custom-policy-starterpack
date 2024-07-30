@@ -4,6 +4,11 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## Change log
 
+### 11 July 2023
+The starter pack now contains support to SAML applications [Register a SAML application in Azure AD B2C](https://learn.microsoft.com/en-us/azure/active-directory-b2c/saml-service-provider?tabs=macos&pivots=b2c-custom-policy), through a new technical profile. For details, see files [SignupOrSigninSAML](SocialAndLocalAccounts/SignupOrSigninSAML.xml) and [TrustFrameworkExtensions](SocialAndLocalAccounts/TrustFrameworkExtensions.xml).
+
+The starter pack now contains a AADSignUpOrSignin user journey. This journey supports the [Azure AD sign-in experience](https://learn.microsoft.com/en-us/azure/active-directory-b2c/identity-provider-azure-ad-single-tenant?pivots=b2c-custom-policy) . This journey will allow the user to sign up or sign in with an external Azure AD account. The user will be redirected to the Azure AD sign-in page to enter their credentials. The user will then be redirected back to the application to complete the sign-up or sign-in process. For details, see files [AADSignUpOrSigninSAML.xml](SocialAndLocalAccounts/AADSignUpOrSigninSAML.xml) and [TrustFrameworkExtensions](SocialAndLocalAccounts/TrustFrameworkExtensions.xml).
+
 ### 09 August 2022
 
 With this version the starter pack now contains a Refresh Token user journey. This journey will be executed any time an application [refreshes a token](https://docs.microsoft.com/azure/active-directory-b2c/access-tokens#request-a-token). It will check the user still exists and is enabled in the Azure AD B2C directory. It also checks that the refresh token is not expired. It compiles any claims that are not persisted in the user profile, including claims from Identity Provider's and REST API calls. A new set of refreshed tokens is then issued.
